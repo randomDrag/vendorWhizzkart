@@ -2,6 +2,6 @@ import { combineReducers } from 'redux'
 
 export default combineReducers({
 
-    data : ()=>{}
+    blank: (state, action)=> state == null
 
 });

@@ -1,22 +1,49 @@
-import React from "react";
-import { View ,Text} from 'react-native';
+import React from 'react';
+import {
+  View,
+  Text,
+  SafeAreaView,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+} from 'react-native';
+import LogoImage from '../components/login_logout/Logo.image';
 
 class FirstScreen extends React.Component {
-
-render(){
-
-    return(
-       
-       <View>
-          <Text> test</Text> 
-
+  render() {
+    return (
+      <SafeAreaView>
+        <View style={styles.container}>
+         <LogoImage/>
+          <TouchableOpacity
+            style={styles.buttonStyle}
+            onPress={() => {
+              this.props.navigation.navigate('Login');
+            }}>
+            <Text style={{color : '#FFFFFF' , fontSize:15}}>Let's Get Start</Text>
+          </TouchableOpacity>
         </View>
+      </SafeAreaView>
     );
-
+  }
 }
 
-
-
-}
+const styles = StyleSheet.create({
+  container: {
+    alignContent: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '100%',
+  },
+  buttonStyle: {
+    padding: 20,
+    width: 200,
+    borderRadius: 80,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor : '#185574'
+  },
+});
 
 export default FirstScreen;
