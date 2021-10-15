@@ -11,7 +11,7 @@ class CustomButton extends React.Component {
             onPress={() => {
               this.props.navigation.navigate('Login');
             }}>
-            <Text style={{color : '#FFFFFF' , fontSize:typeof fontsize == "undefined" || "null" ? 18 :fontsize}}>{this.props.title}</Text>
+            <Text style={{color : '#FFFFFF' , fontSize:typeof fontsize == ("undefined" || "null") ? 18 :fontsize}}>{this.props.title}</Text>
           </TouchableOpacity>
     </View>;
   }
@@ -20,12 +20,12 @@ class CustomButton extends React.Component {
 const style = ( backgroundColor , width) => StyleSheet.create({
     buttonStyle: {
         padding: 20,
-        width: typeof width == "undefined" || "null" ? 350 :width,
+        width: typeof width == ("undefined" || "null") ? 350 :width,
         borderRadius: 80,
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor : typeof backgroundColor == "undefined" || "null" ? '#E84341' :backgroundColor
+        backgroundColor : typeof backgroundColor == ("undefined" || "null") ? '#E84341' :backgroundColor
       },
 
 });

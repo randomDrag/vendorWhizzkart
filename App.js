@@ -1,14 +1,4 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
- import React from 'react';
- import {Text, View, SafeAreaView} from 'react-native';
- const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+ import React from 'react'; 
 
 /* Adding redux here  */
 import {Provider} from 'react-redux';
@@ -35,12 +25,23 @@ creating store for dev and production
 
 */
 
-
-import { composeWithDevTools } from 'remote-redux-devtools';
-
 // const store = createStore(reducers, {}, applyMiddleware(thunk));
 
+/* 
+
+comment debug version of redux or install React Native debugger and enable debug in mobile
+
+*/
+
 const store = createStore( reducers, {},  compose(applyMiddleware(thunk),  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()));
+
+
+/* 
+
+navigation 
+
+*/
+
 
 const Stack = createStackNavigator();
 

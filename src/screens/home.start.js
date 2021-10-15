@@ -4,7 +4,6 @@ import {
   Text,
   SafeAreaView,
   StyleSheet,
-  Image,
   TouchableOpacity,
 } from 'react-native';
 import LogoImage from '../components/login_logout/Logo.image';

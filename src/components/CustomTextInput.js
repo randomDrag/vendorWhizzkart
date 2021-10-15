@@ -5,7 +5,7 @@ import {FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 
 import {faUser} from '@fortawesome/free-regular-svg-icons';
 
-class CustomText extends React.Component {
+class CustomTextInput extends React.Component {
   render() {
     return (
       <View style={style().container}>
@@ -16,6 +16,7 @@ class CustomText extends React.Component {
           defaultValue={this.props.defaultValue}
           autoCompleteType={this.props.autoCompleteType}
           secureTextEntry={this.props.secure == null ? false : this.props.secure}
+          placeholderTextColor="#AAAAAA" 
         />
         <TouchableOpacity style={{justifyContent : 'center'}} onPress={this.props.onPress}>
 
@@ -32,10 +33,10 @@ class CustomText extends React.Component {
   }
 }
 
-export default CustomText;
+export default CustomTextInput;
 
 
-CustomText.propTypes = {
+CustomTextInput.propTypes = {
     placeholder  : PropTypes.string,
     autoCompleteType : PropTypes.string
 };
@@ -59,12 +60,14 @@ const style = () =>
 
     InputStyle: {
       
-        fontFamily : 'Montserrat',
+        fontFamily : 'montserrat-regular',
         fontWeight:"400",
       flex: 1,
       marginLeft: 5,
       marginRight: 5,
       fontSize: 20,
+      color: 'black',
+      
     },
     icon: {
       marginLeft: 10,
