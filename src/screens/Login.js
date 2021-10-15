@@ -64,7 +64,7 @@ class Login extends React.Component {
               justifyContent: 'center',
               paddingTop: 20,
             }}>
-            <LogoImage width={170} height={170} padding={3} />
+           { k ? null : <LogoImage width={170} height={170} padding={3} /> }
           </View>
 
           <View style={style(k).card}>
@@ -100,7 +100,7 @@ const style =(flex) => StyleSheet.create({
     justifyContent: 'center',
   },
   card: {
-    flex: flex ? 10 : 4,
+  marginTop : flex ? 15 : 5,
     width: '100%',
     borderTopLeftRadius: 50,
     borderTopRightRadius: 50,
@@ -117,8 +117,7 @@ const style =(flex) => StyleSheet.create({
  
   },
   loginText: {
-    alignItems: 'center',
-    justifyContent: 'center',
+   
     fontSize: 30,
     fontWeight: '800',
     color: '#588094',
