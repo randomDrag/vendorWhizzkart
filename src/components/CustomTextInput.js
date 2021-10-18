@@ -1,6 +1,6 @@
 import React  from 'react';
 import PropTypes from 'prop-types';
-import {View, TextInput, TouchableOpacity, StyleSheet, Touchable} from 'react-native';
+import {View, TextInput, TouchableOpacity, StyleSheet} from 'react-native';
 import {FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 
 import {faUser} from '@fortawesome/free-regular-svg-icons';
@@ -60,7 +60,7 @@ const style = () =>
 
     InputStyle: {
       
-        fontFamily : 'montserrat-regular',
+        fontFamily : 'Poppins-Regular',
         fontWeight:"400",
       flex: 1,
       marginLeft: 5,

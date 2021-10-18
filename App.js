@@ -19,6 +19,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import FirstScreen from './src/screens/home.start';
 
 import Login from './src/screens/Login';
+import Register from './src/screens/Register';
 
 /* 
 creating store for dev and production
@@ -51,7 +52,7 @@ class App extends React.Component {
       <Provider store={store}>
         <SafeAreaProvider>
         <NavigationContainer>
-          <Stack.Navigator initialRouteName ="FirstScreen">
+          <Stack.Navigator initialRouteName ="FirstScreen" defaultScreenOptions={{headerShown : false }}>
             <Stack.Screen name="FirstScreen" component={FirstScreen} 
             
             options={{headerShown : false }}
@@ -62,6 +63,8 @@ class App extends React.Component {
             
             options={{headerShown : false }}
             />
+
+            <Stack.Screen name="Register" component={Register}   options={{headerShown : false }} />
           </Stack.Navigator>
 
         </NavigationContainer>

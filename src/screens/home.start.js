@@ -19,7 +19,7 @@ class FirstScreen extends React.Component {
             onPress={() => {
               this.props.navigation.navigate('Login');
             }}>
-            <Text style={{color : '#FFFFFF' , fontSize:15}}>Let's Get Start</Text>
+            <Text style={{color : '#FFFFFF' , fontSize:15,   fontFamily : 'Poppins-Regular'}}>Let's Get Start</Text>
           </TouchableOpacity>
         </View>
       </SafeAreaView>

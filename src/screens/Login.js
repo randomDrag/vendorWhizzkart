@@ -82,10 +82,13 @@ class Login extends React.Component {
                   console.log(isSecure);
                 }}
               />
-              <TextLink text="Forget Password?" textalign={'right'} padding={10} />
+              <TextLink text="Forget Password?" textalign={'right'} padding={10}  alignItem={'flex-end'} />
             </View>
             <CustomButton title="Sign in" />
-            <Text style={style().donthaveaccount}>Don't have an account?{<TextLink text="Register" color="#ECBB60" padding={0}/>}</Text>
+            <View style={style().RegisterLinkContainer}>
+            <Text style={style().donthaveaccount}>Don't have an account?</Text>
+            <TextLink text="Register" color="#ECBB60" padding={0} onPress={ ()=>  this.props.navigation.navigate('Register')}/>
+            </View>
           </View>
         </View>
       </SafeAreaView>
@@ -98,6 +101,7 @@ const style =(flex) => StyleSheet.create({
     height: '100%',
     alignItems: 'center',
     justifyContent: 'center',
+    fontFamily : 'Poppins-Regular'
   },
   card: {
   marginTop : flex ? 15 : 5,
@@ -122,9 +126,15 @@ const style =(flex) => StyleSheet.create({
     fontWeight: '800',
     color: '#588094',
     width: '100%',
-    fontFamily : 'Montserrat-Black',
+    fontFamily : 'Poppins-Regular',
     textAlign: 'center',
     marginBottom: 20,
+  },
+  RegisterLinkContainer :{
+    display:'flex',
+    flexDirection:'row',
+
+    justifyContent:'center',
   },
   donthaveaccount :{
     textAlign : "center",
@@ -136,7 +146,7 @@ const style =(flex) => StyleSheet.create({
     alignItems: 'center',
     // borderWidth: 2,
     // borderColor : 'red',
-    fontFamily : 'Montserrat'
+    fontFamily : 'Poppins-Regular'
   }
 });
 
