@@ -82,7 +82,7 @@ class Login extends React.Component {
                   console.log(isSecure);
                 }}
               />
-              <TextLink text="Forget Password?" textalign={'right'} padding={10}  alignItem={'flex-end'} />
+              <TextLink text="Forget Password?" textalign={'right'} padding={10}  alignItem={'flex-end'} onPress={ ()=>  this.props.navigation.navigate('ForgetPassword') }/>
             </View>
             <CustomButton title="Sign in" />
             <View style={style().RegisterLinkContainer}>

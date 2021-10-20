@@ -20,6 +20,7 @@ import FirstScreen from './src/screens/home.start';
 
 import Login from './src/screens/Login';
 import Register from './src/screens/Register';
+import ForgetPassword from './src/screens/ForgetPassword';
 
 /* 
 creating store for dev and production
@@ -62,9 +63,12 @@ class App extends React.Component {
 <Stack.Screen name="Login" component={Login} 
             
             options={{headerShown : false }}
-            />
+          />
 
             <Stack.Screen name="Register" component={Register}   options={{headerShown : false }} />
+         
+         <Stack.Screen name='ForgetPassword' component={ForgetPassword}  options={{headerShown : false }}/>
+         
           </Stack.Navigator>
 
         </NavigationContainer>
