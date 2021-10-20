@@ -55,19 +55,24 @@ const style = () =>
       marginTop: 10,
       marginBottom: 10,
       backgroundColor: '#FFFFFF',
-      height : 70
+      height : 55,
+  
+
     },
 
     InputStyle: {
       
         fontFamily : 'Poppins-Regular',
-        fontWeight:"400",
       flex: 1,
       marginLeft: 5,
       marginRight: 5,
-      fontSize: 20,
+      fontSize: 16,
       color: 'black',
-      
+      alignItems : 'center',
+      justifyContent: 'center',
+textAlignVertical : 'center',
+  
+
     },
     icon: {
       marginLeft: 10,

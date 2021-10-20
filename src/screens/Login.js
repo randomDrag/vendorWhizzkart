@@ -146,7 +146,8 @@ const style =(flex) => StyleSheet.create({
     alignItems: 'center',
     // borderWidth: 2,
     // borderColor : 'red',
-    fontFamily : 'Poppins-Regular'
+    fontFamily : 'Poppins-Regular',
+    color : '#000'
   }
 });
 

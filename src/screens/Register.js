@@ -74,7 +74,7 @@ class Register extends React.Component {
 
           <View style={style(k).card}>
             <Text style={style().loginText}>Create Account</Text>
-            <ScrollView showsVerticalScrollIndicator={false}>
+            <ScrollView showsVerticalScrollIndicator={false} style={{height : "80%" , }} fadingEdgeLength = {50}>
               <View>
                 <CustomTextInput
                   placeholder="Name"
@@ -132,9 +132,9 @@ class Register extends React.Component {
                 <CustomUploadButton title="Address Proof" icon={faFileUpload} />
                 <CustomUploadButton title="Cancelled Cheque" icon={faFileUpload} />
               </View>
-
-             <View>
-              <CustomButton title="Sign in" />
+              </ScrollView>
+             <View style={{marginBottom : 15 , marginTop : 5}}>
+              <CustomButton title="Register" />
               <View style={style().containerDoNotHave}>
               <Text style={style().donthaveaccount}>
                 Already have an account? 
@@ -142,7 +142,7 @@ class Register extends React.Component {
                <TextLink text="login" color="#E84F48" padding={0} />
                </View>
               </View>
-              </ScrollView>
+             
           </View>
         </View>
       </SafeAreaView>
@@ -162,7 +162,9 @@ const style = flex =>
       width: '100%',
       borderTopLeftRadius: 50,
       borderTopRightRadius: 50,
-      padding: 20,
+      paddingTop: 10,
+      paddingLeft : 15,
+      paddingRight : 15,
       backgroundColor: '#F5F5F5',
       justifyContent: 'center',
       alignContent: 'center',
@@ -196,7 +198,7 @@ const style = flex =>
       marginTop: 10,
       marginBottom:10,
       fontSize: 16,
-     
+     color : '#000',
       fontFamily: 'Poppins-Regular',
     },
   });

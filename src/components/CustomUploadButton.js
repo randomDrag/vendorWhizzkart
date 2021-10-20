@@ -52,7 +52,7 @@ const style = (backgroundColor, width, fontsize) =>
       display: 'flex',
       flexDirection: 'row',
       backgroundColor: '#FFFFFF',
-      height: 70,
+      height: 55,
     },
     InputStyle: {
       fontFamily: 'Poppins-Regular',
@@ -70,7 +70,7 @@ const style = (backgroundColor, width, fontsize) =>
       color: '#AAAAAA',
       alignItems: 'center',
       fontFamily: 'Poppins-Regular',
-      fontSize: typeof fontsize == ('undefined' || 'null') ? 18 : fontsize,
+      fontSize: typeof fontsize == ('undefined' || 'null') ? 16 : fontsize,
 
       flex: 1,
       textAlign: 'center',

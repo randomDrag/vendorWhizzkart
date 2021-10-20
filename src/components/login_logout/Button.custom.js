@@ -21,7 +21,7 @@ class CustomButton extends React.Component {
 
 const style = ( backgroundColor , width) => StyleSheet.create({
     buttonStyle: {
-        padding: 20,
+        padding: 10,
         width: typeof width == ("undefined" || "null") ? 350 :width,
         borderRadius: 80,
         display: 'flex',
