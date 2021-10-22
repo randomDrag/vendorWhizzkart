@@ -19,7 +19,8 @@ class ForgetPassword extends React.Component {
         super(props);
         this.OtpComponent = this.OtpComponent.bind(this);
         this.state ={value :''}
-    }
+      
+         }
 
   ForgetScreen() {
     return (
@@ -50,14 +51,8 @@ class ForgetPassword extends React.Component {
 
   OtpComponent() {
 
-    const CELL_COUNT = 6;
+    const CELL_COUNT = 4;
 
-  
-    const ref = useBlurOnFulfill({value, cellCount: CELL_COUNT});
-    const [props, getCellOnLayoutHandler] = useClearByFocusCell({
-      value,
-      setValue,
-    });
   
 
     return (
@@ -74,16 +69,15 @@ class ForgetPassword extends React.Component {
           </View>
 
           <View style={style().card}>
-            <Text style={style().loginText}>Forget Password</Text>
+            <Text style={style().loginText}>Verificationd</Text>
 
             <View>
-            <Text style={styles.title}>Verification</Text>
+       
+
       <CodeField
-        ref={ref}
-        {...props}
+    
         // Use `caretHidden={false}` when users can't paste a text value, because context menu doesn't appear
-        value={this.state.value}
-        onChangeText={(e)=> this.setState({value: e})}
+  
         cellCount={CELL_COUNT}
         rootStyle={style().codeFieldRoot}
         keyboardType="number-pad"
@@ -91,8 +85,7 @@ class ForgetPassword extends React.Component {
         renderCell={({index, symbol, isFocused}) => (
           <Text
             key={index}
-            style={[style().cell, isFocused && styles.focusCell]}
-            onLayout={getCellOnLayoutHandler(index)}>
+            style={[style().cell, isFocused && style().focusCell]}>
             {symbol || (isFocused ? <Cursor /> : null)}
           </Text>
         )}
@@ -101,7 +94,7 @@ class ForgetPassword extends React.Component {
 
 
             </View>
-            <CustomButton title="Reset" />
+            <CustomButton title="Send" />
           </View>
         </View>
       </SafeAreaView>
@@ -109,7 +102,7 @@ class ForgetPassword extends React.Component {
   }
 
   render() {
-    return <this.ForgetScreen/>;
+    return <this.OtpComponent/>;
   }
 }
 
@@ -151,7 +144,7 @@ const style = flex =>
 
 
 
-    root: {flex: 1, padding: 20},
+    root: {flex: 1, padding: 40},
     title: {textAlign: 'center', fontSize: 30},
     codeFieldRoot: {marginTop: 20},
     cell: {
