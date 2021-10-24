@@ -28,6 +28,7 @@ import ForgetPassword from './src/screens/ForgetPassword';
 import Dashborad from './src/screens/Dashboard';
 import IconComponent from './src/components/IconComponent';
 import CustomHeader from './src/components/Customheader';
+import TodayOrder from './src/screens/TodayOrders';
 
 /* 
 creating store for dev and production
@@ -77,7 +78,7 @@ class App extends React.Component {
       <Tab.Navigator initialRouteName="Home" screenOptions={{header: (props)=> <CustomHeader {...props}/>}} >
  
           <Tab.Screen name="Home" component={Dashborad}  options={{ tabBarIcon : () => <IconComponent src={ require('./src/images/home.png')} /> }} />
-    
+          <Tab.Screen name="Orders" component={TodayOrder} options={{ tabBarIcon : ()=> <IconComponent src={require('./src/images/clipboard.png')}/> }}  />
       </Tab.Navigator>
     );
   }

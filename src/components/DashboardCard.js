@@ -31,13 +31,14 @@ class DashboardCard extends React.Component {
 
 const style = () =>
   StyleSheet.create({
+     
     cardContainer: {
       width: '45%',
       height: 200,
       margin: 10,
       borderRadius: 10,
       backgroundColor: '#F5F5F5',
-      elevation: 10,
+      elevation: 2,
       padding: 10,
       display: 'flex',
       flexDirection: 'column',

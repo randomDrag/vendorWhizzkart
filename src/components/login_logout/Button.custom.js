@@ -7,7 +7,7 @@ class CustomButton extends React.Component {
     return <View>
     
     <TouchableOpacity
-            style={style(this.props.backgroundColor , this.props. width).buttonStyle}
+            style={style(this.props.backgroundColor , this.props.width , this.props.padding, this.props.marginHorizontal).buttonStyle}
             onPress={() => {
               this.props.navigation.navigate('Login');
             }}>
@@ -19,9 +19,10 @@ class CustomButton extends React.Component {
   }
 }
 
-const style = ( backgroundColor , width) => StyleSheet.create({
+const style = ( backgroundColor , width , padding , marginHorizontal) => StyleSheet.create({
     buttonStyle: {
-        padding: 10,
+      marginHorizontal : typeof marginHorizontal == ("undefined" || "null") ? 0: marginHorizontal,
+        padding: typeof padding == ("undefined" || "null") ? 10 :padding,
         width: typeof width == ("undefined" || "null") ? 350 :width,
         borderRadius: 80,
         display: 'flex',

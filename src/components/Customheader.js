@@ -8,7 +8,7 @@ class CustomHeader extends React.Component {
   render() {
 
     let today = new Date;
-
+console.log(this.props.route.name)
     return (
       <SafeAreaView>
         <View style={style().container}>
@@ -19,7 +19,7 @@ class CustomHeader extends React.Component {
           </View>
 
           <View style={style().infoStyle}>
-            <Text style={style().textHeading}>Hi vendor test</Text>
+            <Text style={style().textHeading}>{typeof this.props.title == ('undefined'|| 'null') ? `${this.props.route.name}`: this.props.title}</Text>
             <Text style={style().textDate}>{today.toLocaleDateString('en-US', {month : 'short', day : '2-digit' , year : 'numeric'})}</Text>
           </View>
 
@@ -38,6 +38,8 @@ const style = () => StyleSheet.create({
         display : 'flex',
         flexDirection : 'row',
         height : 60,
+ marginHorizontal : 10,
+ backgroundColor: "#FFFFFF"
         
     },
     settingIcon :{
@@ -53,7 +55,7 @@ const style = () => StyleSheet.create({
         flex : 5,
         display  : 'flex',
         flexDirection : 'column',
-        justifyContent :'center',
+        
         
  
         
@@ -61,12 +63,14 @@ const style = () => StyleSheet.create({
     textHeading : {
         fontFamily: 'Poppins-Bold' , fontSize : 20 , color : '#185675' , paddingTop : 5 ,
         flex : 2,
+        textAlignVertical:'center'
       
 
     },
     textDate : {
         fontFamily : 'Poppins-Regular' , fontSize: 16 ,
-        flex: 1,
+        flex: 1.9,
+        
      
 
 
