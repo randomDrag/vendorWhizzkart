@@ -7,6 +7,8 @@ import {
   ScrollView,
   FlatList,
   SafeAreaView,
+  TouchableOpacity,
+  Touchable,
 } from 'react-native';
 import Orderlist from '../components/Orderlist';
 
@@ -46,10 +48,23 @@ class TodayOrder extends React.Component {
     ];
     return (
       <SafeAreaView style={{backgroundColor: '#FFFFFF'}}>
-        <FlatList data={data} keyExtractor={data.order} renderItem={ (item)=> 
-        
-        
-        <Orderlist OrderId={item.item.order} Date={item.item.time} time={item.item.date} />} />
+        <FlatList
+          data={data}
+          keyExtractor={data.order}
+          renderItem={item => {
+            return (
+              <TouchableOpacity onPress={()=>this.props.navigation.navigate('FirstScreen', {
+                screen : 'FirstScreen'
+              })}>
+                <Orderlist
+                  OrderId={item.item.order}
+                  Date={item.item.time}
+                  time={item.item.date}
+                />
+              </TouchableOpacity>
+            );
+          }}
+        />
       </SafeAreaView>
     );
   }

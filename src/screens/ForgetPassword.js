@@ -11,6 +11,7 @@ import {
     useBlurOnFulfill,
     useClearByFocusCell,
   } from 'react-native-confirmation-code-field';
+import { faEye , faEyeSlash} from '@fortawesome/free-regular-svg-icons';
 
 
 class ForgetPassword extends React.Component {
@@ -18,8 +19,11 @@ class ForgetPassword extends React.Component {
     constructor(props){
         super(props);
         this.OtpComponent = this.OtpComponent.bind(this);
-        this.state ={value :''}
-      
+        this.state = {
+          isSecure: true,
+          isKeyboardOpen: false,
+        };
+      this.newPassword = this.newPassword.bind(this);
          }
 
   ForgetScreen() {
@@ -49,6 +53,60 @@ class ForgetPassword extends React.Component {
     );
   }
 
+
+newPassword(){
+  let isSecure = this.state.isSecure;
+  return (
+    <SafeAreaView>
+      <View style={style().container}>
+        <View
+          style={{
+            flex: 2,
+            alignItems: 'center',
+            justifyContent: 'center',
+            paddingTop: 20,
+          }}>
+          <LogoImage width={170} height={170} padding={3} />
+        </View>
+
+        <View style={style().card}>
+          <Text style={style().loginText}>Forget Password</Text>
+
+          <View>
+          <CustomTextInput
+                placeholder="New Password"
+            
+                icon={isSecure == false ? faEye : faEyeSlash}
+                secure={isSecure}
+                onPress={() => {
+                  isSecure == true
+                    ? this.setState({isSecure: false})
+                    : this.setState({isSecure: true});
+               
+                }}
+              />
+            <CustomTextInput
+                placeholder="Confirm Password"
+            
+
+                icon={isSecure == false ? faEye : faEyeSlash}
+                secure={isSecure}
+                onPress={() => {
+                  isSecure == true
+                    ? this.setState({isSecure: false})
+                    : this.setState({isSecure: true});
+               
+                }}
+              />
+          </View>
+          <CustomButton title="Save" />
+        </View>
+      </View>
+    </SafeAreaView>
+  );
+}
+
+
   OtpComponent() {
 
     const CELL_COUNT = 4;
@@ -69,7 +127,7 @@ class ForgetPassword extends React.Component {
           </View>
 
           <View style={style().card}>
-            <Text style={style().loginText}>Verificationd</Text>
+            <Text style={style().loginText}>Verification</Text>
 
             <View>
        
@@ -90,7 +148,18 @@ class ForgetPassword extends React.Component {
           </Text>
         )}
       />
+<Text style={{
 
+
+fontFamily : "Poppins-Regular",
+textAlign : 'right',
+paddingHorizontal : 25,
+paddingBottom : 20,
+fontSize : 18,
+color: '#698C9E'
+
+
+}}>Resend OTP</Text>
 
 
             </View>
@@ -102,7 +171,7 @@ class ForgetPassword extends React.Component {
   }
 
   render() {
-    return <this.OtpComponent/>;
+    return <this.newPassword/>;
   }
 }
 
@@ -146,7 +215,7 @@ const style = flex =>
 
     root: {flex: 1, padding: 40},
     title: {textAlign: 'center', fontSize: 30},
-    codeFieldRoot: {marginTop: 20},
+    codeFieldRoot: {marginTop: 20 , marginHorizontal : 20, marginVertical : 30},
     cell: {
       width: 40,
       height: 40,

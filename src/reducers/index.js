@@ -1,7 +1,9 @@
 import { combineReducers } from 'redux'
-
+import LoginForm from './loginForm';
+import isAuth from './Auth';
 export default combineReducers({
 
-    blank: (state, action)=> state == null
+    LoginForm ,
+    isAuth
 
 });

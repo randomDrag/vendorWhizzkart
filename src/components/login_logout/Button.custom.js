@@ -8,9 +8,7 @@ class CustomButton extends React.Component {
     
     <TouchableOpacity
             style={style(this.props.backgroundColor , this.props.width , this.props.padding, this.props.marginHorizontal).buttonStyle}
-            onPress={() => {
-              this.props.navigation.navigate('Login');
-            }}>
+            onPress={this.props.onPress}>
             <Text style={{color : '#FFFFFF',
               fontFamily : 'Poppins-Regular'
             , fontSize:typeof fontsize == ("undefined" || "null") ? 18 :fontsize}}>{this.props.title}</Text>
