@@ -8,12 +8,12 @@ class CustomHeader extends React.Component {
   render() {
 
     let today = new Date;
-console.log(this.props.route.name)
+console.log(this.props)
     return (
       <SafeAreaView>
         <View style={style().container}>
           <View style={style().settingIcon}>
-              <TouchableOpacity > 
+              <TouchableOpacity  onPress={() => this.props.navigator.toggleDrawer()}> 
             <FontAwesomeIcon icon={faSlidersH} size={30} color='#E94E4C'/>
             </TouchableOpacity>
           </View>

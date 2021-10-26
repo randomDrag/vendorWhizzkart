@@ -7,7 +7,6 @@ import {connect} from 'react-redux';
 import {faUser, faEye, faEyeSlash} from '@fortawesome/free-regular-svg-icons';
 import TextLink from '../components/TextLink';
 
-import validator from 'validator'
 
 import {LoginForm , Auth} from '../actions';
 
@@ -18,6 +17,7 @@ class Login extends React.Component {
     this.state = {
       isSecure: true,
       isKeyboardOpen: false,
+      isLoading : false
     };
 
     this.loginFormInput = this.loginFormInput.bind(this);
@@ -63,10 +63,11 @@ class Login extends React.Component {
 
 
   submit(){
-   
-      const u = this.props.loginInput.username;
-    const p = this.props.loginInput.Password;
-     this.props.Auth(u ,p );
+   this.setState({isLoading : true});
+      const {username , Password}= this.props.loginInput;
+
+
+     this.props.Auth(username ,Password );
 
     
   }
@@ -116,7 +117,7 @@ class Login extends React.Component {
                 onPress={() => this.props.navigation.navigate('ForgetPassword')}
               />
             </View>
-            <CustomButton title="Sign in" onPress={this.submit} />
+            <CustomButton title={this.state.isLoading ? "Please wait" :"Sign in"} onPress={this.submit} />
             <View style={style().RegisterLinkContainer}>
               <Text style={style().donthaveaccount}>
                 Don't have an account?

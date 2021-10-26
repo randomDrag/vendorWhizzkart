@@ -53,9 +53,7 @@ class TodayOrder extends React.Component {
           keyExtractor={data.order}
           renderItem={item => {
             return (
-              <TouchableOpacity onPress={()=>this.props.navigation.navigate('FirstScreen', {
-                screen : 'FirstScreen'
-              })}>
+              <TouchableOpacity onPress={()=>this.props.navigation.navigate('ProductDetail')}>
                 <Orderlist
                   OrderId={item.item.order}
                   Date={item.item.time}
