@@ -1,4 +1,4 @@
-import {AUTH, ERROR_CLOSE, ERROR_LOGIN, LOGIN, LOGIN_FORM, LOGOUT, PRIVACY_POLICY, TERM_AND_CONDATION} from './const';
+import {AUTH, CONTACT_FORM, CONTACT_SUBMIT, ERROR_CLOSE, ERROR_LOGIN, LOGIN, LOGIN_FORM, LOGOUT, PRIVACY_POLICY, TERM_AND_CONDATION} from './const';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {api} from '../api';
@@ -43,7 +43,7 @@ export const isAuth = () => {
 }
 
 
-export const Auth = (username, Password) => {
+export const Auth = (username, Password , callback) => {
 
     return async (dispatch) => {
         try{
@@ -64,10 +64,10 @@ export const Auth = (username, Password) => {
         }
 
         
-
+        callback();
         dispatch({type: LOGIN, payload: response.data.data})
     }catch(e){
-       
+        callback();
         dispatch({ type : ERROR_LOGIN , payload : {error : "Invalid username or password" , visible : true}})
 
     }
@@ -130,4 +130,36 @@ export const TeamAndCondtion = () =>{
 
     }
 
+}
+
+export const ContactusForm = (name,email,mobile,subject,discription ) => {
+
+    return {
+        type: CONTACT_FORM,
+        payload: {
+            name,
+            email,
+            mobile,
+            subject,
+            discription
+        }
+    }
+}
+
+export const sendContact = (name, email,mobile,subject,descreption , callback) => {
+
+    return async (dispatch) => {
+      
+
+        const response = await api.post('/api/contactUs', {
+            name,
+             email,
+            mobile,
+            subject,
+            descreption
+        });
+callback();
+        dispatch({type: CONTACT_SUBMIT, payload: response.data.data})
+   
+    }
 }

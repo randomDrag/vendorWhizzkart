@@ -13,3 +13,7 @@ export const ERROR_CLOSE = 'ERROR_CLOSE';
 export const PRIVACY_POLICY = "PRIVACY_POLCY";
 
 export const TERM_AND_CONDATION = "C&D";
+
+export const CONTACT_FORM = "CONTACT_FROM";
+
+export const CONTACT_SUBMIT ="CONTACT_SUBMIT";

@@ -74,7 +74,7 @@ class Login extends React.Component {
       const {username , Password}= this.props.loginInput;
 
 
-     this.props.Auth(username ,Password );
+     this.props.Auth(username ,Password ,()=> this.setState({isLoading : false}) );
 
     
   }
@@ -83,8 +83,7 @@ class Login extends React.Component {
     let isSecure = this.state.isSecure;
     let k = this.state.isKeyboardOpen;
 
-    console.log("state " + this.state.isVisible);
-    console.log('redux ' + this.props.isError.visible)
+    
 
     return (
 
