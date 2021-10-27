@@ -1,6 +1,6 @@
 import React  from 'react';
 import PropTypes from 'prop-types';
-import {View, TextInput, TouchableOpacity, StyleSheet} from 'react-native';
+import {View, TextInput, TouchableOpacity, StyleSheet , Text} from 'react-native';
 import {FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 
 import {faUser} from '@fortawesome/free-regular-svg-icons';
@@ -8,8 +8,11 @@ import {faUser} from '@fortawesome/free-regular-svg-icons';
 class CustomTextInput extends React.Component {
   render() {
     return (
-      <View style={style().container}>
+      <View>      
+        <View style={style().container}>
         <TextInput
+        multiline={this.props.multiline}
+        numberOfLines={this.props.numberOfLines}
           style={style().InputStyle}
           placeholder={this.props.placeholder}
           onChangeText={this.props.onChangeText}
@@ -29,6 +32,9 @@ class CustomTextInput extends React.Component {
         </TouchableOpacity>
        
       </View>
+      <Text style={style().errorText}>{this.props.error}</Text>
+      </View>
+
     );
   }
 }
@@ -84,4 +90,9 @@ textAlignVertical : 'center',
 
       
     },
+    errorText :{
+      marginHorizontal : 15,
+      textAlign : 'right',
+      color : 'red'
+    }
   });

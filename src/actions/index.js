@@ -1,4 +1,4 @@
-import {AUTH, LOGIN, LOGIN_FORM, LOGOUT} from './const';
+import {AUTH, ERROR_CLOSE, ERROR_LOGIN, LOGIN, LOGIN_FORM, LOGOUT, PRIVACY_POLICY, TERM_AND_CONDATION} from './const';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {api} from '../api';
@@ -46,6 +46,7 @@ export const isAuth = () => {
 export const Auth = (username, Password) => {
 
     return async (dispatch) => {
+        try{
 
         const response = await api.post('/api/login', {
             "email": username,
@@ -62,10 +63,27 @@ export const Auth = (username, Password) => {
             console.log("err from async")
         }
 
+        
+
         dispatch({type: LOGIN, payload: response.data.data})
+    }catch(e){
+       
+        dispatch({ type : ERROR_LOGIN , payload : {error : "Invalid username or password" , visible : true}})
 
     }
+    }
 }
+
+export const ErrorClose = () => {
+
+    return {
+        type: ERROR_CLOSE,
+        payload: {
+            visible : false
+        }
+    }
+}
+
 
 
 export const Logout = () => {
@@ -81,5 +99,35 @@ return async (dispatch) => {
     })
 
 }
+
+}
+
+
+export const PrivacyPolicy = () =>{
+
+    return async (dispatch) => {
+
+        const response = await api.get('api/privacyPolicy');
+
+        dispatch({
+            type : PRIVACY_POLICY,
+            payload : response.data
+        })
+
+    }
+}
+
+export const TeamAndCondtion = () =>{
+
+    return async (dispatch) => {
+
+        const response = await api.get('api/termsConditions');
+
+        dispatch({
+            type : TERM_AND_CONDATION,
+            payload : response.data
+        })
+
+    }
 
 }

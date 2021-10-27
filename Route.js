@@ -34,8 +34,10 @@ import AcceptedProduct from './src/screens/Accepted.Product';
 import PendingProduct from './src/screens/Pending.Product';
 import RejectedProduct from './src/screens/Rejected.Product';
 import OrderDetail from './src/screens/OrderDetail';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { DrawerContent } from './src/screens/DrawerContent';
+import  DrawerContent  from './src/screens/DrawerContent';
+import PrivacyPolicy from './src/screens/PrivacyPolicy';
+import TermAndCondtion from './src/screens/TermAndCondtion';
+import Contactus from './src/screens/Contactus';
 
 /* 
 creating store for dev and production
@@ -89,8 +91,7 @@ class Route extends React.Component {
 
   render() {
   
-    console.log(this.props)
-
+  
     return (
       
         <SafeAreaProvider>
@@ -116,14 +117,14 @@ class Route extends React.Component {
 
 const DrawerBar = () => {
   return (
-    <Drawer.Navigator drawerContent={props => <DrawerContent {...props}/>} screenOptions={{headerShown: false}}>
-      <Drawer.Screen name="Dashboard" component={Dashboard} />
+    <Drawer.Navigator drawerContent={props => <DrawerContent {...props}/>} >
+      <Drawer.Screen name="Dashboard" component={Dashboard} options={{headerShown : false}}/>
       <Drawer.Screen name="My Profile" component={Dashboard} />
       <Drawer.Screen name="Share app" component={Dashboard} />
-      <Drawer.Screen name="Contact us" component={Dashboard} />
-      <Drawer.Screen name="Terms & Conditions" component={Dashboard} />
-      <Drawer.Screen name="Privacy policy" component={Dashboard} />
-      <Drawer.Screen name="Logout" component={Dashboard} />
+      <Drawer.Screen name="Contact us" component={Contactus} options={{header: props => <CustomHeader {...props} />}} />
+      <Drawer.Screen name="Terms & Conditions" component={TermAndCondtion} options={{header: props => <CustomHeader {...props} />}} />
+      <Drawer.Screen name="Privacy policy" component={PrivacyPolicy} options={{header: props => <CustomHeader {...props} />}} />
+  
     </Drawer.Navigator>
   );
 };

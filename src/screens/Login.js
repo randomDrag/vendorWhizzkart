@@ -6,9 +6,9 @@ import CustomTextInput from '../components/CustomTextInput';
 import {connect} from 'react-redux';
 import {faUser, faEye, faEyeSlash} from '@fortawesome/free-regular-svg-icons';
 import TextLink from '../components/TextLink';
+import ErrorModal from '../components/ErrorModal';
 
-
-import {LoginForm , Auth} from '../actions';
+import {LoginForm , Auth , ErrorClose} from '../actions';
 
 
 class Login extends React.Component {
@@ -17,7 +17,8 @@ class Login extends React.Component {
     this.state = {
       isSecure: true,
       isKeyboardOpen: false,
-      isLoading : false
+      isLoading : false,
+      isVisible : false
     };
 
     this.loginFormInput = this.loginFormInput.bind(this);
@@ -28,16 +29,22 @@ class Login extends React.Component {
   componentDidMount() {
     this.keybordOpen();
     this.keybordClose();
+
+    
   }
 
   componentDidUpdate() {
     this.keybordOpen();
     this.keybordClose();
+  
+
   }
 
   componentWillUnmount() {
     this.keybordOpen();
     this.keybordClose();
+
+    
   }
 
   keybordOpen() {
@@ -76,11 +83,16 @@ class Login extends React.Component {
     let isSecure = this.state.isSecure;
     let k = this.state.isKeyboardOpen;
 
-
+    console.log("state " + this.state.isVisible);
+    console.log('redux ' + this.props.isError.visible)
 
     return (
+
+      
+
       <SafeAreaView>
         <View style={style().container}>
+          <ErrorModal  msg={this.props.isError.error} isVisible={this.props.isError.visible} onPress={()=> this.props.ErrorClose()} />
           <View
             style={{
               flex: 2,
@@ -194,7 +206,8 @@ const style = flex =>
   });
 
 const mapStateToProps = state => {
-  return {loginInput: state.LoginForm};
+  return {loginInput: state.LoginForm,
+          isError : state.Login};
 };
 
-export default connect(mapStateToProps, {LoginForm , Auth})(Login);
+export default connect(mapStateToProps, {LoginForm , Auth , ErrorClose})(Login);
