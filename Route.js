@@ -38,6 +38,9 @@ import  DrawerContent  from './src/screens/DrawerContent';
 import PrivacyPolicy from './src/screens/PrivacyPolicy';
 import TermAndCondtion from './src/screens/TermAndCondtion';
 import Contactus from './src/screens/Contactus';
+import Chat from './src/screens/Chat';
+import OrderRejectedProduct from './src/screens/OrderRejectedProduct';
+import OrderAcceptedList from './src/screens/OrderAcceptedList';
 
 /* 
 creating store for dev and production
@@ -72,6 +75,7 @@ const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
 const TopTab = createMaterialTopTabNavigator();
+
 
 /* Class STARTS HERE */
 
@@ -121,7 +125,7 @@ const DrawerBar = () => {
       <Drawer.Screen name="Dashboard" component={Dashboard} options={{headerShown : false}}/>
       <Drawer.Screen name="My Profile" component={Dashboard} />
       <Drawer.Screen name="Share app" component={Dashboard} />
-      <Drawer.Screen name="Contact us" component={Contactus} options={{header: props => <CustomHeader {...props} />}} />
+      <Drawer.Screen name="Raise a query" component={Contactus} options={{header: props => <CustomHeader {...props} />}} />
       <Drawer.Screen name="Terms & Conditions" component={TermAndCondtion} options={{header: props => <CustomHeader {...props} />}} />
       <Drawer.Screen name="Privacy policy" component={PrivacyPolicy} options={{header: props => <CustomHeader {...props} />}} />
   
@@ -152,6 +156,28 @@ const ProductBar = () => {
   );
 };
 
+const OrderBar =() =>{
+
+  return(
+  <TopTab.Navigator
+  initialRouteName="New orders"
+  screenOptions={{
+    // tabBarActiveTintColor​ : '#26607A',
+    tabBarStyle: {
+      fontFamily: 'Poppins-Regular',
+    },
+    tabBarIndicatorContainerStyle: {
+      color: 'red',
+      fontFamily: 'Poppins-Regular',
+    },
+  }}>
+  <TopTab.Screen name="accepted" component={OrderAcceptedList} />
+  <TopTab.Screen name="New orders" component={TodayOrder} />
+  <TopTab.Screen name="Rejected" component={OrderRejectedProduct} />
+</TopTab.Navigator>
+  );
+}
+
 const Dashboard = () => {
   return (
     <Tab.Navigator
@@ -177,20 +203,10 @@ const Dashboard = () => {
       />
       <Tab.Screen
         name="Orders"
-        component={TodayOrder}
+        component={OrderBar}
         options={{
           tabBarIcon: () => (
             <IconComponent src={require('./src/images/clipboard.png')} />
-          ),
-        }}
-      />
-
-      <Tab.Screen
-        name="chat"
-        component={TodayOrder}
-        options={{
-          tabBarIcon: () => (
-            <IconComponent src={require('./src/images/chat.png')} />
           ),
         }}
       />

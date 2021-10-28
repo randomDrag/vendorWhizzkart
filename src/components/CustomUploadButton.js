@@ -24,6 +24,7 @@ class CustomUploadButton extends React.Component {
           let val = await Upload();
             console.log(val);
           this.setState({Name: val.name});
+          this.props.value(val);
         }}>
         <View style={style().container}>
           <Text style={style(this.props.fontSize).textStyle}>

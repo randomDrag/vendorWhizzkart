@@ -32,7 +32,7 @@ render(){
       <View style={style().DrawerMargin}>
         <DrawerItem 
         icon={()=> <Image style={{width : 25 , height : 25 , padding : 3}} source={require('../images/call.png')}/>}
-        labelStyle={style().MyProfile} label="Contact us" onPress={() => this.props.navigation.navigate('Contact us')}/>
+        labelStyle={style().MyProfile} label="Raise a query" onPress={() => this.props.navigation.navigate('Raise a query')}/>
       </View>
       <View style={style().DrawerMargin}>
         <DrawerItem  

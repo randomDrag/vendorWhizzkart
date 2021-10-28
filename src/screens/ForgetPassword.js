@@ -22,6 +22,7 @@ class ForgetPassword extends React.Component {
         this.state = {
           isSecure: true,
           isKeyboardOpen: false,
+          Otp : ''
         };
       this.newPassword = this.newPassword.bind(this);
          }
@@ -111,7 +112,7 @@ newPassword(){
 
     const CELL_COUNT = 4;
 
-  
+    console.log(this.state.Otp)
 
     return (
       <SafeAreaView>
@@ -135,7 +136,8 @@ newPassword(){
       <CodeField
     
         // Use `caretHidden={false}` when users can't paste a text value, because context menu doesn't appear
-  
+            onChangeText = {(e)=> this.setState({Otp : e})}
+            value={this.state.Otp}
         cellCount={CELL_COUNT}
         rootStyle={style().codeFieldRoot}
         keyboardType="number-pad"
@@ -171,7 +173,7 @@ color: '#698C9E'
   }
 
   render() {
-    return <this.newPassword/>;
+    return <this.OtpComponent/>;
   }
 }
 

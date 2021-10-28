@@ -4,12 +4,12 @@ import React from 'react';
 import {View, StyleSheet, Image , Text, Button} from 'react-native';
 import CustomButton from './login_logout/Button.custom';
 
-class Orderlist extends React.Component {
+class OrderlistAR extends React.Component {
   render() {
     return (
       <View style={style().mainContainer}>
         <View style={style().imageContainer}>
-          <Image style={style().image} source={{uri : this.props.image}} />
+          <Image style={style().image} source={ {uri : this.props.image}} />
           <View style={style().imageTextContainer}>
             <Text style={style().imageText}>Order No. { <Text style={{color :"#E84745" , fontFamily: 'Poppins-Bold'}}>{this.props.OrderId}</Text>}</Text>
             <Text style={style().imageText}>{this.props.Date}</Text>
@@ -61,8 +61,7 @@ class Orderlist extends React.Component {
 
 <View style={style().buttonContainer}>
 
-<CustomButton width={150} title="Accept" marginHorizontal={10} backgroundColor="#185574" onPress={this.props.accept}/>
-<CustomButton width={150} title ="Reject"  marginHorizontal={10} onPress={this.props.reject}/>
+<Text style={{fontFamily : 'Poppins-Regular' , color : '#E84745' , fontSize : 18, padding : 10}}>{this.props.status}</Text>
 
 </View>
 
@@ -185,4 +184,4 @@ color : "#185574",
 
   });
 
-export default Orderlist;
+export default OrderlistAR;

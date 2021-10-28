@@ -55,6 +55,14 @@ class Register extends React.Component {
     );
   }
 
+
+  test(v){
+    console.log("from main " + v);
+  }
+
+
+
+
   render() {
     let isSecure = this.state.isSecure;
     let k = this.state.isKeyboardOpen;
@@ -126,7 +134,7 @@ class Register extends React.Component {
                   title="Gst Certificate"
                   icon={faFileUpload}
                 />
-                <CustomUploadButton title="Trade License" icon={faFileUpload} />
+                <CustomUploadButton title="Trade License" icon={faFileUpload} value={ (v) => this.test(v)}/>
                 <CustomUploadButton title="FSSI License" icon={faFileUpload} />
                 <CustomUploadButton title="ID Proof" icon={faFileUpload} />
                 <CustomUploadButton title="Address Proof" icon={faFileUpload} />
@@ -139,7 +147,7 @@ class Register extends React.Component {
               <Text style={style().donthaveaccount}>
                 Already have an account? 
                </Text>
-               <TextLink text="login" color="#E84F48" padding={0} />
+               <TextLink text="login" color="#E84F48" padding={0} onPress={()=> this.props.navigation.navigate('Login')}/>
                </View>
               </View>
              

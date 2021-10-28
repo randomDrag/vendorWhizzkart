@@ -1,8 +1,16 @@
 import React from 'react';
 import {Text, SafeAreaView, View, ScrollView, StyleSheet, TouchableOpacity} from 'react-native';
+import { connect } from 'react-redux';
 import DashboardCard from '../components/DashboardCard';
+import {DashboardInfo} from '../actions'
 
 class Dashboard extends React.Component {
+
+
+  componentDidMount(){
+    this.props.DashboardInfo();
+  }
+
   render() {
     return (
       <SafeAreaView style={{backgroundColor : "#FFFFFF"}}>
@@ -18,15 +26,15 @@ class Dashboard extends React.Component {
             <View style={{display: 'flex', flexDirection: 'row'}}>
               <DashboardCard
                 title="Today Order"
-                orders="256"
-                growth="10"
+                orders={ typeof this.props.dashboard.today.total_order == ('undefined'||'null')  ? "loading" : this.props.dashboard.today.total_order }
+                growth={this.props.dashboard.today.current_today_order_growth }
                 image={require('../images/order-food.png')}
                 dishImage={require('../images/dish.png')}
               />
               <DashboardCard
                 title="All Orders"
-                orders="256"
-                growth="10"
+                orders={ typeof this.props.dashboard.monthly.total_order == ('undefined'||'null') ? "loading" : this.props.dashboard.monthly.total_order}
+                growth={this.props.dashboard.monthly.current_month_order_growth}
                 image={require('../images/sent.png')}
                 dishImage={require('../images/dish.png')}
               />
@@ -35,15 +43,15 @@ class Dashboard extends React.Component {
             <View style={{display: 'flex', flexDirection: 'row'}}>
               <DashboardCard
                 title="Today Earning"
-                orders="256"
-                growth="10"
+                orders={ typeof this.props.dashboard.today.total_earning == ('undefined'||'null') ? "loading" : this.props.dashboard.today.total_earning }
+                growth={this.props.dashboard.today.current_today_earning_growth}
                 image={require('../images/money1.png')}
                 dishImage={require('../images/dish.png')}
               />
               <DashboardCard
                 title="Total Earning"
-                orders="256"
-                growth="10"
+                orders={ typeof this.props.dashboard.monthly.total_earning == ('undefined'||'null') ? "loading" : this.props.dashboard.monthly.total_earning }
+                growth={this.props.dashboard.monthly.current_month_earning_growth}
                 image={require('../images/money2.png')}
                 dishImage={require('../images/dish.png')}
               />
@@ -85,4 +93,10 @@ const style = () => StyleSheet.create({
     }
 });
 
-export default Dashboard;
+const mapStateToProps = (state) =>{
+
+  return { dashboard : state.DashboardInfo}
+
+}
+
+export default connect( mapStateToProps , {DashboardInfo})(Dashboard);

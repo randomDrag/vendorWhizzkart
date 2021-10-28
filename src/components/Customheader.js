@@ -13,7 +13,7 @@ console.log(this.props)
       <SafeAreaView>
         <View style={style().container}>
           <View style={style().settingIcon}>
-              <TouchableOpacity  onPress={() => this.props.navigator.toggleDrawer()}> 
+              <TouchableOpacity > 
             <FontAwesomeIcon icon={faSlidersH} size={30} color='#E94E4C'/>
             </TouchableOpacity>
           </View>

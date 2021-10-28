@@ -1,4 +1,4 @@
-import {AUTH, CONTACT_FORM, CONTACT_SUBMIT, ERROR_CLOSE, ERROR_LOGIN, LOGIN, LOGIN_FORM, LOGOUT, PRIVACY_POLICY, TERM_AND_CONDATION} from './const';
+import {ACCEPTED_ORDER_LIST, AUTH, CONTACT_FORM, CONTACT_SUBMIT, DASHBOARD_INFO, ERROR_CLOSE, ERROR_LOGIN, GET_ORDER, LOGIN, LOGIN_FORM, LOGOUT, ORDER_ACCEPTED, ORDER_REJECTED, PRIVACY_POLICY, REJECTED_ORDER_LIST, TERM_AND_CONDATION} from './const';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {api} from '../api';
@@ -162,4 +162,104 @@ callback();
         dispatch({type: CONTACT_SUBMIT, payload: response.data.data})
    
     }
+}
+
+export const DashboardInfo = () =>{
+
+    return async (dispatch) =>{
+
+        const response = await api.get('/api/reportCount');
+
+        dispatch({
+            type : DASHBOARD_INFO,
+            payload : response.data
+        })
+
+    }
+}
+
+export const GetOrder = () =>{
+
+    return async (dispatch) => {
+
+        const response = await api.get('/api/getNewOrder');
+
+
+        dispatch({
+            type : GET_ORDER ,
+            payload : response.data
+        })
+
+    }
+}
+
+export const AcceptOrder = (statusInfo ,orderId ) =>{
+
+    return async (dispatch) =>  {
+
+        const response = await api.post('/api/updateOrder',{
+            
+                status : statusInfo,
+                order_id : orderId
+            
+        });
+
+        dispatch({
+            type : ORDER_ACCEPTED,
+            payload : orderId
+        })
+
+    }
+}
+
+export const RejectOrder = (statusInfo , orderId) => {
+
+
+    return async (dispatch) => {
+
+        const response = await api.post('/api/updateOrder',{
+            
+            status : statusInfo,
+            order_id : orderId
+        
+    });
+
+    dispatch({
+        type : ORDER_REJECTED,
+        payload : orderId
+    })
+
+    }
+
+}
+
+
+export const RejectOrderList = () => {
+
+    return async (dispatch) => {
+
+    const response = await api.get('/api/getOrderByStatus');
+
+        dispatch({
+            type : REJECTED_ORDER_LIST,
+            payload : response.data
+        })
+
+    }
+
+}
+
+export const AcceptedOrderList = () => {
+
+    return async (dispatch) => {
+
+    const response = await api.get('/api/getOrderByStatus');
+
+        dispatch({
+            type :ACCEPTED_ORDER_LIST,
+            payload : response.data
+        })
+
+    }
+
 }

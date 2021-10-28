@@ -5,6 +5,10 @@ import isAuth from './isAuth';
 import privacy from './privacy';
 import Tnc from './TermAndCondtion';
 import contactus from './contactus';
+import DashboardInfo from './DashboardInfo';
+import GetOrder from './GetOrder';
+import RejectOrderList from './RejectOrderList';
+import AcceptedOrderList from './AcceptedOrderList';
 export default combineReducers({
 
     LoginForm ,
@@ -12,6 +16,11 @@ export default combineReducers({
     isAuth,
     privacy,
     Tnc,
-    contactus
+    contactus,
+    DashboardInfo,
+    GetOrder,
+    RejectOrderList,
+    AcceptedOrderList
+    
     
 });

@@ -51,6 +51,8 @@ class OrderDetail extends React.Component {
         address2: 'loraem ishdi hsud aygds',
       },
     ];
+
+    console.log(this.props.route.params)
     return (
       <SafeAreaView style={{backgroundColor: '#FFFFFF'}}>
         <ScrollView style={{marginVertical : 10}}>
@@ -118,8 +120,8 @@ class OrderDetail extends React.Component {
 
 <View style={style().buttonContainer}>
 
-<CustomButton width={150} title="Accept" marginHorizontal={10} backgroundColor="#185574"/>
-<CustomButton width={150} title ="Reject"  marginHorizontal={10}/>
+<CustomButton width={150} title="Accept" marginHorizontal={10} backgroundColor="#185574" onPress={this.props.accept}/>
+<CustomButton width={150} title ="Reject"  marginHorizontal={10} onPress={this.props.reject}/>
 
 
 </View>
