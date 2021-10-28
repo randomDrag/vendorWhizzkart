@@ -136,9 +136,9 @@ class OrderDetail extends React.Component {
               />
             </View>
 
-            <View style={}>
+            {/* <View style={}>
 
-            </View>
+            </View> */}
 
             {/* buttons */}
 

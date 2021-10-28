@@ -41,6 +41,7 @@ import Contactus from './src/screens/Contactus';
 import Chat from './src/screens/Chat';
 import OrderRejectedProduct from './src/screens/OrderRejectedProduct';
 import OrderAcceptedList from './src/screens/OrderAcceptedList';
+import AllReport from './src/screens/AllReport';
 
 /* 
 creating store for dev and production
@@ -102,9 +103,10 @@ class Route extends React.Component {
           <NavigationContainer>
             <Stack.Navigator>
               {this.props.IsAuth != null ? (
-                <Stack.Group screenOptions={{headerShown: false}}>
-                  <Stack.Screen name="Drawer" component={DrawerBar} />
-                  <Stack.Screen name="ProductDetail" component={OrderDetail} />
+                <Stack.Group >
+                  <Stack.Screen name="Drawer" component={DrawerBar} options={{headerShown: false}}  />
+                  <Stack.Screen name="ProductDetail" component={OrderDetail} options={{header: props => <CustomHeader {...props} />}} />
+                  <Stack.Screen name="All Report" component={AllReport} options={{header: props => <CustomHeader {...props} />}} />
                 </Stack.Group>
               ) : (
                 <Stack.Group screenOptions={{headerShown: false}}>

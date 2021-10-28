@@ -2,7 +2,7 @@ import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
  export const api = axios.create({
 
-    baseURL : "http://500a-122-160-47-222.ngrok.io/" ,
+    baseURL : "https://heuristic-tereshkova.50-21-189-128.plesk.page/" ,
     responseType : 'json',
    
 })

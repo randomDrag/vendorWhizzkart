@@ -9,6 +9,7 @@ import DashboardInfo from './DashboardInfo';
 import GetOrder from './GetOrder';
 import RejectOrderList from './RejectOrderList';
 import AcceptedOrderList from './AcceptedOrderList';
+import MonthlyReport from './MonthlyReport';
 export default combineReducers({
 
     LoginForm ,
@@ -20,7 +21,8 @@ export default combineReducers({
     DashboardInfo,
     GetOrder,
     RejectOrderList,
-    AcceptedOrderList
+    AcceptedOrderList,
+    MonthlyReport
     
     
 });

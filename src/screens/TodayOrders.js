@@ -63,7 +63,7 @@ class TodayOrder extends React.Component {
 
      
 
-      <SafeAreaView style={{backgroundColor: '#FFFFFF'}}>
+      <SafeAreaView style={{backgroundColor: '#FFFFFF' , height : '100%'}}>
         <FlatList
           data={data}
           keyExtractor={data.order_id}

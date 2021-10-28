@@ -1,4 +1,4 @@
-import {ACCEPTED_ORDER_LIST, AUTH, CONTACT_FORM, CONTACT_SUBMIT, DASHBOARD_INFO, ERROR_CLOSE, ERROR_LOGIN, GET_ORDER, LOGIN, LOGIN_FORM, LOGOUT, ORDER_ACCEPTED, ORDER_REJECTED, PRIVACY_POLICY, REJECTED_ORDER_LIST, TERM_AND_CONDATION} from './const';
+import {ACCEPTED_ORDER_LIST, AUTH, CONTACT_FORM, CONTACT_SUBMIT, DASHBOARD_INFO, ERROR_CLOSE, ERROR_LOGIN, GET_ORDER, LOGIN, LOGIN_FORM, LOGOUT, MONTHLY_REPORT, ORDER_ACCEPTED, ORDER_REJECTED, PRIVACY_POLICY, REJECTED_ORDER_LIST, TERM_AND_CONDATION} from './const';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {api} from '../api';
@@ -261,5 +261,19 @@ export const AcceptedOrderList = () => {
         })
 
     }
+
+}
+
+export const monthlyReport  = () =>{
+    return async (dispatch) => {
+
+        const response = await api.get('/api/allReportCount');
+    
+            dispatch({
+                type :MONTHLY_REPORT,
+                payload : response.data
+            })
+    
+        }
 
 }

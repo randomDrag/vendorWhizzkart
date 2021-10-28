@@ -9,6 +9,20 @@ import {Logout} from '../actions';
 
 class DrawerContent extends React.Component {
 
+   myCustomShare = async () => {
+    const shareOptions = {
+      message: 'Order your next meal from FoodFinder App. I\'ve already ordered more than 10 meals on it.',
+     // url: files.appLogo,
+      // urls: [files.image1, files.image2]
+    }
+
+    try {
+      const ShareResponse = await Share.open(shareOptions);
+      console.log(JSON.stringify(ShareResponse));
+    } catch(error) {
+      console.log('Error => ', error);
+    }
+  };
 
 
 render(){
@@ -27,7 +41,9 @@ render(){
       <View style={style().DrawerMargin}>
         <DrawerItem  
         icon={()=> <Image style={{width : 25 , height : 25}} source={require('../images/share.png')}/>}
-        labelStyle={style().MyProfile} label="Share app"/>
+        labelStyle={style().MyProfile} label="Share app" 
+        onPress={this.myCustomShare}
+        />
       </View>
       <View style={style().DrawerMargin}>
         <DrawerItem 

@@ -18,7 +18,7 @@ class Dashboard extends React.Component {
           <View style={style().ReportCard}>
             <View style={style().ReportInfo}>
                 <Text style={style().Month}>This Month</Text>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={ () => this.props.navigation.navigate('All Report')}>
                 <Text style={style().AllReport}>All Report</Text>
                 </TouchableOpacity>
              
