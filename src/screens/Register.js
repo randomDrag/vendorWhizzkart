@@ -21,7 +21,10 @@ import {
   faPhone,
 } from '@fortawesome/free-solid-svg-icons';
 import CustomUploadButton from '../components/CustomUploadButton';
+import RNFS from 'react-native-fs';
 import {getRegister} from '../actions';
+import validator from 'validator';
+import ErrorModal from '../components/ErrorModal';
 
 class Register extends React.Component {
   constructor(props) {
@@ -35,7 +38,14 @@ class Register extends React.Component {
     address : '',
     gst : null,
     Trade : null,
-    IDproof : null
+    IDproof : null,
+    FSSI : null,
+    AddProof : null,
+    CancelCheque : null,
+    error: '',
+    isloading: false,
+    isError : false
+    
 
     
     };
@@ -74,26 +84,43 @@ class Register extends React.Component {
     // axios.post('gs://onesignal-c50fa.appspot.com')
   }
 
-submit(){
+async submit(){
+  this.setState({isloading : true});
+  const {name , email , password , confirmPassword , address,mobile,Trade ,FSSI , CancelCheque , gst ,IDproof,AddProof} = this.state;
 
-  const {name , email , password , confirmPassword , address,mobile,Trade} = this.state;
+  if(password == confirmPassword && validator.isEmail(email) && validator.isMobilePhone("+91"+ mobile)){
 
-
-
-  console.log(Trade);
-
-  let data = {
-    name : name,
-    email,
-    mobile,
-    password,
-    user_type :4,
-    vendor :{
-       trade_license : fd
+    const trade = await RNFS.readFile(Trade.uri,'base64');
+    const CC = await RNFS.readFile(CancelCheque.uri , 'base64')
+    const fssi = await RNFS.readFile(FSSI.uri , 'base64')
+    const gstC = await RNFS.readFile(gst.uri , 'base64');
+    const Id = await RNFS.readFile(IDproof.uri, 'base64');
+   const add = await RNFS.readFile(AddProof.uri, 'base64');
+  
+    let data = {
+      name : name,
+      email,
+      mobile,
+      password,
+      user_type :4,
+      vendor :{
+         trade_license : trade,
+         cancelled_cheque :CC ,
+         fssi_license : fssi,
+         address_proof :add ,
+         id_proof : Id,
+         gst_certificate : gstC,
+         Address : address
+      }
     }
+    this.props.getRegister(data);
+    this.setState({isloading : false});
+  }else{
+    
+    this.setState({isloading : false});
+    this.setState({isError : true,
+      error : "All Fields Requried"});
   }
-
-  this.props.getRegister(data);
 }
 
 
@@ -103,6 +130,12 @@ submit(){
 
     return (
       <SafeAreaView>
+        <ErrorModal
+          msg={this.state.error}
+          isVisible={this.state.isError}
+          onPress={() => this.setState({isError: false}) }
+        />
+
         <View style={style().container}>
           <View
             style={{
@@ -179,16 +212,19 @@ submit(){
                 <CustomUploadButton
                   title="Gst Certificate"
                   icon={faFileUpload}
+                  value={ (v) => this.setState({gst : v})}
                 />
                 <CustomUploadButton title="Trade License" icon={faFileUpload} value={ (v) => this.setState({Trade : v})}/>
-                <CustomUploadButton title="FSSI License" icon={faFileUpload} />
-                <CustomUploadButton title="ID Proof" icon={faFileUpload} />
-                <CustomUploadButton title="Address Proof" icon={faFileUpload} />
-                <CustomUploadButton title="Cancelled Cheque" icon={faFileUpload} />
+                <CustomUploadButton title="FSSI License" icon={faFileUpload} value={v => this.setState({ FSSI :v})} />
+                <CustomUploadButton title="ID Proof" icon={faFileUpload} value={v => this.setState({IDproof :v})} />
+                <CustomUploadButton title="Address Proof" icon={faFileUpload} value={v => this.setState({ AddProof :v})} />
+                <CustomUploadButton title="Cancelled Cheque" icon={faFileUpload} value={v => this.setState({ CancelCheque :v})} />
               </View>
               </ScrollView>
              <View style={{marginBottom : 15 , marginTop : 5}}>
-              <CustomButton title="Register" onPress={()=> this.submit()} />
+              <CustomButton   title={this.state.isloading ? 'Loading' : 'Register'}
+              color={this.state.isloading ? '#000000' : '#FFF'}
+              backgroundColor={this.state.isloading ? '#F5F5F5' : '#E84341'} onPress={()=> this.submit()} />
               <View style={style().containerDoNotHave}>
               <Text style={style().donthaveaccount}>
                 Already have an account? 
