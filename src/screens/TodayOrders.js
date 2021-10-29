@@ -59,6 +59,7 @@ class TodayOrder extends React.Component {
     // ];
 
     const { data } = this.props;
+    
     return (
 
      
@@ -84,8 +85,8 @@ class TodayOrder extends React.Component {
                   image={item.item.order_details[0].vendor_product.product_details.primaryimages.imagePath }
                   addressTitle={item.item.location.area}
                   addressBody={fullAdd}
-                  accept ={()=> this.props.AcceptOrder('Accepted',item.item.order_id)}
-                  reject={() => this.props.RejectOrder('Rejected',item.item.order_id)}
+                  accept ={()=> this.props.AcceptOrder('Accepted',item.item.order_id,()=>{})}
+                  reject={() => this.props.RejectOrder('Rejected',item.item.order_id,()=>{})}
                 />
               </TouchableOpacity>
             );

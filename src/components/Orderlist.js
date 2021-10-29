@@ -76,12 +76,12 @@ const style = () =>
     mainContainer: {
     //   borderColor: 'red',
     //   borderWidth: 2,
-      height: 350,
+    
       marginVertical: 10,
       marginHorizontal: 10,
       borderRadius: 10,
       backgroundColor: '#F5F5F5',
-      elevation: 2,
+      elevation: 5,
     },
     imageContainer: {
         display : 'flex',
@@ -180,7 +180,8 @@ color : "#185574",
         flexDirection : 'row',
         paddingHorizontal : 5,
         justifyContent : 'center',
-        alignItems : 'center'
+        alignItems : 'center',
+        marginVertical : 15
     }
 
   });

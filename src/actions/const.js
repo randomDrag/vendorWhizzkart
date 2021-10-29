@@ -31,3 +31,21 @@ export const REJECTED_ORDER_LIST ="REJECT_ORDER_LIST";
 export const ACCEPTED_ORDER_LIST = "ACCEPTED_ORDER_LIST";
 
 export const MONTHLY_REPORT = "MONTHLY_REPORT";
+
+export const FORGET_PASSWORD = "FORGET_PASSWORD";
+
+export const FORGET_PASSWORD_ERROR = "ERROR_FP";
+
+export const VERIFY_OTP_FP = "VERIFY_FP_OTP";
+
+export const IS_VALID_OTP  = "VALID_OTP"
+
+export const UPDATE_PASSWORD = "UPDATE_PASSWORD";
+
+export const SHARE_APP_LINK = "APP_LINK";
+
+export const GET_ORDER_DETAILS = "GET_ORDER_DETAILS";
+
+export const GET_ALL_PRODUCT = "GET_ALL_PRODUCT";
+
+export const GET_REGISTER = "GET_REGISTER";

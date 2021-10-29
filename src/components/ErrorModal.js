@@ -61,7 +61,8 @@ alignItems : 'center'
     // borderColor : 'red' 
 },infoText :{
     fontFamily : "Poppins-Regular",
-    fontSize : 16
+    fontSize : 16,
+    color:"#000"
 }
   });
 

@@ -21,11 +21,24 @@ import {
   faPhone,
 } from '@fortawesome/free-solid-svg-icons';
 import CustomUploadButton from '../components/CustomUploadButton';
+import {getRegister} from '../actions';
 
 class Register extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {isSecure: true, isKeyboardOpen: false};
+    this.state = {isSecure: true, isKeyboardOpen: false,
+    name: '',
+    email : '',
+    mobile: '',
+    password : '',
+    confirmPassword : '',
+    address : '',
+    gst : null,
+    Trade : null,
+    IDproof : null
+
+    
+    };
   }
 
   componentDidMount() {
@@ -57,10 +70,31 @@ class Register extends React.Component {
 
 
   test(v){
-    console.log("from main " + v);
+    // console.log("from main " + v);
+    // axios.post('gs://onesignal-c50fa.appspot.com')
   }
 
+submit(){
 
+  const {name , email , password , confirmPassword , address,mobile,Trade} = this.state;
+
+
+
+  console.log(Trade);
+
+  let data = {
+    name : name,
+    email,
+    mobile,
+    password,
+    user_type :4,
+    vendor :{
+       trade_license : fd
+    }
+  }
+
+  this.props.getRegister(data);
+}
 
 
   render() {
@@ -88,16 +122,22 @@ class Register extends React.Component {
                   placeholder="Name"
                   icon={faUser}
                   autoComplete="username"
+                  onChangeText={(e)=> this.setState({ name :e})}
+                  defaultValue={this.state.name}
                 />
                 <CustomTextInput
                   placeholder="Email"
                   icon={faEnvelope}
                   autoComplete="email"
+                  onChangeText={(e) =>this.setState({ email :e})}
+                  defaultValue={this.state.email}
                 />
                 <CustomTextInput
                   placeholder="Mobile Number"
                   icon={faPhone}
                   autoComplete="tel"
+                  onChangeText={(e) =>this.setState({ mobile :e})}
+                  defaultValue={this.state.mobile}
                 />
                 <CustomTextInput
                   placeholder="Password"
@@ -107,8 +147,10 @@ class Register extends React.Component {
                     isSecure == true
                       ? this.setState({isSecure: false})
                       : this.setState({isSecure: true});
-                    console.log(isSecure);
+                   
                   }}
+                  onChangeText={(e) => this.setState({password : e})}
+                  defaultValue={this.state.password}
                 />
                 <CustomTextInput
                   placeholder="Re-enter Password"
@@ -120,6 +162,8 @@ class Register extends React.Component {
                       : this.setState({isSecure: true});
                     console.log(isSecure);
                   }}
+                  onChangeText={(e) =>this.setState({ confirmPassword :e})}
+                  defaultValue={this.state.confirmPassword}
                 />
 
                 {/*  addess input */}
@@ -128,13 +172,15 @@ class Register extends React.Component {
                   placeholder="Address"
                   icon={faMapMarkerAlt}
                   autoComplete="postal-address-extended-postal-code"
+                  onChangeText={(e) =>this.setState({address : e})}
+                  defaultValue={this.state.address}
                 />
 
                 <CustomUploadButton
                   title="Gst Certificate"
                   icon={faFileUpload}
                 />
-                <CustomUploadButton title="Trade License" icon={faFileUpload} value={ (v) => this.test(v)}/>
+                <CustomUploadButton title="Trade License" icon={faFileUpload} value={ (v) => this.setState({Trade : v})}/>
                 <CustomUploadButton title="FSSI License" icon={faFileUpload} />
                 <CustomUploadButton title="ID Proof" icon={faFileUpload} />
                 <CustomUploadButton title="Address Proof" icon={faFileUpload} />
@@ -142,7 +188,7 @@ class Register extends React.Component {
               </View>
               </ScrollView>
              <View style={{marginBottom : 15 , marginTop : 5}}>
-              <CustomButton title="Register" />
+              <CustomButton title="Register" onPress={()=> this.submit()} />
               <View style={style().containerDoNotHave}>
               <Text style={style().donthaveaccount}>
                 Already have an account? 
@@ -211,4 +257,4 @@ const style = flex =>
     },
   });
 
-export default connect()(Register);
+export default connect(null, {getRegister})(Register);

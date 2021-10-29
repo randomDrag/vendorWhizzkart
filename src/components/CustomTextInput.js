@@ -93,6 +93,7 @@ textAlignVertical : 'center',
     errorText :{
       marginHorizontal : 15,
       textAlign : 'right',
-      color : 'red'
+      color : 'red',
+      marginBottom : 5
     }
   });

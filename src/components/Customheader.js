@@ -8,7 +8,7 @@ class CustomHeader extends React.Component {
   render() {
 
     let today = new Date;
-console.log(this.props)
+
     return (
       <SafeAreaView>
         <View style={style().container}>

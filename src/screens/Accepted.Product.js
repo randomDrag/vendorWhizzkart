@@ -1,52 +1,26 @@
 import React from "react";
 import { StyleSheet , FlatList , SafeAreaView , View} from 'react-native';
+import { connect } from "react-redux";
 import ProductComponent from "../components/ProductCard";
-
+import {GetALLProductList} from '../actions'
 class AcceptedProduct extends React.Component {
 
-
+componentDidMount(){
+this.props.GetALLProductList();
+}
 
 render(){
 
-    let data =[
-
-        {
-            id : '1515',
-            status : 'Approved',
-            price : '150.00',
-            title : 'chicken wings',
-            date : '25 oct 2021',
-            time : '1 pm',
-            image : 'https://cdn.pngsumo.com/millions-of-png-images-backgrounds-and-vectors-for-free-download-healthy-meal-png-538_534.jpg'
-        },
-        {
-            id : '151465465',
-            status : 'Approved',
-            price : '150.00',
-            title : 'chicken wings',
-            date : '25 oct 2021',
-            time : '1 pm',
-            image : 'https://cdn.pngsumo.com/millions-of-png-images-backgrounds-and-vectors-for-free-download-healthy-meal-png-538_534.jpg'
-        },
-        {
-            id : '15021215',
-            status : 'Approved',
-            price : '150.00',
-            title : 'chicken wings',
-            date : '25 oct 2021',
-            time : '1 pm',
-            image : 'https://www.pngplay.com/wp-content/uploads/1/Beef-PNG.png'
-        }
-
-    ]
-
+        const {productdata} = this.props
+    const data = productdata.filter(i => i.status == "Active");
 
     return <SafeAreaView style={{backgroundColor : "#FFF", height : '100%'}}>
        
-       <FlatList data ={data} keyExtractor={data.id} renderItem={ (item) => 
-       <ProductComponent title={item.item.title} time={item.item.time} date ={item.item.date} status={item.item.status} price={item.item.price} imageUrl={item.item.image}/>
+       <FlatList data ={data} keyExtractor={data.id} renderItem={ (item) => {
+       
+       return <ProductComponent title={item.item.product_details.name} time="12" date ="12" status={item.item.status} price={item.item.product_price} imageUrl={item.item.product_details.primaryimages.imagePath}/>
 
-       } />
+       } }/>
 
     </SafeAreaView>
 }
@@ -55,5 +29,8 @@ render(){
 
 }
 
+const mapStateToProps = (state) =>{
+    return {productdata : Object.values(state.GetAllProduct)}
+}
 
-export default AcceptedProduct;
+export default connect(mapStateToProps,{GetALLProductList})( AcceptedProduct);

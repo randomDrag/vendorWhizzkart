@@ -28,11 +28,12 @@ class OrderRejectedProduct extends React.Component {
   
 
     const { data } = this.props;
+  
     return (
 
      
 
-      <SafeAreaView style={{backgroundColor: '#FFFFFF'}}>
+      <SafeAreaView style={{backgroundColor: '#FFFFFF', height : '100%'}}>
         <FlatList
           data={data}
           keyExtractor={data.order_id}
@@ -42,7 +43,7 @@ class OrderRejectedProduct extends React.Component {
             
             const fullAdd = ` ${item.item.location.house_no  ? ''  : item.item.location.house_no } ${item.item.location.area} ${item.item.location.landmark} ${item.item.location.city} ${item.item.location.pincode}`
             return (
-              <TouchableOpacity activeOpacity={1} onPress={()=>this.props.navigation.navigate('ProductDetail', {orderId : item.item.order_id})}>
+              <TouchableOpacity activeOpacity={1} onPress={()=>this.props.navigation.navigate('ProductDetails', {orderId : item.item.order_id ,status : "Rejected"})}>
                 <OrderlistAR
                   OrderId={item.item.order_id}
                   Date={time[0]}

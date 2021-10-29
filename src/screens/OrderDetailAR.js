@@ -11,21 +11,20 @@ import {
   Touchable,
   Image,
 } from 'react-native';
-import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import {faMapMarkerAlt} from '@fortawesome/free-solid-svg-icons';
-import CustomButton from '../components/login_logout/Button.custom';
+
 import {connect} from 'react-redux';
 import {getOrderDetails , AcceptOrder , RejectOrder} from '../actions';
 import OrderDetailComp from '../components/OrderDetail.Comp';
 
 
-class OrderDetail extends React.Component {
+class OrderDetailAR extends React.Component {
   componentDidMount() {
-    const {orderId} = this.props.route.params;
+    const {orderId } = this.props.route.params;
     this.props.getOrderDetails(orderId);
   }
 
   containerItem(props) {
+  
     return (
       <View style={style().ItemContainer}>
         <Image
@@ -44,14 +43,20 @@ class OrderDetail extends React.Component {
   }
 
   render() {
+    const { status } = this.props.route.params;
+    let s = status;
     const {order} = this.props;
-    const d = order.order_date;
-    const time = d.split(' ');
-    const fullAdd = ` ${
-      order.location.house_no ? '' : order.location.house_no
-    } ${order.location.area} ${order.location.landmark} ${
-      order.location.city
-    } ${order.location.pincode}`;
+    let time = " ";
+    if(typeof order == ('undefine'|| 'null')){
+     time = [" " , " "]
+    }else{
+      const d = order.order_date;
+      console.log(d);
+     time = d.split(" ");
+    }
+   
+   
+    const fullAdd = ` ${order.location.house_no ? '' : order.location.house_no} ${order.location.area} ${order.location.landmark} ${ order.location.city} ${order.location.pincode}`;
     return (
       <SafeAreaView style={{backgroundColor: '#FFFFFF'}}>
         <ScrollView style={{marginVertical: 10, height: '100%'}}>
@@ -63,7 +68,8 @@ class OrderDetail extends React.Component {
             addressBody={fullAdd}
             addressTitle={order.location.area}
             price={order.total_payble_amount}
-            isButton={true}
+            isButton={false}
+            status={s}
             accept ={()=> this.props.AcceptOrder('Accepted',order.order_id ,()=>{
               this.props.navigation.navigate('Dashboard',{
                 screen : 'Orders'
@@ -110,4 +116,4 @@ const mapStateToProps = state => {
   return {order: state.GetOrderInfo};
 };
 
-export default connect(mapStateToProps, {getOrderDetails , AcceptOrder ,RejectOrder})(OrderDetail);
+export default connect(mapStateToProps, {getOrderDetails , AcceptOrder ,RejectOrder})(OrderDetailAR);
