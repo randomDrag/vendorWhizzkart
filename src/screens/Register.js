@@ -88,7 +88,7 @@ async submit(){
   this.setState({isloading : true});
   const {name , email , password , confirmPassword , address,mobile,Trade ,FSSI , CancelCheque , gst ,IDproof,AddProof} = this.state;
 
-  if(password == confirmPassword && validator.isEmail(email) && validator.isMobilePhone("+91"+ mobile)){
+  if(password == confirmPassword && validator.isEmail(email) && validator.isMobilePhone("+91"+ mobile) ){
 
     const trade = await RNFS.readFile(Trade.uri,'base64');
     const CC = await RNFS.readFile(CancelCheque.uri , 'base64')
@@ -98,19 +98,19 @@ async submit(){
    const add = await RNFS.readFile(AddProof.uri, 'base64');
   
     let data = {
-      name : name,
+      name ,
       email,
       mobile,
       password,
       user_type :4,
       vendor :{
-         trade_license : trade,
-         cancelled_cheque :CC ,
-         fssi_license : fssi,
-         address_proof :add ,
-         id_proof : Id,
-         gst_certificate : gstC,
-         Address : address
+         trade_license :JSON.stringify(trade),
+         cancelled_cheque : JSON.stringify( CC ),
+         fssi_license : JSON.stringify( fssi),
+         address_proof :JSON.stringify( add) ,
+         id_proof : JSON.stringify( Id),
+         gst_certificate : JSON.stringify( gstC),
+         Address : JSON.stringify( address)
       }
     }
     this.props.getRegister(data);
