@@ -49,3 +49,9 @@ export const GET_ORDER_DETAILS = "GET_ORDER_DETAILS";
 export const GET_ALL_PRODUCT = "GET_ALL_PRODUCT";
 
 export const GET_REGISTER = "GET_REGISTER";
+
+export const GET_PROFILE = "GET_PROFILE";
+
+export const GET_GRAPH_DATA ="GET_GRAPH_DATA";
+
+export const GET_SUPPORT_DATA = "GET_SUPPORT_DATA"

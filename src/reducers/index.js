@@ -17,6 +17,9 @@ import ShareAppLink from './ShareAppLink';
 import GetOrderInfo from './GetOrderInfo';
 import GetAllProduct from './GetAllProduct';
 import GetRegister from './GetRegister';
+import GetProfile from './GetProfile';
+import getGraphdata from './getGraphdata';
+import getSupportData from './getSupportData';
 export default combineReducers({
 
     LoginForm ,
@@ -36,7 +39,10 @@ export default combineReducers({
     ShareAppLink,
     GetOrderInfo,
     GetAllProduct,
-    GetRegister
+    GetRegister,
+    GetProfile,
+    getGraphdata,
+    getSupportData
 
     
     

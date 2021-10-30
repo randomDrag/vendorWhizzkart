@@ -1,36 +1,115 @@
-import React from "react";
-import { StyleSheet , FlatList , SafeAreaView , View} from 'react-native';
-import { connect } from "react-redux";
-import ProductComponent from "../components/ProductCard";
-import {GetALLProductList} from '../actions'
+import React from 'react';
+import {StyleSheet, FlatList, SafeAreaView, View ,Text , Linking} from 'react-native';
+import {connect} from 'react-redux';
+import ProductComponent from '../components/ProductCard';
+import {GetALLProductList , getSupportdata} from '../actions';
+import Fab from '../components/FabButton';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faWhatsapp } from '@fortawesome/free-brands-svg-icons';
+import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
+
 class AcceptedProduct extends React.Component {
 
-componentDidMount(){
-this.props.GetALLProductList();
+constructor(props){
+    super(props)
+    this.state = {isShow : false}
+    this.sendWhatsApp = this.sendWhatsApp.bind(this);
 }
 
-render(){
+  componentDidMount() {
+    this.props.GetALLProductList();
+    this.props.getSupportdata();
+  }
 
-        const {productdata} = this.props
-    const data = productdata.filter(i => i.status == "Active");
 
-    return <SafeAreaView style={{backgroundColor : "#FFF", height : '100%'}}>
-       
-       <FlatList data ={data} keyExtractor={data.id} renderItem={ (item) => {
-       
-       return <ProductComponent title={item.item.product_details.name} time="12" date ="12" status={item.item.status} price={item.item.product_price} imageUrl={item.item.product_details.primaryimages.imagePath}/>
+  clickChanger(){
+      const {isShow} = this.state;
+    if(isShow) {
 
-       } }/>
+        this.setState({isShow : false})
 
-    </SafeAreaView>
+    }else{
+        this.setState({isShow : true})
+    }
+  }
+
+
+
+    sendWhatsApp(){
+        console.log(this.props.sendfile.support_mobile)
+        let phoneWithCountryCode = `+91${this.props.sendfile}`;
+    
+        let mobile = Platform.OS == 'ios' ? phoneWithCountryCode : '+' + phoneWithCountryCode;
+        if (mobile) {
+            this.setState({isShow : false})
+            let url = 'whatsapp://send?phone=' + mobile;
+            Linking.openURL(url).then((data) => {
+              console.log('WhatsApp Opened');
+            }).catch(() => {
+              alert('Make sure WhatsApp installed on your device');
+            });
+          
+        } else {
+          alert('Please insert mobile no');
+        }
+      }
+
+      sendMail(){
+        
+        let mail = `${this.props.sendfile.support_email}`;
+    
+      
+        if (mail) {
+            this.setState({isShow : false})
+            let url = "mailto:"+ mail;
+            Linking.openURL(url).then((data) => {
+              console.log('WhatsApp Opened');
+            }).catch(() => {
+              alert('Make sure Gmail installed on your device');
+            });
+          
+        } else {
+          alert('try again');
+        }
+      }
+  
+
+  render() {
+    
+
+    const {productdata} = this.props;
+    const data = productdata.filter(i => i.status == 'Active');
+
+    return (
+      <SafeAreaView style={{backgroundColor: '#FFF', height: '100%'}}>
+       <Fab visible={this.state.isShow} icon={faWhatsapp} backgroundColor="#51CD5E" right="10%" bottom="35%" onPress={() => this.sendWhatsApp()}/> 
+       <Fab visible={this.state.isShow} icon={faEnvelope} backgroundColor="#E84340" right="10%" bottom="20%" onPress={() => this.sendMail()}/> 
+         <Fab visible={true} icon={faPlus} backgroundColor="#E84340" onPress={ () => this.clickChanger()}/>
+
+        <FlatList
+          data={data}
+          keyExtractor={data.id}
+          renderItem={item => {
+            return (
+              <ProductComponent
+                title={item.item.product_details.name}
+                time="12"
+                date="12"
+                status={item.item.status}
+                price={item.item.product_price}
+                imageUrl={item.item.product_details.primaryimages.imagePath}
+              />
+            );
+          }}
+        />
+      </SafeAreaView>
+    );
+  }
 }
 
+const mapStateToProps = state => {
+  return {productdata: Object.values(state.GetAllProduct),
+        sendfile: state.getSupportData};
+};
 
-
-}
-
-const mapStateToProps = (state) =>{
-    return {productdata : Object.values(state.GetAllProduct)}
-}
-
-export default connect(mapStateToProps,{GetALLProductList})( AcceptedProduct);
+export default connect(mapStateToProps, {GetALLProductList , getSupportdata})(AcceptedProduct);

@@ -9,9 +9,12 @@ import {
     FORGET_PASSWORD,
     FORGET_PASSWORD_ERROR,
     GET_ALL_PRODUCT,
+    GET_GRAPH_DATA,
     GET_ORDER,
     GET_ORDER_DETAILS,
+    GET_PROFILE,
     GET_REGISTER,
+    GET_SUPPORT_DATA,
     IS_VALID_OTP,
     LOGIN,
     LOGIN_FORM,
@@ -420,5 +423,42 @@ export const getRegister = (object) => {
         payload : response.data});
 
     }
+
+}
+
+export const getProfile= () => {
+
+    return async (dispatch) => {
+
+        const response = await api.get('/api/profile');
+
+        dispatch({type : GET_PROFILE ,
+        
+        payload : response.data});
+
+    }
+
+}
+
+export const getGraphData = () => async dispatch =>{
+
+    const response = await api.get('api/getEarningGraphData');
+
+    dispatch({
+        type : GET_GRAPH_DATA,
+        payload : response.data
+    })
+
+}
+
+
+export const getSupportdata = () => async dispatch =>{
+
+    const response = await api.get('/api/supportData');
+
+    dispatch({
+        type : GET_SUPPORT_DATA,
+        payload : response.data
+    })
 
 }

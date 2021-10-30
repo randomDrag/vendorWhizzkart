@@ -1,17 +1,27 @@
 import React from 'react';
-import {Text, SafeAreaView, View, ScrollView, StyleSheet, TouchableOpacity} from 'react-native';
+import {Text, SafeAreaView, View, ScrollView, StyleSheet, TouchableOpacity , Dimensions} from 'react-native';
 import { connect } from 'react-redux';
 import DashboardCard from '../components/DashboardCard';
-import {DashboardInfo} from '../actions'
+import {DashboardInfo , getGraphData} from '../actions'
+import {VictoryChart , VictoryBar , VictoryTheme} from 'victory-native'
+
+
+
+
 
 class Dashboard extends React.Component {
 
 
   componentDidMount(){
+    this.props.getGraphData();
     this.props.DashboardInfo();
+   
   }
 
   render() {
+    const {graph} = this.props;
+    const dataGraph = graph.cordinate;
+   console.log(dataGraph);
     return (
       <SafeAreaView style={{backgroundColor : "#FFFFFF"}}>
         <ScrollView >
@@ -57,7 +67,18 @@ class Dashboard extends React.Component {
               />
             
             </View>
+
+          
           </View>
+
+          <View style={{padding : 10 , margin : 5}}>
+         
+         
+
+             <VictoryBar cornerRadius={{top : 10}} animate style={{data : {fill : "#EA6566"}}} data={dataGraph}  /> 
+        
+          </View>
+
         </ScrollView>
       </SafeAreaView>
     );
@@ -95,8 +116,9 @@ const style = () => StyleSheet.create({
 
 const mapStateToProps = (state) =>{
 
-  return { dashboard : state.DashboardInfo}
+  return { dashboard : state.DashboardInfo,
+  graph : state.getGraphdata}
 
 }
 
-export default connect( mapStateToProps , {DashboardInfo})(Dashboard);
+export default connect( mapStateToProps , {DashboardInfo , getGraphData})(Dashboard);

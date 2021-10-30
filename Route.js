@@ -43,6 +43,7 @@ import OrderRejectedProduct from './src/screens/OrderRejectedProduct';
 import OrderAcceptedList from './src/screens/OrderAcceptedList';
 import AllReport from './src/screens/AllReport';
 import OrderDetailAR from './src/screens/OrderDetailAR';
+import Profile from './src/screens/Profile';
 
 /* 
 creating store for dev and production
@@ -217,7 +218,7 @@ const Dashboard = () => {
 
       <Tab.Screen
         name="Account"
-        component={TodayOrder}
+        component={Profile}
         options={{
           tabBarIcon: () => (
             <IconComponent src={require('./src/images/account.png')} />
