@@ -47,6 +47,21 @@ class DrawerContent extends React.Component {
               />
             )}
             labelStyle={style().MyProfile}
+            label="Dashboard"
+            onPress={()=> this.props.navigation.navigate('Dashboard')}
+          />
+        </View>
+
+
+        <View style={{marginTop: 20}}>
+          <DrawerItem
+            icon={() => (
+              <Image
+                style={{width: 25, height: 25}}
+                source={require('../images/myprofile.png')}
+              />
+            )}
+            labelStyle={style().MyProfile}
             label="My profile"
             onPress={()=> this.props.navigation.navigate('Dashboard',{screen : 'Account'})}
           />

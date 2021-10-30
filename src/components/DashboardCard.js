@@ -34,7 +34,7 @@ const style = () =>
      
     cardContainer: {
       width: '45%',
-      height: 200,
+     height : 250,
       margin: 10,
       borderRadius: 10,
       backgroundColor: '#F5F5F5',

@@ -133,7 +133,9 @@ const DrawerBar = () => {
       <Drawer.Screen name="Raise a query" component={Contactus} options={{header: props => <CustomHeader {...props} />}} />
       <Drawer.Screen name="Terms & Conditions" component={TermAndCondtion} options={{header: props => <CustomHeader {...props} />}} />
       <Drawer.Screen name="Privacy policy" component={PrivacyPolicy} options={{header: props => <CustomHeader {...props} />}} />
-  
+      <Stack.Screen name="All Report" component={AllReport} options={{header: props => <CustomHeader {...props} />}} />
+      <Stack.Screen name="ProductDetail" component={OrderDetail} options={{header: props => <CustomHeader {...props} />}} />
+                  <Stack.Screen name="ProductDetails" component={OrderDetailAR} options={{header: props => <CustomHeader {...props} />}} />
     </Drawer.Navigator>
   );
 };

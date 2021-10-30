@@ -13,7 +13,7 @@ class CustomHeader extends React.Component {
       <SafeAreaView>
         <View style={style().container}>
           <View style={style().settingIcon}>
-              <TouchableOpacity > 
+              <TouchableOpacity onPress={() => {this.props.navigation.openDrawer()}}> 
             <FontAwesomeIcon icon={faSlidersH} size={30} color='#E94E4C'/>
             </TouchableOpacity>
           </View>
@@ -24,7 +24,9 @@ class CustomHeader extends React.Component {
           </View>
 
           <View style={style().accountStyle}>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('Account') }> 
             <FontAwesomeIcon icon={faUserCircle} size={30} color='#EA6566'/>
+            </TouchableOpacity>
           </View>
         </View>
       </SafeAreaView>
@@ -38,7 +40,7 @@ const style = () => StyleSheet.create({
         display : 'flex',
         flexDirection : 'row',
         height : 60,
- marginHorizontal : 10,
+ paddingHorizontal:5,
  backgroundColor: "#FFFFFF"
         
     },

@@ -23,8 +23,8 @@ class Dashboard extends React.Component {
     const dataGraph = graph.cordinate;
    console.log(dataGraph);
     return (
-      <SafeAreaView style={{backgroundColor : "#FFFFFF"}}>
-        <ScrollView >
+      <SafeAreaView style={{backgroundColor : "#FFFFFF" }}>
+        <ScrollView style={{height : '100%'}} >
           <View style={style().ReportCard}>
             <View style={style().ReportInfo}>
                 <Text style={style().Month}>This Month</Text>
@@ -75,7 +75,7 @@ class Dashboard extends React.Component {
          
          
 
-             <VictoryBar cornerRadius={{top : 10}} animate style={{data : {fill : "#EA6566"}}} data={dataGraph}  /> 
+             {/* <VictoryBar cornerRadius={{top : 10}} animate style={{data : {fill : "#EA6566"}}} data={dataGraph}  />  */}
         
           </View>
 
@@ -110,7 +110,8 @@ const style = () => StyleSheet.create({
         fontFamily : 'Poppins-Regular',
         fontSize : 18,
         flex:1,
-        paddingHorizontal : 6
+        paddingHorizontal : 6,
+        color : '#000'
     }
 });
 

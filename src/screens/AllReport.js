@@ -62,6 +62,7 @@ const style = StyleSheet.create({
     textAlign: 'center',
     fontSize: 16,
     fontFamily: 'Poppins-Regular',
+    color : '#000'
   },
   icon: {
     flex: 2,

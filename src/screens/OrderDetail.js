@@ -5,15 +5,9 @@ import {
   View,
   StyleSheet,
   ScrollView,
-  FlatList,
   SafeAreaView,
-  TouchableOpacity,
-  Touchable,
   Image,
 } from 'react-native';
-import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
-import {faMapMarkerAlt} from '@fortawesome/free-solid-svg-icons';
-import CustomButton from '../components/login_logout/Button.custom';
 import {connect} from 'react-redux';
 import {getOrderDetails , AcceptOrder , RejectOrder} from '../actions';
 import OrderDetailComp from '../components/OrderDetail.Comp';

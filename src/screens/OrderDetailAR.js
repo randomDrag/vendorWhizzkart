@@ -5,10 +5,7 @@ import {
   View,
   StyleSheet,
   ScrollView,
-  FlatList,
   SafeAreaView,
-  TouchableOpacity,
-  Touchable,
   Image,
 } from 'react-native';
 
@@ -18,9 +15,26 @@ import OrderDetailComp from '../components/OrderDetail.Comp';
 
 
 class OrderDetailAR extends React.Component {
-  componentDidMount() {
+  constructor(props){
+    super(props);
+
+    this.state={
+      isLoading : true
+    }
+
+  }
+
+  UNSAFE_componentWillMount(){
     const {orderId } = this.props.route.params;
     this.props.getOrderDetails(orderId);
+
+  }
+
+  componentDidMount() {
+    //console.log(this.props)
+    const {orderId } = this.props.route.params;
+    this.props.getOrderDetails(orderId);
+ 
   }
 
   containerItem(props) {
@@ -42,25 +56,48 @@ class OrderDetailAR extends React.Component {
     );
   }
 
+  componentDidUpdate(pP , pS , Ss){
+
+
+if(!pP.order){
+ this.setState({isLoading : false})
+ console.log('update if');
+}
+
+
+  }
+
   render() {
     const { status } = this.props.route.params;
+    
     let s = status;
     const {order} = this.props;
-    let time = " ";
-    if(typeof order == ('undefine'|| 'null')){
-     time = [" " , " "]
-    }else{
+
+    let fullAdd = null ;
+    let time = null;
+   
+    console.log(order);
+   
+
+    // if(typeof order == ('undefine'|| 'null')){
+    //  time = [" " , " "]
+    // }else{
       const d = order.order_date;
-      console.log(d);
-     time = d.split(" ");
-    }
+      time = d.split(" ");
+   // }
    
+fullAdd = ` ${order.location.house_no ? '' : order.location.house_no} ${order.location.area} ${order.location.landmark} ${ order.location.city} ${order.location.pincode}`;
+
+  
+    
    
-    const fullAdd = ` ${order.location.house_no ? '' : order.location.house_no} ${order.location.area} ${order.location.landmark} ${ order.location.city} ${order.location.pincode}`;
+    
     return (
+
+
       <SafeAreaView style={{backgroundColor: '#FFFFFF'}}>
         <ScrollView style={{marginVertical: 10, height: '100%'}}>
-          <OrderDetailComp
+       <OrderDetailComp
             OrderId={order.order_id}
             date={time[0]}
             time={time[1]}
@@ -88,7 +125,7 @@ class OrderDetailAR extends React.Component {
             )
             
             })}
-          />
+          />  
         </ScrollView>
       </SafeAreaView>
     );

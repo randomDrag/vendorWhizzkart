@@ -29,12 +29,12 @@ class Profile extends React.Component {
           <this.card title="Name" name={profile.name} />
           <this.card title="Email" name={profile.email} />
           <this.card title="Mobile No" name={profile.mobile} />
-          <this.card title="Address" name={profile.vendor.address} />
-          <this.card title="gst certificate" name={profile.vendor.gst_certificate} />
+          {/* <this.card title="Address" name={typeof profile.vendor.address == ('undefined'|| 'null')  ? ' ' : profile.vendor.address } /> */}
+          {/* <this.card title="gst certificate" name={profile.vendor.gst_certificate} />
           <this.card title="trade license" name={profile.vendor.trade_license} />
           <this.card title="id proof" name={profile.vendor.id_proof} />
           <this.card title="fssi license" name={profile.vendor.fssi_license} />
-          <this.card title="address proof" name={profile.vendor.address_proof} />
+          <this.card title="address proof" name={profile.vendor.address_proof} /> */}
         </ScrollView>
       </SafeAreaView>
     );
@@ -63,6 +63,7 @@ const style = StyleSheet.create({
     flex: 1,
     textAlignVertical: 'center',
     fontFamily: 'Poppins-Medium',
+    color : '#000',
 
     textAlign: 'center',
   },
@@ -70,6 +71,7 @@ const style = StyleSheet.create({
     flex: 3,
     textAlignVertical: 'center',
     fontFamily: 'Poppins-Medium',
+    color : '#000'
   },
 });
 

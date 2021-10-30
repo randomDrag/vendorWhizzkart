@@ -19,7 +19,7 @@ class Fab extends React.Component {
       <TouchableOpacity style={style(this.props.visible, this.props.right , this.props.bottom, this.props.backgroundColor).rootContainer} onPress={this.props.onPress}>
         <View >
 
-        <FontAwesomeIcon icon={this.props.icon ? this.props.icon:faPlusSquare} color="#FFF"  size={30}/>
+        <FontAwesomeIcon icon={this.props.icon ? this.props.icon:faPlusSquare} color="#FFF"  size={20}/>
 
         </View>
       </TouchableOpacity>
@@ -30,8 +30,8 @@ class Fab extends React.Component {
 const style = ( d , rightA , bottomA, color) =>
   StyleSheet.create({
     rootContainer: {
-      width: 70,
-      height: 70,
+      width: 50,
+      height: 50,
       backgroundColor: color ? color : 'red',
       borderRadius: 80,
       position: 'absolute',
