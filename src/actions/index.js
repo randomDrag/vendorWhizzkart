@@ -278,13 +278,13 @@ export const AcceptedOrderList = () => {
 
 }
 
-export const monthlyReport = () => {
+export const monthlyReport = (callback) => {
     return async (dispatch) => {
 
         const response = await api.get('/api/allReportCount');
 
         dispatch({type: MONTHLY_REPORT, payload: response.data})
-
+        callback();
     }
 
 }
@@ -428,7 +428,7 @@ export const getRegister = (object) => {
 
 }
 
-export const getProfile= () => {
+export const getProfile= (callback) => {
 
     return async (dispatch) => {
 
@@ -437,6 +437,7 @@ export const getProfile= () => {
         dispatch({type : GET_PROFILE ,
         
         payload : response.data});
+        callback();
 
     }
 
