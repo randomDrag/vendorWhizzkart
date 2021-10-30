@@ -386,7 +386,7 @@ export const AppLink = ()=> {
 
 }
 
-export const getOrderDetails = (orderID) => {
+export const getOrderDetails = (orderID , callback) => {
 
     return async (dispatch) => {
 
@@ -395,7 +395,9 @@ export const getOrderDetails = (orderID) => {
         dispatch({
             type : GET_ORDER_DETAILS,
             payload : response.data
-        })
+        });
+
+        callback();
     }
 
 }
@@ -440,14 +442,15 @@ export const getProfile= () => {
 
 }
 
-export const getGraphData = () => async dispatch =>{
+export const getGraphData = (callback) => async dispatch =>{
 
     const response = await api.get('api/getEarningGraphData');
 
     dispatch({
         type : GET_GRAPH_DATA,
         payload : response.data
-    })
+    });
+    callback();
 
 }
 

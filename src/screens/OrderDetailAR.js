@@ -11,6 +11,7 @@ import {
 
 import {connect} from 'react-redux';
 import {getOrderDetails , AcceptOrder , RejectOrder} from '../actions';
+import Loader from '../components/Loader';
 import OrderDetailComp from '../components/OrderDetail.Comp';
 
 
@@ -24,16 +25,20 @@ class OrderDetailAR extends React.Component {
 
   }
 
-  UNSAFE_componentWillMount(){
-    const {orderId } = this.props.route.params;
-    this.props.getOrderDetails(orderId);
+  // UNSAFE_componentWillMount(){
+  //   const {orderId } = this.props.route.params;
+  //   this.props.getOrderDetails(orderId);
 
-  }
+  // }
 
   componentDidMount() {
     //console.log(this.props)
     const {orderId } = this.props.route.params;
-    this.props.getOrderDetails(orderId);
+    this.props.getOrderDetails(orderId , () => {
+
+      this.setState({ isLoading : false});
+
+    });
  
   }
 
@@ -56,16 +61,7 @@ class OrderDetailAR extends React.Component {
     );
   }
 
-  componentDidUpdate(pP , pS , Ss){
 
-
-if(!pP.order){
- this.setState({isLoading : false})
- console.log('update if');
-}
-
-
-  }
 
   render() {
     const { status } = this.props.route.params;
@@ -79,17 +75,15 @@ if(!pP.order){
     console.log(order);
    
 
-    // if(typeof order == ('undefine'|| 'null')){
-    //  time = [" " , " "]
-    // }else{
+   if(!this.state.isLoading){
       const d = order.order_date;
       time = d.split(" ");
-   // }
+ 
    
 fullAdd = ` ${order.location.house_no ? '' : order.location.house_no} ${order.location.area} ${order.location.landmark} ${ order.location.city} ${order.location.pincode}`;
 
   
-    
+   }
    
     
     return (
@@ -97,7 +91,7 @@ fullAdd = ` ${order.location.house_no ? '' : order.location.house_no} ${order.lo
 
       <SafeAreaView style={{backgroundColor: '#FFFFFF'}}>
         <ScrollView style={{marginVertical: 10, height: '100%'}}>
-       <OrderDetailComp
+     { this.state.isLoading ? <Loader loadingText="Please wait ..."/>  : <OrderDetailComp
             OrderId={order.order_id}
             date={time[0]}
             time={time[1]}
@@ -125,7 +119,7 @@ fullAdd = ` ${order.location.house_no ? '' : order.location.house_no} ${order.lo
             )
             
             })}
-          />  
+          />  }
         </ScrollView>
       </SafeAreaView>
     );

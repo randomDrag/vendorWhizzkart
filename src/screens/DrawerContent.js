@@ -7,6 +7,8 @@ import {connect} from 'react-redux';
 
 import Share from 'react-native-share';
 import {Logout, AppLink} from '../actions';
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
+import { faHome } from '@fortawesome/free-solid-svg-icons';
 
 class DrawerContent extends React.Component {
   componentDidMount() {
@@ -41,10 +43,7 @@ class DrawerContent extends React.Component {
         <View style={{marginTop: 20}}>
           <DrawerItem
             icon={() => (
-              <Image
-                style={{width: 25, height: 25}}
-                source={require('../images/myprofile.png')}
-              />
+              <FontAwesomeIcon icon={faHome} size={30} color="#E8AA27"/>
             )}
             labelStyle={style().MyProfile}
             label="Dashboard"
