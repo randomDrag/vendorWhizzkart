@@ -121,7 +121,7 @@ class Login extends React.Component {
                 }}
               />
               <TextLink
-                text="Forget Password?"
+                text="Forgot Password?"
                 textalign={'right'}
                 padding={10}
                 alignItem={'flex-end'}
