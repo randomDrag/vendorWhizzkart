@@ -129,7 +129,7 @@ class Dashboard extends React.Component {
               <Loader loadingText="Please wait..." />
             ) : (
              <View>
-               <Text style={{textAlign : 'center', fontFamily : "Poppins-Regular" , fontSize : 16}}> Sales by month</Text>
+               <Text style={{textAlign : 'center', fontFamily : "Poppins-Regular" , fontSize : 16 , color : "#000"}}> Sales by month</Text>
               <VictoryChart domainPadding={25}>
                 <VictoryBar
                   barWidth={({index}) => index * 2 + 8}
