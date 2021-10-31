@@ -2,14 +2,24 @@ import { faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
 import React from 'react';
 import {View, StyleSheet, Image , Text, Button} from 'react-native';
+import { BASE_URL } from '../actions/const';
 import CustomButton from './login_logout/Button.custom';
 
 class Orderlist extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+    
+      ErrorImage : false
+    };
+  }
+
   render() {
     return (
       <View style={style().mainContainer}>
         <View style={style().imageContainer}>
-          <Image style={style().image} source={{uri : this.props.image}} />
+          <Image style={style().image} source={this.state.ErrorImage ? {uri : this.props.placeholder} :{uri :BASE_URL+this.props.image}} />
           <View style={style().imageTextContainer}>
             <Text style={style().imageText}>Order No. { <Text style={{color :"#E84745" , fontFamily: 'Poppins-Bold'}}>{this.props.OrderId}</Text>}</Text>
             <Text style={style().imageText}>{this.props.Date}</Text>

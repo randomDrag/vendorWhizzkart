@@ -13,14 +13,27 @@ import {
 import { connect } from 'react-redux';
 
 import {RejectOrderList} from '../actions';
+import Loader from '../components/Loader';
 import OrderlistAR from '../components/OrderlistAR';
 
 class OrderRejectedProduct extends React.Component {
 
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      isLoding: true,
+      TestImage : 'https://www.pngfind.com/pngs/m/300-3005563_free-png-chicken-fried-rice-plate-png-png.png'
+    };
+  }
+
 
   componentDidMount(){
 
-   this.props.RejectOrderList();
+   this.props.RejectOrderList(()=> {
+
+    this.setState({isLoding: false});
+   });
 
   }
 
@@ -34,7 +47,7 @@ class OrderRejectedProduct extends React.Component {
      
 
       <SafeAreaView style={{backgroundColor: '#FFFFFF', height : '100%'}}>
-        <FlatList
+      { this.state.isLoding ? <Loader loadingText={"Please wait ..."}/>  : <FlatList
           data={data}
           keyExtractor={data.order_id}
           renderItem={item => {
@@ -55,12 +68,13 @@ class OrderRejectedProduct extends React.Component {
                   addressTitle={item.item.location.area}
                   addressBody={fullAdd}
                   status="Rejected"
+                  placeholder={this.state.TestImage}
                 
                 />
               </TouchableOpacity>
             );
           }}
-        />
+        />  }
       </SafeAreaView>
     );
   }

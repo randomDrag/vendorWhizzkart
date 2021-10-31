@@ -6,7 +6,8 @@ import {View, StyleSheet, Image, Text, Button} from 'react-native';
 import CustomButton from './login_logout/Button.custom';
 
 class OrderDetailComp extends React.Component {
-
+ 
+  
 
   containerItem(props){
 

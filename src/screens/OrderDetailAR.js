@@ -1,4 +1,4 @@
-import React from 'react';
+import React , {useState}from 'react';
 
 import {
   Text,
@@ -11,16 +11,39 @@ import {
 
 import {connect} from 'react-redux';
 import {getOrderDetails , AcceptOrder , RejectOrder} from '../actions';
+import { BASE_URL } from '../actions/const';
 import Loader from '../components/Loader';
 import OrderDetailComp from '../components/OrderDetail.Comp';
 
+const ContainerItem = (props) =>{
+  const [ImageError, setImageError] = useState(false);
+
+
+  return (
+    <View style={style().ItemContainer}>
+      <Image
+        style={style().itemImage}
+        source={ImageError ? {uri : props.placeholder} :{uri: BASE_URL +"/"+props.image}}
+       onError={()=> setImageError(true)}
+      />
+      <Text style={{flex: 3, fontFamily: 'Poppins-Bold', color: '#185574'}}>
+      {props.title}
+      </Text>
+      <Text style={{flex: 1, fontFamily: 'Poppins-Bold', color: '#185574'}}>
+        {<Text style={{color: '#E85555'}}>&#8377;</Text>}
+        {props.price}
+      </Text>
+    </View>
+  );
+}
 
 class OrderDetailAR extends React.Component {
   constructor(props){
     super(props);
 
     this.state={
-      isLoading : true
+      isLoading : true,
+      TestImage : 'https://www.pngfind.com/pngs/m/300-3005563_free-png-chicken-fried-rice-plate-png-png.png'
     }
 
   }
@@ -42,25 +65,7 @@ class OrderDetailAR extends React.Component {
  
   }
 
-  containerItem(props) {
-  
-    return (
-      <View style={style().ItemContainer}>
-        <Image
-          style={style().itemImage}
-          source={{uri : props.image}}
-        />
-        <Text style={{flex: 3, fontFamily: 'Poppins-Bold', color: '#185574'}}>
-        {props.title}
-        </Text>
-        <Text style={{flex: 1, fontFamily: 'Poppins-Bold', color: '#185574'}}>
-          {<Text style={{color: '#E85555'}}>&#8377;</Text>}
-          {props.price}
-        </Text>
-      </View>
-    );
-  }
-
+ 
 
 
   render() {
@@ -114,7 +119,7 @@ fullAdd = ` ${order.location.house_no ? '' : order.location.house_no} ${order.lo
             render={order.order_details.map(item => {
             return (
               <View key={item.id}>
-                <this.containerItem title={item.vendor_product.product_details.category.name} price={item.price} image={item.vendor_product.product_details.primaryimages.imagePath}/>
+                <ContainerItem title={item.vendor_product.product_details.category.name} price={item.price} image={item.vendor_product.product_details.primaryimages.imagePath} placeholder={this.state.TestImage}/>
                 </View>
             )
             

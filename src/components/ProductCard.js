@@ -1,13 +1,24 @@
 import React from 'react';
 
 import {SafeAreaView, View, StyleSheet, Text, Image} from 'react-native';
+import { BASE_URL } from '../actions/const';
 
 class ProductComponent extends React.Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+    
+      ErrorImage : false
+    };
+  }
+
   render() {
     return (
       <View style={style().RootContainer}>
         <View style={style().ImageContainer}>
-          <Image style={style().Image} source={{uri : this.props.imageUrl}} />
+          <Image style={style().Image} source={this.state.ErrorImage ? {uri : this.props.placeholder  } :{uri : BASE_URL + this.props.imageUrl}} onError={()=> this.setState({ErrorImage : true})} />
         </View>
         <View style={style().TextContainer}>
           <Text style={style().status}>{this.props.status}</Text>

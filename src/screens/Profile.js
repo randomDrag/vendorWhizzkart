@@ -1,11 +1,25 @@
 import {thisExpression} from '@babel/types';
 import {faPeopleArrows} from '@fortawesome/free-solid-svg-icons';
-import React from 'react';
+import React , {useState} from 'react';
 
 import {Text, View, SafeAreaView, StyleSheet, ScrollView , Image} from 'react-native';
+import { State } from 'react-native-gesture-handler';
 import {connect} from 'react-redux';
 import {getProfile} from '../actions';
+import { BASE_URL } from '../actions/const';
 import Loader from '../components/Loader';
+
+
+const ImageCard = (props) => {
+  const [ImageError, setImageError] = useState(false);
+
+  return (
+    <View style={style.imageCard}>
+      <Text style={{fontFamily : 'Poppins-Medium' , textTransform : 'uppercase' , color : '#000' , paddingVertical : 20}}>{props.title}</Text>
+<Image style={{width : 300 , height : 300}} source={ ImageError ? {uri : props.Test} :{uri: BASE_URL +"/"+props.name}} onError={() => setImageError(true)}/>
+    </View>
+  )
+}
 
 class Profile extends React.Component {
 
@@ -14,6 +28,7 @@ class Profile extends React.Component {
 
     this.state = {
       isLoding: true,
+      TestImage : 'https://i1.wp.com/lanecdr.org/wp-content/uploads/2019/08/placeholder.png?w=1200&ssl=1'
     };
   }
 
@@ -21,16 +36,21 @@ class Profile extends React.Component {
     this.props.getProfile(() => {
       this.setState({isLoding: false});
     });
+
+   
   }
 
   card(props) {
     return (
       <View style={style.CardContainer}>
         <Text style={style.TitleText}>{props.title}</Text>
-        <Text style={style.BodyText}>{props.name}</Text>
+        <Text style={style.BodyText}> {props.name} </Text>
+       
       </View>
     );
   }
+  
+ 
 
   render() {
     const {profile} = this.props;
@@ -41,7 +61,7 @@ class Profile extends React.Component {
         { this.state.isLoding ? <Loader loadingText="Please wait..."/> : <View>
             <Text style={style.profileText}> ACCOUNT SETTING </Text>
             <View style={style.ImageContainer}>
-          { profile.vendor.image  ? <Image style={style.ProfileImage} source={{uri : profile.vendor.image}} />:<Image style={style.ProfileImage} source={require('../images/dish.png')} /> }
+          { profile.vendor.image  ? <Image style={style.ProfileImage} source={{uri : BASE_URL+"/"+profile.vendor.image}} />:<Image style={style.ProfileImage} source={require('../images/dish.png')} /> }
             </View>
            
            <View style={style.CardContainerStyle}>
@@ -53,11 +73,11 @@ class Profile extends React.Component {
              </View>
       
           <this.card title="Address" name={typeof profile.vendor.address == ('undefined'|| 'null')  ? ' ' : profile.vendor.address } />
-          <this.card title="gst certificate" name={profile.vendor.gst_certificate} />
-          <this.card title="trade license" name={profile.vendor.trade_license} />
-          <this.card title="id proof" name={profile.vendor.id_proof} />
-          <this.card title="fssi license" name={profile.vendor.fssi_license} />
-          <this.card title="address proof" name={profile.vendor.address_proof} />
+        <ImageCard Test={this.state.TestImage} title="gst certificate" name={!profile.vendor.gst_certificate ?  this.state.TestImage : profile.vendor.gst_certificate } /> 
+          <ImageCard Test={this.state.TestImage} title="trade license" name={!profile.vendor.trade_license ?  this.state.TestImage : profile.vendor.trade_license } />
+          <ImageCard Test={this.state.TestImage} title="id proof" name={!profile.vendor.id_proof ?  this.state.TestImage : profile.vendor.id_proof } />
+          <ImageCard Test={this.state.TestImage} title="fssi license" name={!profile.vendor.fssi_license ?  this.state.TestImage : profile.vendor.fssi_license} />
+          <ImageCard Test={this.state.TestImage} title="address proof" name={!profile.vendor.address_proof ?  this.state.TestImage : profile.vendor.address_proof } />
           </View> }
         </ScrollView>
       </SafeAreaView>
@@ -120,6 +140,15 @@ const style = StyleSheet.create({
      color : "#000",
      paddingHorizontal : 10,
      paddingVertical : 5
+  },
+  imageCard : {
+    justifyContent : 'center',
+    alignItems : 'center',
+    margin : 5,
+    padding : 10,
+    borderRadius : 5,
+    backgroundColor: '#F5F5F5',
+    elevation : 5
   }
 });
 

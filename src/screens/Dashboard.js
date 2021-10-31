@@ -13,7 +13,6 @@ import DashboardCard from '../components/DashboardCard';
 import {DashboardInfo, getGraphData} from '../actions';
 import {VictoryChart, VictoryBar, VictoryTheme} from 'victory-native';
 import Loader from '../components/Loader';
-import thunk from 'redux-thunk';
 
 class Dashboard extends React.Component {
   constructor(props) {

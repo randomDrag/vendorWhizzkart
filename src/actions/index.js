@@ -207,7 +207,7 @@ export const DashboardInfo = () => {
     }
 }
 
-export const GetOrder = () => {
+export const GetOrder = (callback) => {
 
     return async (dispatch) => {
 
@@ -215,7 +215,7 @@ export const GetOrder = () => {
 
 
         dispatch({type: GET_ORDER, payload: response.data})
-
+        callback();
     }
 }
 
@@ -254,26 +254,26 @@ export const RejectOrder = (statusInfo, orderId) => {
 }
 
 
-export const RejectOrderList = () => {
+export const RejectOrderList = ( callback) => {
 
     return async (dispatch) => {
 
         const response = await api.get('/api/getOrderByStatus');
 
         dispatch({type: REJECTED_ORDER_LIST, payload: response.data})
-
+        callback();
     }
 
 }
 
-export const AcceptedOrderList = () => {
+export const AcceptedOrderList = (callback) => {
 
     return async (dispatch) => {
 
         const response = await api.get('/api/getOrderByStatus');
 
         dispatch({type: ACCEPTED_ORDER_LIST, payload: response.data})
-
+        callback();
     }
 
 }

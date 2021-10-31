@@ -14,13 +14,25 @@ import { connect } from 'react-redux';
 import Orderlist from '../components/Orderlist';
 
 import {GetOrder , AcceptOrder , RejectOrder} from '../actions';
+import Loader from '../components/Loader';
 
 class TodayOrder extends React.Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      isLoding: true,
+      TestImage : 'https://www.pngfind.com/pngs/m/300-3005563_free-png-chicken-fried-rice-plate-png-png.png'
+    };
+  }
 
 
   componentDidMount(){
 
-    this.props.GetOrder();
+    this.props.GetOrder(()=>{
+      this.setState({isLoding: false});
+    });
 
   }
 
@@ -65,7 +77,7 @@ class TodayOrder extends React.Component {
      
 
       <SafeAreaView style={{backgroundColor: '#FFFFFF' , height : '100%'}}>
-        <FlatList
+      { this.state.isLoding ? <Loader loadingText="Please wait..." /> : <FlatList
           data={data}
           keyExtractor={data.order_id}
           renderItem={item => {
@@ -87,11 +99,12 @@ class TodayOrder extends React.Component {
                   addressBody={fullAdd}
                   accept ={()=> this.props.AcceptOrder('Accepted',item.item.order_id,()=>{})}
                   reject={() => this.props.RejectOrder('Rejected',item.item.order_id,()=>{})}
+                  placeholder={this.state.TestImage}
                 />
               </TouchableOpacity>
             );
           }}
-        />
+        /> }
       </SafeAreaView>
     );
   }

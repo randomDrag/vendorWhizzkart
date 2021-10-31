@@ -39,7 +39,8 @@ justifyContent : 'center',
 alignItems : 'center',
 textAlign : 'center',
 fontSize : 18,
-fontFamily : "Poppins-Regular"
+fontFamily : "Poppins-Regular",
+color : "#000"
   }
 
 

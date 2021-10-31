@@ -12,7 +12,9 @@ class AcceptedProduct extends React.Component {
 
 constructor(props){
     super(props)
-    this.state = {isShow : false}
+    this.state = {isShow : false ,
+      TestImage : 'https://www.pngfind.com/pngs/m/300-3005563_free-png-chicken-fried-rice-plate-png-png.png'
+    }
     this.sendWhatsApp = this.sendWhatsApp.bind(this);
 }
 
@@ -98,6 +100,7 @@ constructor(props){
                 status={item.item.status}
                 price={item.item.product_price}
                 imageUrl={item.item.product_details.primaryimages.imagePath}
+                placeholder={this.state.TestImage}
               />
             );
           }}

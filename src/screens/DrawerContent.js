@@ -47,7 +47,7 @@ class DrawerContent extends React.Component {
             )}
             labelStyle={style().MyProfile}
             label="Dashboard"
-            onPress={()=> this.props.navigation.navigate('Dashboard')}
+            onPress={()=> this.props.navigation.navigate('Home')}
           />
         </View>
 

@@ -55,3 +55,5 @@ export const GET_PROFILE = "GET_PROFILE";
 export const GET_GRAPH_DATA ="GET_GRAPH_DATA";
 
 export const GET_SUPPORT_DATA = "GET_SUPPORT_DATA"
+
+export const BASE_URL ="https://heuristic-tereshkova.50-21-189-128.plesk.page/public";

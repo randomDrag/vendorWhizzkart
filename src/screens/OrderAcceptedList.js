@@ -11,16 +11,27 @@ import {
   Touchable,
 } from 'react-native';
 import { connect } from 'react-redux';
-
 import {AcceptedOrderList} from '../actions';
 import OrderlistAR from '../components/OrderlistAR';
+import Loader from '../components/Loader';
+import { BASE_URL } from '../actions/const';
 
 class OrderAcceptedList extends React.Component {
 
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      isLoding: true,
+      TestImage : 'https://www.pngfind.com/pngs/m/300-3005563_free-png-chicken-fried-rice-plate-png-png.png'
+    };
+  }
 
   componentDidMount(){
 
-   this.props.AcceptedOrderList();
+   this.props.AcceptedOrderList(() => {
+    this.setState({isLoding: false});
+   });
 
   }
 
@@ -33,13 +44,13 @@ class OrderAcceptedList extends React.Component {
      
 
       <SafeAreaView style={{backgroundColor: '#FFFFFF'}}>
-        <FlatList
+        
+   {  this.state.isLoding ? <Loader loadingText="Please wait..." /> : <FlatList
           data={data}
           keyExtractor={data.order_id}
           renderItem={item => {
             const d = item.item.order_date;
             const time = d.split(' ');
-            
             const fullAdd = ` ${item.item.location.house_no  ? ''  : item.item.location.house_no } ${item.item.location.area} ${item.item.location.landmark} ${item.item.location.city} ${item.item.location.pincode}`
             return (
               <TouchableOpacity activeOpacity={1} onPress={()=>this.props.navigation.navigate('ProductDetails', {orderId : item.item.order_id , status : "Accepted"})}>
@@ -50,16 +61,17 @@ class OrderAcceptedList extends React.Component {
                   Amount={item.item.total_payble_amount}
                   payment={item.item.payment_method.name}
                   Name={item.item.order_details[0].vendor_product.product_details.category.name}
-                  image={item.item.order_details[0].vendor_product.product_details.primaryimages.imagePath}
+                  image={!item.item.order_details[0].vendor_product.product_details.primaryimages.imagePath ? this.state.TestImage : item.item.order_details[0].vendor_product.product_details.primaryimages.imagePath }
                   addressTitle={item.item.location.area}
                   addressBody={fullAdd}
                   status="Accepted"
+                  placeholder={this.state.TestImage}
                 
-                />
+                /> 
               </TouchableOpacity>
             );
           }}
-        />
+        />}
       </SafeAreaView>
     );
   }

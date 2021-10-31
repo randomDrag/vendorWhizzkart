@@ -5,6 +5,17 @@ import ProductComponent from "../components/ProductCard";
 import {GetALLProductList} from "../actions"
 class PendingProduct extends React.Component {
 
+
+    constructor(props) {
+        super(props);
+    
+        this.state = {
+          isLoding: true,
+          TestImage : 'https://www.pngfind.com/pngs/m/300-3005563_free-png-chicken-fried-rice-plate-png-png.png'
+        };
+      }
+    
+
     componentDidMount(){
         this.props.GetALLProductList();
         }
@@ -18,7 +29,7 @@ class PendingProduct extends React.Component {
                
                <FlatList data ={data} keyExtractor={data.id} renderItem={ (item) => {
                
-               return <ProductComponent title={item.item.product_details.name} time="12" date ="12" status={item.item.status} price={item.item.product_price} imageUrl={item.item.product_details.primaryimages.imagePath}/>
+               return <ProductComponent title={item.item.product_details.name} time="12" date ="12" status={item.item.status} price={item.item.product_price} imageUrl={item.item.product_details.primaryimages.imagePath} placeholder={this.state.TestImage}/>
         
                } }/>
         
