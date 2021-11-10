@@ -218,7 +218,7 @@ export const GetOrder = (callback) => {
         callback();
     }
 }
-
+// test
 export const AcceptOrder = (statusInfo, orderId , callback) => {
 
     return async (dispatch) => {
