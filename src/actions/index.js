@@ -420,7 +420,7 @@ export const getRegister = (object , callback) => {
 
         const response = await api.post('/api/register',object);
 
-        if(response.status ==200){
+      if(response.status == 200){
         dispatch({type : GET_REGISTER ,
         
         payload : response.data});

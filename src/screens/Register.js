@@ -116,8 +116,13 @@ async submit(){
       })
     }
     
-    this.props.getRegister(data ,()=> this.props.navigation.navigate('LoginScreen'));
-    this.setState({isloading : false});
+    this.props.getRegister(data ,()=> {
+    
+    this.props.navigation.navigate('Login')
+    this.setState({isloading : false})
+    }
+    );
+   
 
 
   }else if (password !== confirmPassword){
