@@ -15,7 +15,7 @@ const ImageCard = (props) => {
 
   return (
     <View style={style.imageCard}>
-      <Text style={{fontFamily : 'Poppins-Medium' , textTransform : 'uppercase' , color : '#000' , paddingVertical : 20}}>{props.title}</Text>
+      <Text allowFontScaling={false} style={{fontFamily : 'Poppins-Medium' , textTransform : 'uppercase' , color : '#000' , paddingVertical : 20}}>{props.title}</Text>
 <Image style={{width : 300 , height : 300}} source={ ImageError ? {uri : props.Test} :{uri: BASE_URL +"/"+props.name}} onError={() => setImageError(true)}/>
     </View>
   )
@@ -43,8 +43,8 @@ class Profile extends React.Component {
   card(props) {
     return (
       <View style={style.CardContainer}>
-        <Text style={style.TitleText}>{props.title}</Text>
-        <Text style={style.BodyText}> {props.name} </Text>
+        <Text allowFontScaling={false} style={style.TitleText}>{props.title}</Text>
+        <Text allowFontScaling={false} style={style.BodyText}> {props.name} </Text>
        
       </View>
     );
@@ -59,17 +59,17 @@ class Profile extends React.Component {
       <SafeAreaView style={style.root}>
         <ScrollView>
         { this.state.isLoding ? <Loader loadingText="Please wait..."/> : <View>
-            <Text style={style.profileText}> ACCOUNT SETTING </Text>
+            <Text allowFontScaling={false} style={style.profileText}> ACCOUNT SETTING </Text>
             <View style={style.ImageContainer}>
           { profile.vendor.image  ? <Image style={style.ProfileImage} source={{uri : BASE_URL+"/"+profile.vendor.image}} />:<Image style={style.ProfileImage} source={require('../images/dish.png')} /> }
             </View>
            
            <View style={style.CardContainerStyle}>
              
-             <Text style={style.TextCard}>Name : {profile.name} </Text>
+             <Text allowFontScaling={false} style={style.TextCard}>Name : {profile.name} </Text>
 
-             <Text style={style.TextCard}>Email : {profile.email} </Text>
-             <Text style={style.TextCard}>Mobile No : {profile.mobile} </Text>
+             <Text allowFontScaling={false} style={style.TextCard}>Email : {profile.email} </Text>
+             <Text allowFontScaling={false} style={style.TextCard}>Mobile No : {profile.mobile} </Text>
              </View>
       
           <this.card title="Address" name={typeof profile.vendor.address == ('undefined'|| 'null')  ? ' ' : profile.vendor.address } />

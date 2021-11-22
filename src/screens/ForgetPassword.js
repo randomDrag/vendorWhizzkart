@@ -77,7 +77,7 @@ class ForgetPassword extends React.Component {
           </View>
 
           <View style={style().card}>
-            <Text style={style().loginText}>Forget Password</Text>
+            <Text allowFontScaling={false} style={style().loginText}>Forget Password</Text>
 
             <View>
               <CustomTextInput
@@ -142,7 +142,7 @@ class ForgetPassword extends React.Component {
           </View>
 
           <View style={style().card}>
-            <Text style={style().loginText}>Forget Password</Text>
+            <Text allowFontScaling={false} style={style().loginText}>Forget Password</Text>
 
             <View>
               <CustomTextInput
@@ -213,7 +213,7 @@ class ForgetPassword extends React.Component {
           </View>
 
           <View style={style().card}>
-            <Text style={style().loginText}>Verification</Text>
+            <Text allowFontScaling={false} style={style().loginText}>Verification</Text>
 
             <View>
               <CodeField
@@ -226,7 +226,7 @@ class ForgetPassword extends React.Component {
                 keyboardType="number-pad"
                 textContentType="oneTimeCode"
                 renderCell={({index, symbol, isFocused}) => (
-                  <Text
+                  <Text allowFontScaling={false}
                     key={index}
                     style={[style().cell, isFocused && style().focusCell]}>
                     {symbol || (isFocused ? <Cursor /> : null)}
@@ -239,7 +239,7 @@ class ForgetPassword extends React.Component {
                     this.props.usernameData.username,
                   )
                 }>
-                <Text
+                <Text allowFontScaling={false}
                   style={{
                     fontFamily: 'Poppins-Regular',
                     textAlign: 'right',

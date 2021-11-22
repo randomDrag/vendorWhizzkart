@@ -26,11 +26,11 @@ class OrderDetail extends React.Component {
           style={style().itemImage}
           source={{uri : props.image}}
         />
-        <Text style={{flex: 3, fontFamily: 'Poppins-Bold', color: '#185574'}}>
+        <Text allowFontScaling={false} style={{flex: 3, fontFamily: 'Poppins-Bold', color: '#185574'}}>
         {props.title}
         </Text>
-        <Text style={{flex: 1, fontFamily: 'Poppins-Bold', color: '#185574'}}>
-          {<Text style={{color: '#E85555'}}>&#8377;</Text>}
+        <Text allowFontScaling={false} style={{flex: 1, fontFamily: 'Poppins-Bold', color: '#185574'}}>
+          {<Text allowFontScaling={false} style={{color: '#E85555'}}>&#8377;</Text>}
           {props.price}
         </Text>
       </View>

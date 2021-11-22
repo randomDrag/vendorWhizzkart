@@ -21,10 +21,10 @@ class ProductComponent extends React.Component {
           <Image style={style().Image} source={this.state.ErrorImage ? {uri : this.props.placeholder  } :{uri : BASE_URL + this.props.imageUrl}} onError={()=> this.setState({ErrorImage : true})} />
         </View>
         <View style={style().TextContainer}>
-          <Text style={style().status}>{this.props.status}</Text>
-          <Text style={style().title}>{this.props.title}</Text>
-          <Text style={style().dateTime}>{this.props.date}   Time {this.props.time}</Text>
-          <Text style={style().price}>Price {<Text style={{  fontFamily: 'Poppins-Bold'}}> { <Text style={{color:"#E85555"}}>&#8377;</Text>}{this.props.price}</Text>}</Text>
+          <Text allowFontScaling={false} style={style().status}>{this.props.status}</Text>
+          <Text allowFontScaling={false} style={style().title}>{this.props.title}</Text>
+          <Text allowFontScaling={false} style={style().dateTime}>{this.props.date}   Time {this.props.time}</Text>
+          <Text allowFontScaling={false} style={style().price}>Price {<Text allowFontScaling={false} style={{  fontFamily: 'Poppins-Bold'}}> { <Text allowFontScaling={false} style={{color:"#E85555"}}>&#8377;</Text>}{this.props.price}</Text>}</Text>
         </View>
       </View>
     );

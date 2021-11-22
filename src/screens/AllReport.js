@@ -13,7 +13,7 @@ import RNFS from 'react-native-fs';
 const ReportCard = props => {
   return (
     <View style={style.CardRoot}>
-      <Text style={style.textDownload}>
+      <Text allowFontScaling={false} style={style.textDownload}>
         {props.name}
         Report
       </Text>

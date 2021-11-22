@@ -10,7 +10,7 @@ class CustomTextInput extends React.Component {
     return (
       <View>      
         <View style={style().container}>
-        <TextInput
+        <Text allowFontScaling={false}Input
         multiline={this.props.multiline}
         numberOfLines={this.props.numberOfLines}
           style={style().InputStyle}
@@ -32,7 +32,7 @@ class CustomTextInput extends React.Component {
         </TouchableOpacity>
        
       </View>
-      <Text style={style().errorText}>{this.props.error}</Text>
+      <Text allowFontScaling={false} style={style().errorText}>{this.props.error}</Text>
       </View>
 
     );

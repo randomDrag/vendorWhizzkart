@@ -8,7 +8,7 @@ class TextLink extends React.Component {
         return (
             <View style={style(this.props.justifyContent, this.props.alignItem).container}>
                 <TouchableOpacity onPress={this.props.onPress}>
-                    <Text style={style(this.props.textalign ,this.props.padding , this.props.fontsize , this.props.color).textStyle}>{this.props.text}</Text>
+                    <Text allowFontScaling={false} style={style(this.props.textalign ,this.props.padding , this.props.fontsize , this.props.color).textStyle}>{this.props.text}</Text>
                 </TouchableOpacity>
             </View>
 

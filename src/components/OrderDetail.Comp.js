@@ -17,8 +17,8 @@ class OrderDetailComp extends React.Component {
         style={style().itemImage}
         source={require('../images/dish.png')}
       />
-      <Text style={{flex: 3, fontFamily : 'Poppins-Bold', color: '#185574',}}> Chicken Crispy</Text>
-      <Text style={{flex: 1, fontFamily : 'Poppins-Bold', color: '#185574',}}>{<Text style={{color:"#E85555"}}>&#8377;</Text>}{props.price}125</Text>
+      <Text allowFontScaling={false} style={{flex: 3, fontFamily : 'Poppins-Bold', color: '#185574',}}> Chicken Crispy</Text>
+      <Text allowFontScaling={false} style={{flex: 1, fontFamily : 'Poppins-Bold', color: '#185574',}}>{<Text allowFontScaling={false} style={{color:"#E85555"}}>&#8377;</Text>}{props.price}125</Text>
     </View>
 
     )
@@ -33,13 +33,13 @@ class OrderDetailComp extends React.Component {
       <View style={style().RootCard}>
         <View style={style().OrderContainer}>
           <View style={style().orderAndTime}>
-            <Text style={style().orderText}>Order No. { <Text style={{color :"#E84745" , fontFamily: 'Poppins-Bold'}}>{this.props.OrderId}</Text>}</Text>
-            <Text style={style().orderDatetext}>{this.props.date}</Text>
-            <Text style={style().orderTimeText}>{this.props.time}</Text>
+            <Text allowFontScaling={false} style={style().orderText}>Order No. { <Text allowFontScaling={false} style={{color :"#E84745" , fontFamily: 'Poppins-Bold'}}>{this.props.OrderId}</Text>}</Text>
+            <Text allowFontScaling={false} style={style().orderDatetext}>{this.props.date}</Text>
+            <Text allowFontScaling={false} style={style().orderTimeText}>{this.props.time}</Text>
           </View>
           <View style={style().PaymentContainer}>
-            <Text style={style().PaymentText}>Payment mode</Text>
-            <Text style={style().PaymentTypeText}>{this.props.payment}</Text>
+            <Text allowFontScaling={false} style={style().PaymentText}>Payment mode</Text>
+            <Text allowFontScaling={false} style={style().PaymentTypeText}>{this.props.payment}</Text>
           </View>
         </View>
 
@@ -48,15 +48,15 @@ class OrderDetailComp extends React.Component {
         <View style={style().addressContainer}>
           <FontAwesomeIcon icon={faMapMarkerAlt} color="#E84745" />
           <View style={style().AddTextContainer}>
-            <Text style={style().textAdd}>{this.props.addressTitle}</Text>
-            <Text style={style().textBody}>{this.props.addressBody}</Text>
+            <Text allowFontScaling={false} style={style().textAdd}>{this.props.addressTitle}</Text>
+            <Text allowFontScaling={false} style={style().textBody}>{this.props.addressBody}</Text>
           </View>
         </View>
 
         {/* catgory name and payment */}
 
         <View style={style().catName}>
-          <Text
+          <Text allowFontScaling={false}
             style={{
               textAlign: 'right',
               flex: 2,
@@ -67,7 +67,7 @@ class OrderDetailComp extends React.Component {
             }}>
             Category Name
           </Text>
-          <Text
+          <Text allowFontScaling={false}
             style={{
               textAlign: 'right',
               flex: 1,
@@ -97,8 +97,8 @@ class OrderDetailComp extends React.Component {
         {/* TOTAL AMOUNT */}
 
         <View style={style().TotalAmtContainer}>
-          <Text style={style().TotalAmtText}>Total Amount</Text>
-          <Text style={style().TotalAmt}> {<Text style={{color:"#E85555"}}>&#8377;</Text>}{this.props.price}</Text>
+          <Text allowFontScaling={false} style={style().TotalAmtText}>Total Amount</Text>
+          <Text allowFontScaling={false} style={style().TotalAmt}> {<Text allowFontScaling={false} style={{color:"#E85555"}}>&#8377;</Text>}{this.props.price}</Text>
         </View>
 
 
@@ -121,7 +121,7 @@ class OrderDetailComp extends React.Component {
         </View> : 
         <View style={style().buttonContainer}>
 
-        <Text style={{fontFamily : 'Poppins-Regular' , color : '#E84745' , fontSize : 18, padding : 10}}>{this.props.status}</Text>
+        <Text allowFontScaling={false} style={{fontFamily : 'Poppins-Regular' , color : '#E84745' , fontSize : 18, padding : 10}}>{this.props.status}</Text>
         
         </View>
         

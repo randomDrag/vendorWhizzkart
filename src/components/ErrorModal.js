@@ -16,11 +16,11 @@ class ErrorModal extends React.Component {
         <View style={style().root}>
           <View style={style().container}>
               <View style={style().imfomationContainer}>
-              <Text style={style().infoText}>{this.props.msg}</Text> 
+              <Text allowFontScaling={false} style={style().infoText}>{this.props.msg}</Text> 
               </View>
               <View style={style().buttonContainer}>
             <TouchableOpacity onPress={this.props.onPress}>
-<Text style={{fontSize :16 , textAlign : 'right' , paddingHorizontal : 15 , fontFamily : 'Poppins-Bold', color : '#E85757'}}>Close</Text>
+<Text allowFontScaling={false} style={{fontSize :16 , textAlign : 'right' , paddingHorizontal : 15 , fontFamily : 'Poppins-Bold', color : '#E85757'}}>Close</Text>
             </TouchableOpacity>
               </View>
              

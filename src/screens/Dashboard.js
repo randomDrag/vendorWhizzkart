@@ -49,10 +49,10 @@ class Dashboard extends React.Component {
         <ScrollView style={{height: '100%'}}>
           <View style={style().ReportCard}>
             <View style={style().ReportInfo}>
-              <Text style={style().Month}>This Month</Text>
+              <Text allowFontScaling={false} style={style().Month}>This Month</Text>
               <TouchableOpacity
                 onPress={() => this.props.navigation.navigate('All Report')}>
-                <Text style={style().AllReport}>All Report</Text>
+                <Text allowFontScaling={false} style={style().AllReport}>All Report</Text>
               </TouchableOpacity>
             </View>
             <View
@@ -132,9 +132,9 @@ class Dashboard extends React.Component {
             
             
             <View>
-               <Text style={{textAlign : 'center', fontFamily : "Poppins-Regular" , fontSize : 16 , color : "#000"}}> Sales by month</Text>
+               <Text allowFontScaling={false} style={{textAlign : 'center', fontFamily : "Poppins-Regular" , fontSize : 16 , color : "#000"}}> Sales by month</Text>
               
-              { data ? <Text style={{fontFamily : 'Poppins-Regular' , color : '#000' , textAlign :'center' , marginVertical : 15}}>Not Enough data to load</Text> :
+              { data ? <Text allowFontScaling={false} style={{fontFamily : 'Poppins-Regular' , color : '#000' , textAlign :'center' , marginVertical : 15}}>Not Enough data to load</Text> :
               
               
               <VictoryChart domainPadding={25}>

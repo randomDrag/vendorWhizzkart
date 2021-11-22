@@ -156,7 +156,7 @@ async submit(){
           </View>
 
           <View style={style(k).card}>
-            <Text style={style().loginText}>Create Account</Text>
+            <Text allowFontScaling={false} style={style().loginText}>Create Account</Text>
             <ScrollView showsVerticalScrollIndicator={false} style={{height : "80%" , }} fadingEdgeLength = {50}>
               <View>
                 <CustomTextInput
@@ -234,10 +234,10 @@ async submit(){
               color={this.state.isloading ? '#000000' : '#FFF'}
               backgroundColor={this.state.isloading ? '#F5F5F5' : '#E84341'} onPress={()=> this.submit()} />
               <View style={style().containerDoNotHave}>
-              <Text style={style().donthaveaccount}>
+              <Text allowFontScaling={false} style={style().donthaveaccount}>
                 Already have an account? 
                </Text>
-               <TextLink text="login" color="#E84F48" padding={0} onPress={()=> this.props.navigation.navigate('Login')}/>
+               <Text allowFontScaling={false}Link text="login" color="#E84F48" padding={0} onPress={()=> this.props.navigation.navigate('Login')}/>
                </View>
               </View>
              

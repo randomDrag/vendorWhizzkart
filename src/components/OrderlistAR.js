@@ -22,9 +22,9 @@ class OrderlistAR extends React.Component {
         <View style={style().imageContainer}>
           <Image style={style().image} source={ this.state.ErrorImage ? {uri : this.props.placeholder} :{uri :BASE_URL+this.props.image}} onError={()=> this.setState({ErrorImage : true})} />
           <View style={style().imageTextContainer}>
-            <Text style={style().imageText}>Order No. { <Text style={{color :"#E84745" , fontFamily: 'Poppins-Bold'}}>{this.props.OrderId}</Text>}</Text>
-            <Text style={style().imageText}>{this.props.Date}</Text>
-            <Text style={style().imageText}>Time : {this.props.time}</Text>
+            <Text allowFontScaling={false} style={style().imageText}>Order No. { <Text allowFontScaling={false} style={{color :"#E84745" , fontFamily: 'Poppins-Bold'}}>{this.props.OrderId}</Text>}</Text>
+            <Text allowFontScaling={false} style={style().imageText}>{this.props.Date}</Text>
+            <Text allowFontScaling={false} style={style().imageText}>Time : {this.props.time}</Text>
           </View>
         </View>
 
@@ -32,18 +32,18 @@ class OrderlistAR extends React.Component {
          <View style={style().orderInfoContainer}>
 
             <View style={style().CatNameContainer}>
-<Text style={style().catName}>Category Name</Text>
-<Text style={style().catNameInfo}>{this.props.Name}</Text>
+<Text allowFontScaling={false} style={style().catName}>Category Name</Text>
+<Text allowFontScaling={false} style={style().catNameInfo}>{this.props.Name}</Text>
 
             </View>
             <View style={style().AmountNameContainer}>
-<Text style={style().Amount}>Amount</Text>
-<Text style={style().AmountInfo}>{this.props.Amount}</Text>
+<Text allowFontScaling={false} style={style().Amount}>Amount</Text>
+<Text allowFontScaling={false} style={style().AmountInfo}>{this.props.Amount}</Text>
 
             </View>
             <View style={style().paymentNameContainer}>
-<Text style={style().payment}>Payment Mode</Text>
-<Text style={style().paymentInfo}>{this.props.payment}</Text>
+<Text allowFontScaling={false} style={style().payment}>Payment Mode</Text>
+<Text allowFontScaling={false} style={style().paymentInfo}>{this.props.payment}</Text>
 
             </View>
             
@@ -63,8 +63,8 @@ class OrderlistAR extends React.Component {
 <View style={style().addressContainer}>
     <FontAwesomeIcon icon={faMapMarkerAlt} color="#E84745"/>
 <View style={style().AddTextContainer}>
-<Text style={style().textAdd}>{this.props.addressTitle}</Text>
-<Text style={style().textBody}>{this.props.addressBody}</Text>
+<Text allowFontScaling={false} style={style().textAdd}>{this.props.addressTitle}</Text>
+<Text allowFontScaling={false} style={style().textBody}>{this.props.addressBody}</Text>
 </View>
 </View>
 
@@ -72,7 +72,7 @@ class OrderlistAR extends React.Component {
 
 <View style={style().buttonContainer}>
 
-<Text style={{fontFamily : 'Poppins-Regular' , color : '#E84745' , fontSize : 18, padding : 10}}>{this.props.status}</Text>
+<Text allowFontScaling={false} style={{fontFamily : 'Poppins-Regular' , color : '#E84745' , fontSize : 18, padding : 10}}>{this.props.status}</Text>
 
 </View>
 

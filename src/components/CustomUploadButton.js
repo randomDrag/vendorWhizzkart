@@ -27,7 +27,7 @@ class CustomUploadButton extends React.Component {
           this.props.value(val);
         }}>
         <View style={style().container}>
-          <Text style={style(this.props.fontSize).textStyle}>
+          <Text allowFontScaling={false} style={style(this.props.fontSize).textStyle}>
             {typeof name == ('undefined' || 'null')
               ? this.props.title
               : this.state.Name}

@@ -16,13 +16,13 @@ class DashboardCard extends React.Component {
               source={this.props.dishImage}
               style={style().growthImage}
             />
-            <Text style={style().growthText}>{`${this.props.growth}%`}</Text>
+            <Text allowFontScaling={false} style={style().growthText}>{`${this.props.growth}%`}</Text>
           </View>
         </View>
 
         <View style={style().BottomContainer}>
-          <Text style={style().OderText}>{this.props.orders}</Text>
-          <Text style={style().fontText}>{this.props.title}</Text>
+          <Text allowFontScaling={false} style={style().OderText}>{this.props.orders}</Text>
+          <Text allowFontScaling={false} style={style().fontText}>{this.props.title}</Text>
         </View>
       </View>
     );

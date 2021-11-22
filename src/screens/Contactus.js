@@ -86,7 +86,7 @@ const {name,email,mobile,subject, descreption} = this.props.data;
         
         />
         <View style={style().textAreaContainer}>
-        <TextInput style={style().textArea}
+        <Text allowFontScaling={false}Input style={style().textArea}
           placeholder="Description"
           multiline={true}
           numberOfLines={6}

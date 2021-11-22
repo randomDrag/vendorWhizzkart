@@ -9,7 +9,7 @@ class CustomButton extends React.Component {
     <TouchableOpacity
             style={style(this.props.backgroundColor , this.props.width , this.props.padding, this.props.marginHorizontal).buttonStyle}
             onPress={this.props.onPress}>
-            <Text style={{color : typeof this.props.color == ("undefined"|| "null") ? '#FFFFFF' : this.props.color,
+            <Text allowFontScaling={false} style={{color : typeof this.props.color == ("undefined"|| "null") ? '#FFFFFF' : this.props.color,
               fontFamily : 'Poppins-Regular'
             , fontSize:typeof fontsize == ("undefined" || "null") ? 18 :fontsize}}>{this.props.title}</Text>
           </TouchableOpacity>

@@ -16,7 +16,7 @@ return (
       size="large"
       style={{margin: 15}}
     />
-    <Text style={styles.loadingText}>
+    <Text allowFontScaling={false} style={styles.loadingText}>
           {this.props.loadingText} 
         </Text>
     </View>

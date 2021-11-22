@@ -103,7 +103,7 @@ class Login extends React.Component {
           </View>
 
           <View style={style(k).card}>
-            <Text style={style().loginText}>Login</Text>
+            <Text allowFontScaling={false} style={style().loginText}>Login</Text>
             <View>
               <CustomTextInput placeholder="Email or Mobile" icon={faUser}    onChangeText={(e)=> this.loginFormInput(e)} defaultValue={this.props.loginInput.username}/>
               <CustomTextInput
@@ -120,7 +120,7 @@ class Login extends React.Component {
                
                 }}
               />
-              <TextLink
+              <Text allowFontScaling={false}Link
                 text="Forgot Password?"
                 textalign={'right'}
                 padding={10}
@@ -130,10 +130,10 @@ class Login extends React.Component {
             </View>
             <CustomButton title={this.state.isLoading ? "Please wait" :"Sign in"} onPress={this.submit} />
             <View style={style().RegisterLinkContainer}>
-              <Text style={style().donthaveaccount}>
+              <Text allowFontScaling={false} style={style().donthaveaccount}>
                 Don't have an account?
               </Text>
-              <TextLink
+              <Text allowFontScaling={false}Link
                 text="Register"
                 color="#ECBB60"
                 padding={0}
