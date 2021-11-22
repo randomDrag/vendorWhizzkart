@@ -19,8 +19,8 @@ class CustomHeader extends React.Component {
           </View>
 
           <View style={style().infoStyle}>
-            <Text style={style().textHeading}>{typeof this.props.title == ('undefined'|| 'null') ? `${this.props.route.name}`: this.props.title}</Text>
-            <Text style={style().textDate}>{today.toDateString('en-US', options)}</Text>
+            < Text allowFontScaling={false}  style={style().textHeading}>{typeof this.props.title == ('undefined'|| 'null') ? `${this.props.route.name}`: this.props.title}</Text>
+            < Text allowFontScaling={false} style={style().textDate}>{today.toDateString('en-US', options)}</Text>
           </View>
 
           <View style={style().accountStyle}>
