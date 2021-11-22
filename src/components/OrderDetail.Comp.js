@@ -1,4 +1,4 @@
-import { thisExpression } from '@babel/types';
+
 import {faMapMarkerAlt} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import React from 'react';

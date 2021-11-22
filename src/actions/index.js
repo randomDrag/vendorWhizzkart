@@ -414,16 +414,19 @@ export const GetALLProductList = () => {
 
 }
 
-export const getRegister = (object) => {
+export const getRegister = (object , callback) => {
 
     return async (dispatch) => {
 
         const response = await api.post('/api/register',object);
 
+        if(response.status ==200){
         dispatch({type : GET_REGISTER ,
         
         payload : response.data});
 
+        callback();
+        }
     }
 
 }

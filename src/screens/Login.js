@@ -120,7 +120,7 @@ class Login extends React.Component {
                
                 }}
               />
-              <Text allowFontScaling={false}Link
+              <TextLink
                 text="Forgot Password?"
                 textalign={'right'}
                 padding={10}
@@ -133,7 +133,7 @@ class Login extends React.Component {
               <Text allowFontScaling={false} style={style().donthaveaccount}>
                 Don't have an account?
               </Text>
-              <Text allowFontScaling={false}Link
+              <TextLink
                 text="Register"
                 color="#ECBB60"
                 padding={0}

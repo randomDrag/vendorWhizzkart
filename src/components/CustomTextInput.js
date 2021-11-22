@@ -10,7 +10,7 @@ class CustomTextInput extends React.Component {
     return (
       <View>      
         <View style={style().container}>
-        <Text allowFontScaling={false}Input
+        <TextInput
         multiline={this.props.multiline}
         numberOfLines={this.props.numberOfLines}
           style={style().InputStyle}

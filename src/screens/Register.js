@@ -96,6 +96,7 @@ async submit(){
     const gstC = await RNFS.readFile(gst.uri , 'base64');
     const Id = await RNFS.readFile(IDproof.uri, 'base64');
    const add = await RNFS.readFile(AddProof.uri, 'base64');
+   
   
     let data = {
       name ,
@@ -103,18 +104,22 @@ async submit(){
       mobile,
       password,
       user_type :4,
-      vendor :{
-         trade_license :JSON.stringify(trade),
-         cancelled_cheque : JSON.stringify( CC ),
-         fssi_license : JSON.stringify( fssi),
-         address_proof :JSON.stringify( add) ,
-         id_proof : JSON.stringify( Id),
-         gst_certificate : JSON.stringify( gstC),
-         Address : JSON.stringify( address)
-      }
+      vendor : JSON.stringify({
+        
+         trade_license :trade,
+         cancelled_cheque : CC ,
+         fssi_license : fssi,
+         address_proof :add ,
+         id_proof :  Id,
+         gst_certificate : gstC,
+         Address : address
+      })
     }
-    this.props.getRegister(data);
+    
+    this.props.getRegister(data ,()=> this.props.navigation.navigate('LoginScreen'));
     this.setState({isloading : false});
+
+
   }else if (password !== confirmPassword){
 
     this.setState({isloading : false});
@@ -237,7 +242,7 @@ async submit(){
               <Text allowFontScaling={false} style={style().donthaveaccount}>
                 Already have an account? 
                </Text>
-               <Text allowFontScaling={false}Link text="login" color="#E84F48" padding={0} onPress={()=> this.props.navigation.navigate('Login')}/>
+               <TextLink text="login" color="#E84F48" padding={0} onPress={()=> this.props.navigation.navigate('Login')}/>
                </View>
               </View>
              
