@@ -32,7 +32,7 @@ class Dashboard extends React.Component {
 
   render() {
     const {graph} = this.props;
-    const dataGraph = graph.cordinate;
+    const dataGraph = graph?.cordinate;
 
     let xdata = [];
     let data = null;
@@ -41,7 +41,7 @@ class Dashboard extends React.Component {
         xdata.push(e.x);
       });
       data = Object.values(dataGraph);
-      console.log(data);
+     
     }
 
     return (
@@ -119,6 +119,7 @@ class Dashboard extends React.Component {
             </View>
           </View>
 
+          
           <View
             style={{
               padding: 10,
@@ -127,8 +128,15 @@ class Dashboard extends React.Component {
             {this.state.isLoding ? (
               <Loader loadingText="Please wait..." />
             ) : (
-             <View>
+              
+            
+            
+            <View>
                <Text style={{textAlign : 'center', fontFamily : "Poppins-Regular" , fontSize : 16 , color : "#000"}}> Sales by month</Text>
+              
+              { data ? <Text style={{fontFamily : 'Poppins-Regular' , color : '#000' , textAlign :'center' , marginVertical : 15}}>Not Enough data to load</Text> :
+              
+              
               <VictoryChart domainPadding={25}>
                 <VictoryBar
                   barWidth={({index}) => index * 2 + 8}
@@ -143,8 +151,15 @@ class Dashboard extends React.Component {
                     },
                   }}
                 />
-              </VictoryChart>
-              </View>
+              </VictoryChart>}
+              
+              
+              
+              </View> 
+            
+                
+            
+            
             )}
           </View>
         </ScrollView>
