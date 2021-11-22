@@ -6,13 +6,13 @@ import {
   SafeAreaView,
   Keyboard,
   ScrollView,
+  Alert,
 } from 'react-native';
 
 import LogoImage from '../components/login_logout/Logo.image';
 import CustomButton from '../components/login_logout/Button.custom';
 import CustomTextInput from '../components/CustomTextInput';
 import {connect} from 'react-redux';
-import {faUser, faEye, faEyeSlash} from '@fortawesome/free-regular-svg-icons';
 import TextLink from '../components/TextLink';
 import {
   faEnvelope,
@@ -25,122 +25,105 @@ import RNFS from 'react-native-fs';
 import {getRegister} from '../actions';
 import validator from 'validator';
 import ErrorModal from '../components/ErrorModal';
+import {Field, reduxForm} from 'redux-form';
+import CustomButtonNoIcon from '../components/CustomButtonNoIcon';
 
 class Register extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {isSecure: true, isKeyboardOpen: false,
-    name: '',
-    email : '',
-    mobile: '',
-    password : '',
-    confirmPassword : '',
-    address : '',
-    gst : null,
-    Trade : null,
-    IDproof : null,
-    FSSI : null,
-    AddProof : null,
-    CancelCheque : null,
-    error: '',
-    isloading: false,
-    isError : false
-    
-
-    
+    this.state = {
+      isSecure: true,
+      isKeyboardOpen: false,
+      gst: null,
+      Trade: null,
+      IDproof: null,
+      FSSI: null,
+      AddProof: null,
+      CancelCheque: null,
+      error: '',
+      isloading: false,
+      isError: false,
     };
+
+    this.onSubmit = this.onSubmit.bind(this)
   }
 
   componentDidMount() {
-    this.keybordOpen();
-    this.keybordClose();
+    this.KeyBoardOpen();
+    this.KeyBoardClose();
   }
 
-  componentDidUpdate() {
-    this.keybordOpen();
-    this.keybordClose();
-  }
-
-  componentWillUnmount() {
-    this.keybordOpen();
-    this.keybordClose();
-  }
-
-  keybordOpen() {
+  KeyBoardOpen() {
     Keyboard.addListener('keyboardDidShow', () =>
       this.setState({isKeyboardOpen: true}),
     );
   }
 
-  keybordClose() {
+  KeyBoardClose() {
     Keyboard.addListener('keyboardDidHide', () =>
       this.setState({isKeyboardOpen: false}),
     );
   }
 
 
-  test(v){
-    // console.log("from main " + v);
-    // axios.post('gs://onesignal-c50fa.appspot.com')
-  }
 
-async submit(){
-  this.setState({isloading : true});
-  const {name , email , password , confirmPassword , address,mobile,Trade ,FSSI , CancelCheque , gst ,IDproof,AddProof} = this.state;
+  async onSubmit(values) {
 
-  if(password == confirmPassword && validator.isEmail(email) && validator.isMobilePhone("+91"+ mobile) && address != null && gst !=null  ){
+    const {Name , Email , Password , MobileNumber , Address} = values;
+    this.setState({isloading: true});
+    const {
+      Trade,
+      FSSI,
+      CancelCheque,
+      gst,
+      IDproof,
+      AddProof,
+    } = this.state;
 
-    const trade = await RNFS.readFile(Trade.uri,'base64');
-    const CC = await RNFS.readFile(CancelCheque.uri , 'base64')
-    const fssi = await RNFS.readFile(FSSI.uri , 'base64')
-    const gstC = await RNFS.readFile(gst.uri , 'base64');
-    const Id = await RNFS.readFile(IDproof.uri, 'base64');
-   const add = await RNFS.readFile(AddProof.uri, 'base64');
-   
-  
-    let data = {
-      name ,
-      email,
-      mobile,
-      password,
-      user_type :4,
-      vendor : JSON.stringify({
-        
-         trade_license :trade,
-         cancelled_cheque : CC ,
-         fssi_license : fssi,
-         address_proof :add ,
-         id_proof :  Id,
-         gst_certificate : gstC,
-         Address : address
-      })
+    if (
+      gst != null
+    ) {
+      const trade = await RNFS.readFile(Trade.uri, 'base64');
+      const CC = await RNFS.readFile(CancelCheque.uri, 'base64');
+      const fssi = await RNFS.readFile(FSSI.uri, 'base64');
+      const gstC = await RNFS.readFile(gst.uri, 'base64');
+      const Id = await RNFS.readFile(IDproof.uri, 'base64');
+      const add = await RNFS.readFile(AddProof.uri, 'base64');
+
+      let data = {
+        name : Name,
+        email : Email,
+        mobile : MobileNumber,
+        password : Password,
+        user_type: 4,
+        vendor: JSON.stringify({
+          trade_license: trade,
+          cancelled_cheque: CC,
+          fssi_license: fssi,
+          address_proof: add,
+          id_proof: Id,
+          gst_certificate: gstC,
+          Address: Address,
+        }),
+      };
+
+      this.props.getRegister(data, () => {
+       Alert.alert('Successful ', 'waiting for admin',[{
+         text : 'OK',
+         onPress :() => this.props.navigation.navigate('Login')
+       }])
+       
+        this.setState({isloading: false});
+
+      });
+    } else if (password !== confirmPassword) {
+      this.setState({isloading: false});
+      this.setState({isError: true, error: 'Password not match'});
+    } else {
+      this.setState({isloading: false});
+      this.setState({isError: true, error: 'All Fields Requried'});
     }
-    
-    this.props.getRegister(data ,()=> {
-    
-    this.props.navigation.navigate('Login')
-    this.setState({isloading : false})
-    }
-    );
-   
-
-
-  }else if (password !== confirmPassword){
-
-    this.setState({isloading : false});
-    this.setState({isError : true,
-      error : "Password not match"});
   }
-  
-  
-  else{
-    
-    this.setState({isloading : false});
-    this.setState({isError : true,
-      error : "All Fields Requried"});
-  }
-}
-
 
   render() {
     let isSecure = this.state.isSecure;
@@ -151,7 +134,7 @@ async submit(){
         <ErrorModal
           msg={this.state.error}
           isVisible={this.state.isError}
-          onPress={() => this.setState({isError: false}) }
+          onPress={() => this.setState({isError: false})}
         />
 
         <View style={style().container}>
@@ -166,91 +149,130 @@ async submit(){
           </View>
 
           <View style={style(k).card}>
-            <Text allowFontScaling={false} style={style().loginText}>Create Account</Text>
-            <ScrollView showsVerticalScrollIndicator={false} style={{height : "80%" , }} fadingEdgeLength = {50}>
+            <Text allowFontScaling={false} style={style().loginText}>
+              Create Account
+            </Text>
+            <ScrollView
+              showsVerticalScrollIndicator={false}
+              style={{height: '80%'}}
+              fadingEdgeLength={50}>
               <View>
-                <CustomTextInput
+                {/* NAME ............................................................. */}
+                <Field
                   placeholder="Name"
-                  icon={faUser}
+                  name="Name"
+                  icon='person'
                   autoComplete="username"
-                  onChangeText={(e)=> this.setState({ name :e})}
-                  defaultValue={this.state.name}
+                  component={CustomTextInput}
                 />
-                <CustomTextInput
+
+                {/* EMAIL................................................................ */}
+
+                <Field
                   placeholder="Email"
-                  icon={faEnvelope}
+                  name="Email"
+                  icon='mail'
                   autoComplete="email"
-                  onChangeText={(e) =>this.setState({ email :e})}
-                  defaultValue={this.state.email}
+                  component={CustomTextInput}
                 />
-                <CustomTextInput
+
+                {/* MOBILE NUMBER>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */}
+                <Field
                   placeholder="Mobile Number"
-                  icon={faPhone}
+                  name={'MobileNumber'}
+                  icon={'call-sharp'}
+                  component={CustomTextInput}
                   autoComplete="tel"
-                  onChangeText={(e) =>this.setState({ mobile :e})}
-                  defaultValue={this.state.mobile}
                 />
-                <CustomTextInput
+
+                {/* PASSWORD>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */}
+                <Field
                   placeholder="Password"
-                  icon={isSecure == false ? faEye : faEyeSlash}
+                  name="Password"
+                  icon={isSecure == false ? 'eye' : 'eye-off'}
                   secure={isSecure}
+                  component={CustomTextInput}
                   onPress={() => {
                     isSecure == true
                       ? this.setState({isSecure: false})
                       : this.setState({isSecure: true});
-                   
                   }}
-                  onChangeText={(e) => this.setState({password : e})}
-                  defaultValue={this.state.password}
                 />
-                <CustomTextInput
-                  placeholder="Re-enter Password"
-                  icon={isSecure == false ? faEye : faEyeSlash}
+
+                {/* COM_PASSWORD>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */}
+                <Field
+                  placeholder="Confirm Password"
+                  name="PasswordConfirm"
+                  icon={isSecure == false ? 'eye' : 'eye-off'}
                   secure={isSecure}
+                  component={CustomTextInput}
                   onPress={() => {
                     isSecure == true
                       ? this.setState({isSecure: false})
                       : this.setState({isSecure: true});
-                    console.log(isSecure);
                   }}
-                  onChangeText={(e) =>this.setState({ confirmPassword :e})}
-                  defaultValue={this.state.confirmPassword}
                 />
 
-                {/*  addess input */}
+                {/*  ADDRESS>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>*/}
 
-                <CustomTextInput
+                <Field
                   placeholder="Address"
-                  icon={faMapMarkerAlt}
-                  autoComplete="postal-address-extended-postal-code"
-                  onChangeText={(e) =>this.setState({address : e})}
-                  defaultValue={this.state.address}
+                  name="Address"
+                  icon={'locate'}
+                  component={CustomTextInput}
                 />
 
                 <CustomUploadButton
                   title="Gst Certificate"
                   icon={faFileUpload}
-                  value={ (v) => this.setState({gst : v})}
+                  value={v => this.setState({gst: v})}
                 />
-                <CustomUploadButton title="Trade License" icon={faFileUpload} value={ (v) => this.setState({Trade : v})}/>
-                <CustomUploadButton title="FSSI License" icon={faFileUpload} value={v => this.setState({ FSSI :v})} />
-                <CustomUploadButton title="ID Proof" icon={faFileUpload} value={v => this.setState({IDproof :v})} />
-                <CustomUploadButton title="Address Proof" icon={faFileUpload} value={v => this.setState({ AddProof :v})} />
-                <CustomUploadButton title="Cancelled Cheque" icon={faFileUpload} value={v => this.setState({ CancelCheque :v})} />
+                <CustomUploadButton
+                  title="Trade License"
+                  icon={faFileUpload}
+                  value={v => this.setState({Trade: v})}
+                />
+                <CustomUploadButton
+                  title="FSSI License"
+                  icon={faFileUpload}
+                  value={v => this.setState({FSSI: v})}
+                />
+                <CustomUploadButton
+                  title="ID Proof"
+                  icon={faFileUpload}
+                  value={v => this.setState({IDproof: v})}
+                />
+                <CustomUploadButton
+                  title="Address Proof"
+                  icon={faFileUpload}
+                  value={v => this.setState({AddProof: v})}
+                />
+                <CustomUploadButton
+                  title="Cancelled Cheque"
+                  icon={faFileUpload}
+                  value={v => this.setState({CancelCheque: v})}
+                />
               </View>
-              </ScrollView>
-             <View style={{marginBottom : 15 , marginTop : 5}}>
-              <CustomButton   title={this.state.isloading ? 'Loading' : 'Register'}
-              color={this.state.isloading ? '#000000' : '#FFF'}
-              backgroundColor={this.state.isloading ? '#F5F5F5' : '#E84341'} onPress={()=> this.submit()} />
+            </ScrollView>
+            <View style={{marginBottom: 15, marginTop: 5 , justifyContent : 'center' , alignItems : 'center'}}>
+              <CustomButtonNoIcon
+                title={this.state.isloading ? 'Loading' : 'Register'}
+                color={this.state.isloading ? '#000000' : '#FFF'}
+                backgroundColor={this.state.isloading ? '#F5F5F5' : '#E84341'}
+                onPress={this.props.handleSubmit(this.onSubmit)}
+              />
               <View style={style().containerDoNotHave}>
-              <Text allowFontScaling={false} style={style().donthaveaccount}>
-                Already have an account? 
-               </Text>
-               <TextLink text="login" color="#E84F48" padding={0} onPress={()=> this.props.navigation.navigate('Login')}/>
-               </View>
+                <Text allowFontScaling={false} style={style().donthaveaccount}>
+                  Already have an account?
+                </Text>
+                <TextLink
+                  text="login"
+                  color="#E84F48"
+                  padding={0}
+                  onPress={() => this.props.navigation.navigate('Login')}
+                />
               </View>
-             
+            </View>
           </View>
         </View>
       </SafeAreaView>
@@ -271,8 +293,8 @@ const style = flex =>
       borderTopLeftRadius: 50,
       borderTopRightRadius: 50,
       paddingTop: 10,
-      paddingLeft : 15,
-      paddingRight : 15,
+      paddingLeft: 15,
+      paddingRight: 15,
       backgroundColor: '#F5F5F5',
       justifyContent: 'center',
       alignContent: 'center',
@@ -292,23 +314,67 @@ const style = flex =>
       textAlign: 'center',
       marginBottom: 20,
     },
-    
-    containerDoNotHave :{
-      display:'flex',
-      flexDirection:'row',
-  
-      justifyContent:'center',
-   
+
+    containerDoNotHave: {
+      display: 'flex',
+      flexDirection: 'row',
+
+      justifyContent: 'center',
     },
     donthaveaccount: {
       textAlign: 'center',
-    
+
       marginTop: 10,
-      marginBottom:10,
+      marginBottom: 10,
       fontSize: 16,
-     color : '#000',
+      color: '#000',
       fontFamily: 'Poppins-Regular',
     },
   });
 
-export default connect(null, {getRegister})(Register);
+const validate = values => {
+  let errors = {};
+
+  if (!values.Email) {
+    errors.Email = 'Required';
+  } else if (!validator.isEmail(values.Email)) {
+    errors.Email = 'Invalid email address';
+  }
+
+  if (!values.Name) {
+    errors.Name = 'Required';
+  }
+
+  if (!values.MobileNumber) {
+    errors.MobileNumber = 'Required';
+
+  }else if(!validator.isMobilePhone('+91' + Number(values.MobileNumber))){
+    errors.MobileNumber = 'Invalid Mobile number ';
+  }
+
+  if (!values.Password) {
+    errors.Password = 'Required';
+  }
+
+  if (!values.PasswordConfirm) {
+    errors.PasswordConfirm = 'Required';
+  }
+  if(!values.Password == values.PasswordConfirm){
+    errors.PasswordConfirm = 'Password not match';
+    errors.Password = 'Password not match';
+  }
+
+  if (!values.Address) {
+    errors.Address = 'Required';
+  }
+  // else if ( Number( values.Password) < 8) {
+  //   errors.Password = 'must be strong password';
+  // }
+
+  return errors;
+};
+
+export default reduxForm({
+  form: 'Register',
+  validate: validate,
+})(connect(null, {getRegister})(Register));

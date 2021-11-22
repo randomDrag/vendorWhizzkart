@@ -1,38 +1,57 @@
 import React  from 'react';
-import PropTypes from 'prop-types';
+
 import {View, TextInput, TouchableOpacity, StyleSheet , Text} from 'react-native';
-import {FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-
-import {faUser} from '@fortawesome/free-regular-svg-icons';
-
+import  Icon  from 'react-native-vector-icons/Ionicons';
 class CustomTextInput extends React.Component {
   render() {
+
+    const {error, touched} = this.props.meta;
+    
+    const isErrorVisible = () => {
+      return touched && error 
+          ? <Text style={style().errorText}>{error}</Text> 
+          : null}
+
+
+
+
+
     return (
       <View>      
         <View style={style().container}>
         <TextInput
+        {...this.props}
         multiline={this.props.multiline}
         numberOfLines={this.props.numberOfLines}
           style={style().InputStyle}
           placeholder={this.props.placeholder}
-          onChangeText={this.props.onChangeText}
-          defaultValue={this.props.defaultValue}
+          onChangeText={this.props.input.onChange}
+          defaultValue={this.props.input.value}
           autoCompleteType={this.props.autoCompleteType}
           secureTextEntry={this.props.secure == null ? false : this.props.secure}
           placeholderTextColor="#AAAAAA" 
+          onBlur={this.props.input.onBlur}
+          onFocus={this.props.input.onFocus}
+          
         />
         <TouchableOpacity style={{justifyContent : 'center'}} onPress={this.props.onPress}>
 
-        <FontAwesomeIcon
-          icon={this.props.icon == null ? faUser : this.props.icon}
-          style={style().icon}
-          size={25}
-          color="#AAAAAA"
-        />
+          <View  style={style().icon} >
+          <Icon
+        
+        name={this.props.icon == null ? "person" : this.props.icon}
+       
+        size={25}
+        color="#AAAAAA"
+        
+      />
+            </View>
+
+      
         </TouchableOpacity>
        
       </View>
-      <Text allowFontScaling={false} style={style().errorText}>{this.props.error}</Text>
+      {isErrorVisible()}
       </View>
 
     );
@@ -40,12 +59,6 @@ class CustomTextInput extends React.Component {
 }
 
 export default CustomTextInput;
-
-
-CustomTextInput.propTypes = {
-    placeholder  : PropTypes.string,
-    autoCompleteType : PropTypes.string
-};
 
 
 
@@ -81,11 +94,12 @@ textAlignVertical : 'center',
 
     },
     icon: {
-      marginLeft: 10,
-      paddingRight: 10,
-      alignSelf: 'center',
-      alignContent:'center',
+    
+     
+      alignItems:'center',
+      justifyContent:'center',
       flex: 2,
+
      
 
       
@@ -94,6 +108,7 @@ textAlignVertical : 'center',
       marginHorizontal : 15,
       textAlign : 'right',
       color : 'red',
-      marginBottom : 5
+      marginBottom : 5,
+      fontFamily : 'Poppins-Regular'
     }
   });

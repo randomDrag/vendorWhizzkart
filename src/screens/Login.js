@@ -1,15 +1,17 @@
 import React from 'react';
 import {View, Text, StyleSheet, SafeAreaView, Keyboard} from 'react-native';
 import LogoImage from '../components/login_logout/Logo.image';
-import CustomButton from '../components/login_logout/Button.custom';
+
 import CustomTextInput from '../components/CustomTextInput';
 import {connect} from 'react-redux';
-import {faUser, faEye, faEyeSlash} from '@fortawesome/free-regular-svg-icons';
 import TextLink from '../components/TextLink';
 import ErrorModal from '../components/ErrorModal';
-
-import {LoginForm , Auth , ErrorClose} from '../actions';
-
+import {Field, reduxForm} from 'redux-form';
+import CustomButtonNoIcon from '../components/CustomButtonNoIcon';
+import validator from 'validator';
+import Loader from '../components/Loader';
+import {Auth} from '../actions'
+// import {LoginForm , Auth , ErrorClose} from '../actions';
 
 class Login extends React.Component {
   constructor(props) {
@@ -17,35 +19,19 @@ class Login extends React.Component {
     this.state = {
       isSecure: true,
       isKeyboardOpen: false,
-      isLoading : false,
-      isVisible : false
+      isLoading: false,
+      isVisible: false,
     };
 
-    this.loginFormInput = this.loginFormInput.bind(this);
-    this. loginFormInputPassword = this. loginFormInputPassword.bind(this);
-    this.submit = this.submit.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
   }
 
   componentDidMount() {
     this.keybordOpen();
     this.keybordClose();
-
-    
   }
 
-  componentDidUpdate() {
-    this.keybordOpen();
-    this.keybordClose();
   
-
-  }
-
-  componentWillUnmount() {
-    this.keybordOpen();
-    this.keybordClose();
-
-    
-  }
 
   keybordOpen() {
     Keyboard.addListener('keyboardDidShow', () =>
@@ -59,39 +45,28 @@ class Login extends React.Component {
     );
   }
 
-  loginFormInput(e) {
-  this.props.LoginForm(e,this.props.loginInput.password)
-  }
-  loginFormInputPassword(e){
+  //Login
 
-    this.props.LoginForm(this.props.loginInput.username,e);
-  }
+ onSubmit(values) {
+  const {Email , Password} = values;
+    this.setState({isLoading: true});
 
+    this.props.Auth(Email, Password, (e) =>{
+      this.setState({isLoading: false});
 
-
-  submit(){
-   this.setState({isLoading : true});
-      const {username , Password}= this.props.loginInput;
-
-
-     this.props.Auth(username ,Password ,()=> this.setState({isLoading : false}) );
-
+      console.log(e + 'test');
     
+    });
   }
 
   render() {
     let isSecure = this.state.isSecure;
     let k = this.state.isKeyboardOpen;
 
-    
-
     return (
-
-      
-
       <SafeAreaView>
         <View style={style().container}>
-          <ErrorModal  msg={this.props.isError.error} isVisible={this.props.isError.visible} onPress={()=> this.props.ErrorClose()} />
+          {/* <ErrorModal  msg={this.props.isError.error} isVisible={this.props.isError.visible} onPress={()=> this.props.ErrorClose()} /> */}
           <View
             style={{
               flex: 2,
@@ -103,23 +78,27 @@ class Login extends React.Component {
           </View>
 
           <View style={style(k).card}>
-            <Text allowFontScaling={false} style={style().loginText}>Login</Text>
+            <Text style={style().loginText}>Login</Text>
             <View>
-              <CustomTextInput placeholder="Email or Mobile" icon={faUser}    onChangeText={(e)=> this.loginFormInput(e)} defaultValue={this.props.loginInput.username}/>
-              <CustomTextInput
+              <Field
+                placeholder="Email or Mobile"
+                name="Email"
+                component={CustomTextInput}
+              
+              />
+              <Field
                 placeholder="Password"
-                onChangeText={(e)=> this.loginFormInputPassword(e)}
-                defaultValue={this.props.loginInput.password}
-
-                icon={isSecure == false ? faEye : faEyeSlash}
+                name="Password"
+                icon={isSecure == false ? 'eye' : 'eye-off'}
                 secure={isSecure}
+                component={CustomTextInput}
                 onPress={() => {
                   isSecure == true
                     ? this.setState({isSecure: false})
                     : this.setState({isSecure: true});
-               
                 }}
               />
+
               <TextLink
                 text="Forgot Password?"
                 textalign={'right'}
@@ -128,18 +107,19 @@ class Login extends React.Component {
                 onPress={() => this.props.navigation.navigate('ForgetPassword')}
               />
             </View>
-            <CustomButton title={this.state.isLoading ? "Please wait" :"Sign in"} onPress={this.submit} />
+        {this.state.isLoading ? <Loader/> : <CustomButtonNoIcon title={"Sign in"} onPress={ this.props.handleSubmit(this.onSubmit)} />}
             <View style={style().RegisterLinkContainer}>
-              <Text allowFontScaling={false} style={style().donthaveaccount}>
+              <Text style={style().donthaveaccount}>
                 Don't have an account?
               </Text>
               <TextLink
                 text="Register"
                 color="#ECBB60"
                 padding={0}
-                onPress={() => this.props.navigation.navigate('Register')}
+                onPress={() => this.props.navigation.navigate( 'LoginScreen',{ screen : 'Register'})}
               />
             </View>
+          
           </View>
         </View>
       </SafeAreaView>
@@ -204,9 +184,34 @@ const style = flex =>
     },
   });
 
-const mapStateToProps = state => {
-  return {loginInput: state.LoginForm,
-          isError : state.Login};
+const validate = values => {
+  let errors = {};
+
+  if (!values.Email) {
+    errors.Email = 'Required';
+  } else if (!validator.isEmail(values.Email)) {
+    errors.Email = 'Invalid email address';
+  }
+
+  if (!values.Password) {
+    errors.Password = 'Required';
+  } 
+  
+  // else if ( Number( values.Password) < 8) {
+  //   errors.Password = 'must be strong password';
+  // }
+
+ 
+
+  return errors;
 };
 
-export default connect(mapStateToProps, {LoginForm , Auth , ErrorClose})(Login);
+const mapStateToProps = state => {
+  return {loginInput: state.LoginForm, isError: state.Login};
+};
+
+export default reduxForm({
+  form: 'Login',
+  validate: validate,
+  
+})(connect(mapStateToProps , {Auth})(Login));

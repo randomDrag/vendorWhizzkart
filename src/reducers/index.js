@@ -20,8 +20,9 @@ import GetRegister from './GetRegister';
 import GetProfile from './GetProfile';
 import getGraphdata from './getGraphdata';
 import getSupportData from './getSupportData';
+import { reducer as formReducer} from 'redux-form';
 export default combineReducers({
-
+    form : formReducer,
     LoginForm ,
     Login,
     isAuth,

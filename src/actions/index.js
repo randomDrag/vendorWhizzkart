@@ -80,12 +80,14 @@ export const isAuth = () => {
 export const Auth = (username, Password, callback) => {
 
     return async (dispatch) => {
-        try {
 
+
+        try {
             const response = await api.post('/api/login', {
                 "email": username,
                 "password": Password
             });
+
 
             try {
                 await AsyncStorage.setItem('Token', response.data.data.token);
@@ -95,10 +97,11 @@ export const Auth = (username, Password, callback) => {
             }
 
 
-            callback();
+            callback(response.status);
             dispatch({type: LOGIN, payload: response.data.data})
+
         } catch (e) {
-            callback();
+            callback(e);
             dispatch({
                 type: ERROR_LOGIN,
                 payload: {
@@ -106,6 +109,7 @@ export const Auth = (username, Password, callback) => {
                     visible: true
                 }
             })
+
 
         }
     }
@@ -219,7 +223,7 @@ export const GetOrder = (callback) => {
     }
 }
 // test
-export const AcceptOrder = (statusInfo, orderId , callback) => {
+export const AcceptOrder = (statusInfo, orderId, callback) => {
 
     return async (dispatch) => {
 
@@ -229,7 +233,7 @@ export const AcceptOrder = (statusInfo, orderId , callback) => {
             order_id: orderId
 
         });
-            callback();
+        callback();
         dispatch({type: ORDER_ACCEPTED, payload: orderId})
 
     }
@@ -254,7 +258,7 @@ export const RejectOrder = (statusInfo, orderId) => {
 }
 
 
-export const RejectOrderList = ( callback) => {
+export const RejectOrderList = (callback) => {
 
     return async (dispatch) => {
 
@@ -350,7 +354,7 @@ export const IsValidOtp = (callback) => {
     return {type: IS_VALID_OTP, payload: true}
 }
 
-export const UpdatePassword = (username, password , callback) => {
+export const UpdatePassword = (username, password, callback) => {
 
     return async (dispatch) => {
 
@@ -359,7 +363,7 @@ export const UpdatePassword = (username, password , callback) => {
             password: password
         });
 
-        if(response.data.status == 200 ){
+        if (response.data.status == 200) {
             callback();
         }
 
@@ -371,31 +375,25 @@ export const UpdatePassword = (username, password , callback) => {
 }
 
 
-export const AppLink = ()=> {
+export const AppLink = () => {
 
-    return async (dispatch) =>{
+    return async (dispatch) => {
 
         const response = await api.get('/api/getShareAppLink');
 
-        dispatch({
-            type : SHARE_APP_LINK,
-            payload : response.data
-        })
+        dispatch({type: SHARE_APP_LINK, payload: response.data})
 
     }
 
 }
 
-export const getOrderDetails = (orderID , callback) => {
+export const getOrderDetails = (orderID, callback) => {
 
     return async (dispatch) => {
 
         const response = await api.get(`/api/getOrderDetails?order_id=${orderID}`);
 
-        dispatch({
-            type : GET_ORDER_DETAILS,
-            payload : response.data
-        });
+        dispatch({type: GET_ORDER_DETAILS, payload: response.data});
 
         callback();
     }
@@ -414,58 +412,48 @@ export const GetALLProductList = () => {
 
 }
 
-export const getRegister = (object , callback) => {
+export const getRegister = (object, callback) => {
 
     return async (dispatch) => {
 
-        const response = await api.post('/api/register',object);
+        const response = await api.post('/api/register', object);
 
-      if(response.status == 200){
-        dispatch({type : GET_REGISTER ,
-        
-        payload : response.data});
+        if (response.status == 200) {
+            dispatch({type: GET_REGISTER, payload: response.data});
 
-        callback();
+            callback();
         }
     }
 
 }
 
-export const getProfile= (callback) => {
+export const getProfile = (callback) => {
 
     return async (dispatch) => {
 
         const response = await api.get('/api/profile');
 
-        dispatch({type : GET_PROFILE ,
-        
-        payload : response.data});
+        dispatch({type: GET_PROFILE, payload: response.data});
         callback();
 
     }
 
 }
 
-export const getGraphData = (callback) => async dispatch =>{
+export const getGraphData = (callback) => async dispatch => {
 
     const response = await api.get('api/getEarningGraphData');
 
-    dispatch({
-        type : GET_GRAPH_DATA,
-        payload : response.data
-    });
+    dispatch({type: GET_GRAPH_DATA, payload: response.data});
     callback();
 
 }
 
 
-export const getSupportdata = () => async dispatch =>{
+export const getSupportdata = () => async dispatch => {
 
     const response = await api.get('/api/supportData');
 
-    dispatch({
-        type : GET_SUPPORT_DATA,
-        payload : response.data
-    })
+    dispatch({type: GET_SUPPORT_DATA, payload: response.data})
 
 }

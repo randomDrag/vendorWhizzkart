@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {View, Text, StyleSheet, SafeAreaView} from 'react-native';
+import {View, Text, StyleSheet, SafeAreaView , TouchableOpacity} from 'react-native';
 import CustomTextInput from '../components/CustomTextInput';
 import CustomButton from '../components/login_logout/Button.custom';
 import LogoImage from '../components/login_logout/Logo.image';
@@ -22,7 +22,10 @@ import {
   UpdatePassword,
 } from '../actions';
 import ErrorModal from '../components/ErrorModal';
-import {TouchableOpacity} from 'react-native-gesture-handler';
+
+import {Field , reduxForm} from 'redux-form'
+import CustomButtonNoIcon from '../components/CustomButtonNoIcon';
+
 
 class ForgetPassword extends React.Component {
   constructor(props) {
@@ -42,6 +45,8 @@ class ForgetPassword extends React.Component {
     this.newPassword = this.newPassword.bind(this);
     this.ForgetScreen = this.ForgetScreen.bind(this);
     this.OtpComponent = this.OtpComponent.bind(this);
+    this.usernameSubmit = this.usernameSubmit.bind(this)
+    this.saveNewPassword = this.saveNewPassword.bind(this);
   }
 
   forgetpasswodField(e) {
@@ -53,9 +58,9 @@ class ForgetPassword extends React.Component {
     }
   }
 
-  usernameSubmit() {
+  usernameSubmit(values) {
     this.setState({isloading: true});
-    this.props.ForgetPasswordUserName(this.state.UserName, () => {
+    this.props.ForgetPasswordUserName(values.Email, () => {
       this.setState({typeSwitch: 2});
 
       this.setState({isloading: false});
@@ -80,18 +85,17 @@ class ForgetPassword extends React.Component {
             <Text allowFontScaling={false} style={style().loginText}>Forget Password</Text>
 
             <View>
-              <CustomTextInput
+              <Field
                 placeholder="Email or Mobile"
-                onChangeText={e => this.forgetpasswodField(e)}
-                defaultValue={this.state.UserName}
-                error={this.state.error}
+            name="Email"
+            component={CustomTextInput}
               />
             </View>
-            <CustomButton
+            <CustomButtonNoIcon
               title={this.state.isloading ? 'Loading' : 'Reset'}
               color={this.state.isloading ? '#000000' : '#FFF'}
               backgroundColor={this.state.isloading ? '#F5F5F5' : '#E84341'}
-              onPress={() => this.usernameSubmit()}
+              onPress={this.props.handleSubmit( this.usernameSubmit)}
             />
           </View>
         </View>
@@ -107,13 +111,13 @@ class ForgetPassword extends React.Component {
     this.setState({ConfirmPassword: e});
   }
 
-  saveNewPassword() {
-    if (this.state.NewPassword == this.state.ConfirmPassword) {
+  saveNewPassword(values) {
+    if (values.Password == values.ConfirmPassword) {
       this.setState({isloading: true});
       this.setState({error: ''});
       this.props.UpdatePassword(
         this.props.usernameData.username,
-        this.state.ConfirmPassword, () =>{
+       values.ConfirmPassword, () =>{
           this.setState({typeSwitch: 1});
           this.setState({isloading: false});
           this.props.navigation.navigate('Login');
@@ -145,35 +149,34 @@ class ForgetPassword extends React.Component {
             <Text allowFontScaling={false} style={style().loginText}>Forget Password</Text>
 
             <View>
-              <CustomTextInput
-                placeholder="New Password"
-                icon={isSecure == false ? faEye : faEyeSlash}
+            <Field
+                placeholder="new Password"
+                name="Password"
+                icon={isSecure == false ? 'eye' : 'eye-off'}
                 secure={isSecure}
+                component={CustomTextInput}
                 onPress={() => {
                   isSecure == true
                     ? this.setState({isSecure: false})
                     : this.setState({isSecure: true});
                 }}
-                onChangeText={e => this.newPasswordFields(e)}
-                defaultValue={this.state.NewPassword}
               />
-              <CustomTextInput
+           <Field
                 placeholder="Confirm Password"
-                icon={isSecure == false ? faEye : faEyeSlash}
+                name="ConfirmPassword"
+                icon={isSecure == false ? 'eye' : 'eye-off'}
                 secure={isSecure}
+                component={CustomTextInput}
                 onPress={() => {
                   isSecure == true
                     ? this.setState({isSecure: false})
                     : this.setState({isSecure: true});
                 }}
-                onChangeText={e => this.confimPasswordFields(e)}
-                defaultValue={this.state.ConfirmPassword}
-                error={this.state.error}
               />
             </View>
-            <CustomButton title={this.state.isloading ? 'Loading' : 'Save'}
+            <CustomButtonNoIcon title={this.state.isloading ? 'Loading' : 'Save'}
               color={this.state.isloading ? '#000000' : '#FFF'}
-              backgroundColor={this.state.isloading ? '#F5F5F5' : '#E84341'} onPress={() => this.saveNewPassword()} />
+              backgroundColor={this.state.isloading ? '#F5F5F5' : '#E84341'} onPress={this.props.handleSubmit(this.saveNewPassword)} />
           </View>
         </View>
       </SafeAreaView>
@@ -364,10 +367,15 @@ const mapStateToProps = state => {
   return {usernameData: state.ForgetPassword, Otpdata: state.VerifyOtp};
 };
 
-export default connect(mapStateToProps, {
+export default reduxForm({
+  form : 'ForgetPassword'
+})(
+
+
+connect(mapStateToProps, {
   ForgetPasswordUserName,
   ForgetPasswordErrorClose,
   VerifyOtpFp,
   IsValidOtp,
   UpdatePassword,
-})(ForgetPassword);
+})(ForgetPassword));
