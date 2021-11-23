@@ -33,7 +33,7 @@ const style = (textalign , padding , fontsize , color , alignItem , justifyConte
     textStyle : {
         textAlign : typeof textalign == ('undefined' || 'null') ? 'center' :textalign,
         padding : typeof padding == ('undefined' || 'null') ? 5 : padding,
-        fontSize : typeof fontsize ==('undefined' || 'null') ? 17 : fontsize,
+        fontSize : typeof fontsize ==('undefined' || 'null') ? 14 : fontsize,
         color : typeof color == ('undefined' || "null") ? '#000' : color,
      
         fontFamily : 'Poppins-Regular',

@@ -15,6 +15,7 @@ import {AcceptedOrderList} from '../actions';
 import OrderlistAR from '../components/OrderlistAR';
 import Loader from '../components/Loader';
 import { BASE_URL } from '../actions/const';
+import EmptyList from './EmptyList';
 
 class OrderAcceptedList extends React.Component {
 

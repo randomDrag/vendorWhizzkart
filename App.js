@@ -12,7 +12,7 @@ creating store for dev and production
 
 */
 
-// const store = createStore(reducers, {}, applyMiddleware(thunk));
+const store = createStore(reducers, {}, applyMiddleware(thunk));
 
 /* 
 
@@ -20,15 +20,15 @@ comment debug version of redux or install React Native debugger and enable debug
 
 */
 
-const store = createStore(
-  reducers,
-  {},
-  compose(
-    applyMiddleware(thunk),
-    window.__REDUX_DEVTOOLS_EXTENSION__ &&
-      window.__REDUX_DEVTOOLS_EXTENSION__(),
-  ),
-);
+// const store = createStore(
+//   reducers,
+//   {},
+//   compose(
+//     applyMiddleware(thunk),
+//     window.__REDUX_DEVTOOLS_EXTENSION__ &&
+//       window.__REDUX_DEVTOOLS_EXTENSION__(),
+//   ),
+// );
 
 class App extends React.Component {
   render() {

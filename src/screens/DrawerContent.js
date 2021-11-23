@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {View, Text, StyleSheet, Image} from 'react-native';
+import {View, Text, StyleSheet, Image,ScrollView} from 'react-native';
 
 import {DrawerContentScrollView, DrawerItem} from '@react-navigation/drawer';
 import {connect} from 'react-redux';
@@ -35,11 +35,12 @@ class DrawerContent extends React.Component {
 
   render() {
     return (
-      <View style={style().root}>
+      <View  style={style().root}>
         <View style={style().ImageContainer}>
           <Image style={style().Image} source={require('../images/logo.png')} />
         </View>
 
+        <ScrollView style={{height : '100%'}}>
         <View style={{marginTop: 20}}>
           <DrawerItem
             icon={() => (
@@ -50,6 +51,7 @@ class DrawerContent extends React.Component {
             onPress={()=> this.props.navigation.navigate('Home')}
           />
         </View>
+
 
 
         <View style={{marginTop: 20}}>
@@ -132,6 +134,9 @@ class DrawerContent extends React.Component {
             onPress={() => this.props.Logout()}
           />
         </View>
+
+        </ScrollView>
+
       </View>
     );
   }

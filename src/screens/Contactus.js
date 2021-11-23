@@ -12,6 +12,7 @@ import {
 import {connect} from 'react-redux';
 import CustomTextInput from '../components/CustomTextInput';
 import CustomButton from '../components/login_logout/Button.custom';
+import { Field, reduxForm } from 'redux-form';
 
 import {ContactusForm , sendContact} from '../actions';
 import { ScrollView } from 'react-native-gesture-handler';
@@ -42,9 +43,10 @@ description(e){
 }
 
 
-submit(){
-const {name,email,mobile,subject, descreption} = this.props.data;
-  this.props.sendContact(name,email,mobile,subject,descreption,()=> this.props.navigation.navigate('Home'));
+submit(values){
+  const {Name , Email , Mobile, Subject} = values;
+const { descreption} = this.props.data;
+  this.props.sendContact(Name,Email,Mobile,Subject,descreption,()=> this.props.navigation.navigate('Home'));
 
 
 }
@@ -57,32 +59,35 @@ const {name,email,mobile,subject, descreption} = this.props.data;
       <ScrollView>
       <View style={style().root}>
           <View style={style().textContainer}>
-          <CustomTextInput
+          <Field
+          component={CustomTextInput}
           placeholder="Name"
-          icon={faUser}
+      
           autoComplete="username"
-          onChangeText={(e) => this.names(e)}
-          defaultValue={this.props.data.name}
+          name={'Name'}
+         
         />
-         <CustomTextInput
+         <Field
+         component={CustomTextInput}
           placeholder="Email"
-          icon={faEnvelope}
+          icon={'mail'}
           autoComplete="email"
-          onChangeText={(e) => this.email(e)}
-          defaultValue={this.props.data.email}
+          name={'Email'}
+      
         />
-        <CustomTextInput
+        <Field
+        component={CustomTextInput}
           placeholder="Mobile"
-          icon={faPhone}
+        
           autoComplete="tel"
-          onChangeText={(e) => this.number(e)}
-          defaultValue={this.props.data.mobile}
+          name={'Mobile'}
         />
-        <CustomTextInput
+        <Field
+        component={CustomTextInput}
           placeholder="Subject"
-          icon={faFile}
-          onChangeText={(e) => this.subject(e)}
-          defaultValue={this.props.data.subject}
+          name={'Subject'}
+          
+          
         
         />
         <View style={style().textAreaContainer}>
@@ -92,13 +97,14 @@ const {name,email,mobile,subject, descreption} = this.props.data;
           numberOfLines={6}
           onChangeText={(e) => this.description(e)}
           defaultValue={this.props.data.discription}
+       
         
         />
       
         </View>
       
         <View style={{marginVertical : 15 , justifyContent : 'center' , alignItems : 'center'}}>
-        <CustomButton title="Send" width={200} onPress={()=> this.submit()}/>
+        <CustomButton title="Send" width={200} onPress={this.props.handleSubmit(this.submit)}/>
         </View>
       
         
@@ -143,5 +149,50 @@ const style = () =>
 const mapStateToProps = state => {
   return {data: state.contactus};
 };
+const validate = values => {
+  let errors = {};
 
-export default connect(mapStateToProps, {ContactusForm , sendContact})(Contactus);
+  if (!values.Email) {
+    errors.Email = 'Required';
+  } else if (!validator.isEmail(values.Email)) {
+    errors.Email = 'Invalid email address';
+  }
+
+  if (!values.Name) {
+    errors.Name = 'Required';
+  }
+
+  if (!values.Mobile) {
+    errors.MobileNumber = 'Required';
+
+  }else if(!validator.isMobilePhone('+91' + Number(values.Mobile))){
+    errors.Mobile = 'Invalid Mobile number ';
+  }
+
+  if (!values.Password) {
+    errors.Password = 'Required';
+  }
+
+  if (!values.PasswordConfirm) {
+    errors.PasswordConfirm = 'Required';
+  }
+  if(!values.Password == values.PasswordConfirm){
+    errors.PasswordConfirm = 'Password not match';
+    errors.Password = 'Password not match';
+  }
+
+  if (!values.Address) {
+    errors.Address = 'Required';
+  }
+  // else if ( Number( values.Password) < 8) {
+  //   errors.Password = 'must be strong password';
+  // }
+
+  return errors;
+};
+export default
+reduxForm({
+  form : 'contactForm'
+})(
+
+connect(mapStateToProps, {ContactusForm , sendContact})(Contactus));

@@ -72,6 +72,7 @@ const style = () => StyleSheet.create({
     textDate : {
         fontFamily : 'Poppins-Regular' , fontSize: 16 ,
         flex: 1.9,
+        color : "#000"
         
      
 

@@ -275,6 +275,7 @@ class Register extends React.Component {
             </ScrollView>
             <View style={{marginBottom: 15, marginTop: 5 , justifyContent : 'center' , alignItems : 'center'}}>
               <CustomButtonNoIcon
+       //      width={250}
                 title={this.state.isloading ? 'Loading' : 'Register'}
                 color={this.state.isloading ? '#000000' : '#FFF'}
                 backgroundColor={this.state.isloading ? '#F5F5F5' : '#E84341'}
@@ -325,7 +326,7 @@ const style = flex =>
       shadowRadius: 2,
     },
     loginText: {
-      fontSize: 30,
+      fontSize: 25,
       fontWeight: '800',
       color: '#588094',
       width: '100%',
@@ -345,7 +346,7 @@ const style = flex =>
 
       marginTop: 10,
       marginBottom: 10,
-      fontSize: 16,
+      fontSize: 14,
       color: '#000',
       fontFamily: 'Poppins-Regular',
     },

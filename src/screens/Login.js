@@ -98,6 +98,7 @@ class Login extends React.Component {
               />
 
               <TextLink
+              fontSize={14}
                 text="Forgot Password?"
                 textalign={'right'}
                 padding={10}
@@ -105,19 +106,25 @@ class Login extends React.Component {
                 onPress={() => this.props.navigation.navigate('ForgetPassword')}
               />
             </View>
+            <View style={{alignItems: 'center',justifyContent : 'center' , marginHorizontal : 10 , marginVertical: 5}}>
             {this.state.isLoading ? (
               <Loader />
             ) : (
               <CustomButtonNoIcon
+              width={250}
                 title={'Sign in'}
                 onPress={this.props.handleSubmit(this.onSubmit)}
               />
             )}
+
+            </View>
+          
             <View style={style().RegisterLinkContainer}>
               <Text style={style().donthaveaccount}>
                 Don't have an account?
               </Text>
               <TextLink
+              fontSize={14}
                 text="Register"
                 color="#ECBB60"
                 padding={0}
@@ -163,7 +170,7 @@ const style = flex =>
       shadowRadius: 2,
     },
     loginText: {
-      fontSize: 30,
+      fontSize: 25,
       fontWeight: '800',
       color: '#588094',
       width: '100%',
@@ -182,7 +189,7 @@ const style = flex =>
       display: 'flex',
       flexDirection: 'row',
       margin: 5,
-      fontSize: 16,
+      fontSize: 14,
       justifyContent: 'center',
       alignItems: 'center',
       // borderWidth: 2,

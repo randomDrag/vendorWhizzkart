@@ -336,7 +336,7 @@ const style = flex =>
       shadowRadius: 2,
     },
     loginText: {
-      fontSize: 25,
+      fontSize: 20,
       fontWeight: '800',
       color: '#588094',
       width: '100%',
@@ -363,12 +363,56 @@ const style = flex =>
     },
   });
 
+  const validate = values => {
+    let errors = {};
+  
+    if (!values.Email) {
+      errors.Email = 'Required';
+    }
+    //  else if (!validator.isEmail(values.Email) || !validator.isMobilePhone('+91' + Number(values.Email))) {
+    //   errors.Email = 'Invalid Number or Email';
+    // }
+  
+    if (!values.Name) {
+      errors.Name = 'Required';
+    }
+  
+    if (!values.MobileNumber) {
+      errors.MobileNumber = 'Required';
+  
+    }else if(!validator.isMobilePhone('+91' + Number(values.MobileNumber))){
+      errors.MobileNumber = 'Invalid Mobile number ';
+    }
+  
+    if (!values.Password) {
+      errors.Password = 'Required';
+    }
+  
+    if (!values.PasswordConfirm) {
+      errors.PasswordConfirm = 'Required';
+    }
+    if(!values.Password == values.PasswordConfirm){
+      errors.PasswordConfirm = 'Password not match';
+      errors.Password = 'Password not match';
+    }
+  
+    if (!values.Address) {
+      errors.Address = 'Required';
+    }
+    // else if ( Number( values.Password) < 8) {
+    //   errors.Password = 'must be strong password';
+    // }
+  
+    return errors;
+  };
+  
 const mapStateToProps = state => {
   return {usernameData: state.ForgetPassword, Otpdata: state.VerifyOtp};
 };
 
 export default reduxForm({
-  form : 'ForgetPassword'
+  form : 'ForgetPassword',
+  validate : validate
 })(
 
 
