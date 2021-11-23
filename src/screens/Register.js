@@ -107,15 +107,34 @@ class Register extends React.Component {
         }),
       };
 
-      this.props.getRegister(data, () => {
-       Alert.alert('Successful ', 'waiting for admin',[{
+     
+
+
+      this.props.getRegister(data, (e) => {
+
+
+        if(e == 200){
+
+       Alert.alert('Successful ', 'your application is submitted',[{
          text : 'OK',
          onPress :() => this.props.navigation.navigate('Login')
        }])
        
         this.setState({isloading: false});
+      }else{
+
+        Alert.alert('Error ', e)
+        
+         this.setState({isloading: false});
+
+
+      }
+
+
 
       });
+    
+
     } else if (password !== confirmPassword) {
       this.setState({isloading: false});
       this.setState({isError: true, error: 'Password not match'});

@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, StyleSheet, SafeAreaView, Keyboard} from 'react-native';
+import {View, Text, StyleSheet, SafeAreaView, Keyboard , Alert} from 'react-native';
 import LogoImage from '../components/login_logout/Logo.image';
 
 import CustomTextInput from '../components/CustomTextInput';
@@ -10,7 +10,7 @@ import {Field, reduxForm} from 'redux-form';
 import CustomButtonNoIcon from '../components/CustomButtonNoIcon';
 import validator from 'validator';
 import Loader from '../components/Loader';
-import {Auth} from '../actions'
+import {Auth} from '../actions';
 // import {LoginForm , Auth , ErrorClose} from '../actions';
 
 class Login extends React.Component {
@@ -31,8 +31,6 @@ class Login extends React.Component {
     this.keybordClose();
   }
 
-  
-
   keybordOpen() {
     Keyboard.addListener('keyboardDidShow', () =>
       this.setState({isKeyboardOpen: true}),
@@ -47,15 +45,16 @@ class Login extends React.Component {
 
   //Login
 
- onSubmit(values) {
-  const {Email , Password} = values;
+  onSubmit(values) {
+    const {Email, Password} = values;
     this.setState({isLoading: true});
 
-    this.props.Auth(Email, Password, (e) =>{
+    this.props.Auth(Email, Password, e => {
       this.setState({isLoading: false});
-
-      console.log(e + 'test');
-    
+      console.log(e.code);
+      if (e.code == 423) {
+        Alert.alert('Error ', e.error);
+      }
     });
   }
 
@@ -84,7 +83,6 @@ class Login extends React.Component {
                 placeholder="Email or Mobile"
                 name="Email"
                 component={CustomTextInput}
-              
               />
               <Field
                 placeholder="Password"
@@ -107,7 +105,14 @@ class Login extends React.Component {
                 onPress={() => this.props.navigation.navigate('ForgetPassword')}
               />
             </View>
-        {this.state.isLoading ? <Loader/> : <CustomButtonNoIcon title={"Sign in"} onPress={ this.props.handleSubmit(this.onSubmit)} />}
+            {this.state.isLoading ? (
+              <Loader />
+            ) : (
+              <CustomButtonNoIcon
+                title={'Sign in'}
+                onPress={this.props.handleSubmit(this.onSubmit)}
+              />
+            )}
             <View style={style().RegisterLinkContainer}>
               <Text style={style().donthaveaccount}>
                 Don't have an account?
@@ -116,10 +121,13 @@ class Login extends React.Component {
                 text="Register"
                 color="#ECBB60"
                 padding={0}
-                onPress={() => this.props.navigation.navigate( 'LoginScreen',{ screen : 'Register'})}
+                onPress={() =>
+                  this.props.navigation.navigate('LoginScreen', {
+                    screen: 'Register',
+                  })
+                }
               />
             </View>
-          
           </View>
         </View>
       </SafeAreaView>
@@ -195,13 +203,11 @@ const validate = values => {
 
   if (!values.Password) {
     errors.Password = 'Required';
-  } 
-  
+  }
+
   // else if ( Number( values.Password) < 8) {
   //   errors.Password = 'must be strong password';
   // }
-
- 
 
   return errors;
 };
@@ -213,5 +219,4 @@ const mapStateToProps = state => {
 export default reduxForm({
   form: 'Login',
   validate: validate,
-  
-})(connect(mapStateToProps , {Auth})(Login));
+})(connect(mapStateToProps, {Auth})(Login));

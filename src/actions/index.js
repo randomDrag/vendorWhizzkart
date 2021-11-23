@@ -89,16 +89,30 @@ export const Auth = (username, Password, callback) => {
             });
 
 
-            try {
-                await AsyncStorage.setItem('Token', response.data.data.token);
-                dispatch({type: AUTH, payload: response.data.data})
-            } catch (e) {
-                console.log("err from async")
+            if (response.data.code == 200) {
+                try {
+                    await AsyncStorage.setItem('Token', response.data.data.token);
+                    dispatch({type: AUTH, payload: response.data.data})
+                } catch (e) {
+                    console.log("err from async")
+                }
+
+
+                callback(response.data.code == 200);
+                dispatch({type: LOGIN, payload: response.data.data})
+            } else {
+
+                callback(response.data);
+                dispatch({
+                    type: ERROR_LOGIN,
+                    payload: {
+                        error: "Invalid username or password",
+                        visible: true
+                    }
+                })
+
             }
 
-
-            callback(response.status);
-            dispatch({type: LOGIN, payload: response.data.data})
 
         } catch (e) {
             callback(e);
@@ -418,10 +432,32 @@ export const getRegister = (object, callback) => {
 
         const response = await api.post('/api/register', object);
 
-        if (response.status == 200) {
+        if (response.data.code == 200) {
             dispatch({type: GET_REGISTER, payload: response.data});
 
-            callback();
+            callback(response.data.code);
+        } else if (response.data.code == 406) {
+
+            dispatch({type: GET_REGISTER, payload: response.data});
+
+
+
+            if ((response.data.errors.email) && response.data.errors.mobile) {
+                callback(`${response.data ?. errors ?. email[0]} ${ response.data ?. errors ?. mobile[0]} `);
+                console.log('test')
+
+            } else if (response.data ?. errors ?. email && !response.data.errors.mobile) {
+
+                callback(`${
+                    response.data ?. errors ?. email[0]
+                } `);
+            } else if (response.data ?. errors ?. mobile && !response.data ?. errors ?. email) {
+                callback(`${
+                    response.data ?. errors ?. mobile[0]
+                } `);
+            }
+
+
         }
     }
 
