@@ -129,9 +129,7 @@ class Login extends React.Component {
                 color="#ECBB60"
                 padding={0}
                 onPress={() =>
-                  this.props.navigation.navigate('LoginScreen', {
-                    screen: 'Register',
-                  })
+                  this.props.navigation.navigate('Register')
                 }
               />
             </View>

@@ -91,12 +91,15 @@ class ForgetPassword extends React.Component {
             component={CustomTextInput}
               />
             </View>
+            <View style={{justifyContent : 'center' , alignItems : 'center'}}>
             <CustomButtonNoIcon
               title={this.state.isloading ? 'Loading' : 'Reset'}
               color={this.state.isloading ? '#000000' : '#FFF'}
               backgroundColor={this.state.isloading ? '#F5F5F5' : '#E84341'}
               onPress={this.props.handleSubmit( this.usernameSubmit)}
             />
+            </View>
+           
           </View>
         </View>
       </SafeAreaView>
@@ -174,9 +177,11 @@ class ForgetPassword extends React.Component {
                 }}
               />
             </View>
+            <View style={{justifyContent : 'center' , alignItems : 'center'}}>
             <CustomButtonNoIcon title={this.state.isloading ? 'Loading' : 'Save'}
               color={this.state.isloading ? '#000000' : '#FFF'}
               backgroundColor={this.state.isloading ? '#F5F5F5' : '#E84341'} onPress={this.props.handleSubmit(this.saveNewPassword)} />
+         </View>
           </View>
         </View>
       </SafeAreaView>
@@ -255,12 +260,16 @@ class ForgetPassword extends React.Component {
                 </Text>
               </TouchableOpacity>
             </View>
+            <View style={{alignItems : 'center' , justifyContent : 'center'}}>
+
             <CustomButton
               title={this.state.isloading ? 'Loading' : 'Submit'}
               color={this.state.isloading ? '#000000' : '#FFF'}
               backgroundColor={this.state.isloading ? '#F5F5F5' : '#E84341'}
               onPress={() => this.OtpSubmit()}
             />
+            </View>
+            
           </View>
         </View>
       </SafeAreaView>

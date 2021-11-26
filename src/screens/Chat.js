@@ -9,7 +9,7 @@ import {
   Platform,
   KeyboardAvoidingView,
 } from 'react-native';
-import {Bubble, GiftedChat, Send} from 'react-native-gifted-chat';
+
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {
   faAngleDoubleDown,
