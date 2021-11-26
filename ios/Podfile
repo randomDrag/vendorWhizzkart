@@ -14,6 +14,16 @@ target 'vendor' do
 
   pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-async-storage/async-storage'
 
+  pod 'RNFS', :path => '../node_modules/react-native-fs'
+
+  pod 'RNGestureHandler', :path => '../node_modules/react-native-gesture-handler'
+
+  pod 'react-native-pager-view', :path => '../node_modules/react-native-pager-view'
+
+  pod 'react-native-safe-area-context', :path => '../node_modules/react-native-safe-area-context'
+
+  pod 'RNSVG', :path => '../node_modules/react-native-svg'
+
   target 'vendorTests' do
     inherit! :complete
     # Pods for testing

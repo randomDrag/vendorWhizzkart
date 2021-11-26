@@ -94,12 +94,10 @@ constructor(props){
           renderItem={item => {
             return (
               <ProductComponent
-                title={item.item.product_details.name}
-                time="12"
-                date="12"
-                status={item.item.status}
-                price={item.item.product_price}
-                imageUrl={item.item.product_details.primaryimages.imagePath}
+                title={item.item?.product_details?.name}
+                status={item.item?.status}
+                price={item.item?.product_price}
+                imageUrl={item.item?.product_details?.primaryimages?.imagePath}
                 placeholder={this.state.TestImage}
               />
             );

@@ -61,7 +61,7 @@ class Profile extends React.Component {
         { this.state.isLoding ? <Loader loadingText="Please wait..."/> : <View>
             <Text allowFontScaling={false} style={style.profileText}> ACCOUNT SETTING </Text>
             <View style={style.ImageContainer}>
-          { profile.vendor.image  ? <Image style={style.ProfileImage} source={{uri : BASE_URL+"/"+profile.vendor.image}} />:<Image style={style.ProfileImage} source={require('../images/dish.png')} /> }
+          { profile?.vendor?.image  ? <Image style={style.ProfileImage} source={{uri : BASE_URL+"/"+profile?.vendor?.image}} />:<Image style={style.ProfileImage} source={require('../images/dish.png')} /> }
             </View>
            
            <View style={style.CardContainerStyle}>
