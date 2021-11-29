@@ -13,6 +13,7 @@ import {
 import { connect } from 'react-redux';
 
 import {RejectOrderList} from '../actions';
+import EmptyList from '../components/EmptyList';
 import Loader from '../components/Loader';
 import OrderlistAR from '../components/OrderlistAR';
 
@@ -49,6 +50,7 @@ class OrderRejectedProduct extends React.Component {
       <SafeAreaView style={{backgroundColor: '#FFFFFF', height : '100%'}}>
       { this.state.isLoding ? <Loader loadingText={"Please wait ..."}/>  : <FlatList
           data={data}
+          ListEmptyComponent={<EmptyList/>}
           keyExtractor={data.order_id}
           renderItem={item => {
             const d = item.item.order_date;

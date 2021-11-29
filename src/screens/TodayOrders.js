@@ -15,7 +15,7 @@ import Orderlist from '../components/Orderlist';
 
 import {GetOrder , AcceptOrder , RejectOrder} from '../actions';
 import Loader from '../components/Loader';
-import EmptyList from './EmptyList';
+import EmptyList from '../components/EmptyList';
 
 class TodayOrder extends React.Component {
 
@@ -80,6 +80,7 @@ class TodayOrder extends React.Component {
       <SafeAreaView style={{backgroundColor: '#FFFFFF' , height : '100%'}}>
       { this.state.isLoding ? <Loader loadingText="Please wait..." /> : <FlatList
           data={data}
+          ListEmptyComponent={<EmptyList/>}
           keyExtractor={data.order_id}
           renderItem={item => {
             const d = item.item.order_date;

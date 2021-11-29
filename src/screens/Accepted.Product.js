@@ -7,6 +7,7 @@ import Fab from '../components/FabButton';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { faWhatsapp } from '@fortawesome/free-brands-svg-icons';
 import { faEnvelope } from '@fortawesome/free-regular-svg-icons';
+import EmptyList from '../components/EmptyList';
 
 class AcceptedProduct extends React.Component {
 
@@ -89,6 +90,7 @@ constructor(props){
          <Fab visible={true} icon={faPlus} backgroundColor="#E84340" onPress={ () => this.clickChanger()}/>
 
         <FlatList
+        ListEmptyComponent={<EmptyList/>}
           data={data}
           keyExtractor={data.id}
           renderItem={item => {

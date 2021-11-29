@@ -15,7 +15,7 @@ import {AcceptedOrderList} from '../actions';
 import OrderlistAR from '../components/OrderlistAR';
 import Loader from '../components/Loader';
 import { BASE_URL } from '../actions/const';
-import EmptyList from './EmptyList';
+import EmptyList from '../components/EmptyList';
 
 class OrderAcceptedList extends React.Component {
 
@@ -49,6 +49,7 @@ class OrderAcceptedList extends React.Component {
    {  this.state.isLoding ? <Loader loadingText="Please wait..." /> : <FlatList
           data={data}
           keyExtractor={data.order_id}
+          ListEmptyComponent={<EmptyList/>}
           renderItem={item => {
             const d = item.item.order_date;
             const time = d.split(' ');
