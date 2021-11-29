@@ -4,28 +4,38 @@ import {Text, TouchableOpacity, StyleSheet, View} from 'react-native';
 
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faUser} from '@fortawesome/free-regular-svg-icons';
+import { CameraAndGalleryPicker } from './CameraAndGalleryPicker';
 
-import Upload from '../lib/document.picker';
+
 
 class CustomUploadButton extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {Name: undefined};
+    this.state = {Name: undefined ,
+    
+      isVisible : false,
+    
+    };
+    
   }
 
   render() {
     const name = this.state.Name;
 
     return (
+      <View>
+        <CameraAndGalleryPicker isVisible={this.state.isVisible} imagedata={(e)=> {
+ this.setState({isVisible : false , Name : e.mime})
+          return this.props.imagedata(e) 
+         
+          
+          }} close={()=> this.setState({isVisible : false})}/>
       <TouchableOpacity
         style={style(this.props.backgroundColor, this.props.width).InputStyle}
-        onPress={async () => {
-          let val = await Upload();
-            console.log(val);
-          this.setState({Name: val.name});
-          this.props.value(val);
-        }}>
+  
+        onPress={()=> this.setState({isVisible : true})}>
+        
         <View style={style().container}>
           <Text allowFontScaling={false} style={style(this.props.fontSize).textStyle}>
             {typeof name == ('undefined' || 'null')
@@ -41,6 +51,7 @@ class CustomUploadButton extends React.Component {
           />
         </View>
       </TouchableOpacity>
+      </View>
     );
   }
 }

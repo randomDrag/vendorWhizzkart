@@ -192,7 +192,8 @@ const validate = values => {
 };
 export default
 reduxForm({
-  form : 'contactForm'
+  form : 'contactForm', 
+  validate : validate
 })(
 
 connect(mapStateToProps, {ContactusForm , sendContact})(Contactus));

@@ -6,7 +6,7 @@ class CustomButtonNoIcon extends React.Component {
   render() {
     return <View>
     
-    <TouchableOpacity
+    <TouchableOpacity disabled={this.props.disable ? true : false}
             style={style(this.props.backgroundColor , this.props.width , this.props.padding, this.props.marginHorizontal).buttonStyle}
             onPress={this.props.onPress}>
             <Text style={{color : typeof this.props.color == ("undefined"|| "null") ? '#FFFFFF' : this.props.color,

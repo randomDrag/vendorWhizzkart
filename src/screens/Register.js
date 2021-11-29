@@ -7,6 +7,7 @@ import {
   Keyboard,
   ScrollView,
   Alert,
+  ColorPropType,
 } from 'react-native';
 
 import LogoImage from '../components/login_logout/Logo.image';
@@ -27,7 +28,7 @@ import validator from 'validator';
 import ErrorModal from '../components/ErrorModal';
 import {Field, reduxForm} from 'redux-form';
 import CustomButtonNoIcon from '../components/CustomButtonNoIcon';
-
+import CheckBox from '@react-native-community/checkbox';
 class Register extends React.Component {
   constructor(props) {
     super(props);
@@ -43,9 +44,10 @@ class Register extends React.Component {
       error: '',
       isloading: false,
       isError: false,
+      TermAndCondition: false,
     };
 
-    this.onSubmit = this.onSubmit.bind(this)
+    this.onSubmit = this.onSubmit.bind(this);
   }
 
   componentDidMount() {
@@ -65,76 +67,52 @@ class Register extends React.Component {
     );
   }
 
-
-
   async onSubmit(values) {
-
-    const {Name , Email , Password , MobileNumber , Address} = values;
+    const {Name, Email, Password, MobileNumber, Address} = values;
     this.setState({isloading: true});
-    const {
-      Trade,
-      FSSI,
-      CancelCheque,
-      gst,
-      IDproof,
-      AddProof,
-    } = this.state;
+    const {Trade, FSSI, CancelCheque, gst, IDproof, AddProof} = this.state;
 
-    if (
-      gst != null
-    ) {
-      const trade = await RNFS.readFile(Trade.uri, 'base64');
-      const CC = await RNFS.readFile(CancelCheque.uri, 'base64');
-      const fssi = await RNFS.readFile(FSSI.uri, 'base64');
-      const gstC = await RNFS.readFile(gst.uri, 'base64');
-      const Id = await RNFS.readFile(IDproof.uri, 'base64');
-      const add = await RNFS.readFile(AddProof.uri, 'base64');
+    if (gst != null) {
+      // const trade = await RNFS.readFile(Trade.uri, 'base64');
+      // const CC = await RNFS.readFile(CancelCheque.uri, 'base64');
+      // const fssi = await RNFS.readFile(FSSI.uri, 'base64');
+      // const gstC = await RNFS.readFile(gst.uri, 'base64');
+      // const Id = await RNFS.readFile(IDproof.uri, 'base64');
+      // const add = await RNFS.readFile(AddProof.uri, 'base64');
 
       let data = {
-        name : Name,
-        email : Email,
-        mobile : MobileNumber,
-        password : Password,
+        name: Name,
+        email: Email,
+        mobile: MobileNumber,
+        password: Password,
         user_type: 4,
         vendor: JSON.stringify({
-          trade_license: trade,
-          cancelled_cheque: CC,
-          fssi_license: fssi,
-          address_proof: add,
-          id_proof: Id,
-          gst_certificate: gstC,
+          trade_license: Trade,
+          cancelled_cheque: CancelCheque,
+          fssi_license: FSSI,
+          address_proof: AddProof,
+          id_proof: IDproof,
+          gst_certificate: gst,
           Address: Address,
         }),
       };
 
-     
+      this.props.getRegister(data, e => {
+        if (e == 200) {
+          Alert.alert('Successful ', 'your application is submitted', [
+            {
+              text: 'OK',
+              onPress: () => this.props.navigation.navigate('Login'),
+            },
+          ]);
 
+          this.setState({isloading: false});
+        } else {
+          Alert.alert('Error ', e);
 
-      this.props.getRegister(data, (e) => {
-
-
-        if(e == 200){
-
-       Alert.alert('Successful ', 'your application is submitted',[{
-         text : 'OK',
-         onPress :() => this.props.navigation.navigate('Login')
-       }])
-       
-        this.setState({isloading: false});
-      }else{
-
-        Alert.alert('Error ', e)
-        
-         this.setState({isloading: false});
-
-
-      }
-
-
-
+          this.setState({isloading: false});
+        }
       });
-    
-
     } else if (password !== confirmPassword) {
       this.setState({isloading: false});
       this.setState({isError: true, error: 'Password not match'});
@@ -143,6 +121,7 @@ class Register extends React.Component {
       this.setState({isError: true, error: 'All Fields Requried'});
     }
   }
+
 
   render() {
     let isSecure = this.state.isSecure;
@@ -180,8 +159,7 @@ class Register extends React.Component {
                 <Field
                   placeholder="Name"
                   name="Name"
-                  icon='person'
-                  autoComplete="username"
+                  icon="person"
                   component={CustomTextInput}
                 />
 
@@ -190,8 +168,7 @@ class Register extends React.Component {
                 <Field
                   placeholder="Email"
                   name="Email"
-                  icon='mail'
-                  autoComplete="email"
+                  icon="mail"
                   component={CustomTextInput}
                 />
 
@@ -201,7 +178,6 @@ class Register extends React.Component {
                   name={'MobileNumber'}
                   icon={'call-sharp'}
                   component={CustomTextInput}
-                  autoComplete="tel"
                 />
 
                 {/* PASSWORD>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */}
@@ -241,46 +217,90 @@ class Register extends React.Component {
                   component={CustomTextInput}
                 />
 
+{/* UPLOAD BUTTON ------------------------------------------------------------------------------- */}
                 <CustomUploadButton
                   title="Gst Certificate"
                   icon={faFileUpload}
-                  value={v => this.setState({gst: v})}
+                  imagedata={v => this.setState({gst: v.data})}
+                // onPress = {() =>this.props.navigation.navigate('camera')}
                 />
                 <CustomUploadButton
                   title="Trade License"
                   icon={faFileUpload}
-                  value={v => this.setState({Trade: v})}
+                  imagedata = {v => this.setState({Trade: v.data})}
                 />
                 <CustomUploadButton
                   title="FSSI License"
                   icon={faFileUpload}
-                  value={v => this.setState({FSSI: v})}
+                  imagedata={v => this.setState({FSSI: v.data})}
                 />
                 <CustomUploadButton
                   title="ID Proof"
                   icon={faFileUpload}
-                  value={v => this.setState({IDproof: v})}
+                  imagedata={v => this.setState({IDproof: v.data})}
                 />
                 <CustomUploadButton
                   title="Address Proof"
                   icon={faFileUpload}
-                  value={v => this.setState({AddProof: v})}
+                  imagedata={v => this.setState({AddProof: v.data})}
                 />
                 <CustomUploadButton
                   title="Cancelled Cheque"
                   icon={faFileUpload}
-                  value={v => this.setState({CancelCheque: v})}
+                  imagedata={v => this.setState({CancelCheque: v.data})}
                 />
               </View>
             </ScrollView>
-            <View style={{marginBottom: 15, marginTop: 5 , justifyContent : 'center' , alignItems : 'center'}}>
-              <CustomButtonNoIcon
-       //      width={250}
-                title={this.state.isloading ? 'Loading' : 'Register'}
-                color={this.state.isloading ? '#000000' : '#FFF'}
-                backgroundColor={this.state.isloading ? '#F5F5F5' : '#E84341'}
-                onPress={this.props.handleSubmit(this.onSubmit)}
-              />
+            <View
+              style={{
+                marginBottom: 15,
+                marginTop: 5,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+              {this.state.TermAndCondition ? (
+                <CustomButtonNoIcon
+                  //      width={250}
+                  title={this.state.isloading ? 'Loading' : 'Register'}
+                  color={this.state.isloading ? '#000000' : '#FFF'}
+                  backgroundColor={this.state.isloading ? '#F5F5F5' : '#E84341'}
+                  onPress={this.props.handleSubmit(this.onSubmit)}
+                />
+              ) : (
+                <CustomButtonNoIcon
+                  disable={true}
+                  //      width={250}
+                  title={this.state.isloading ? 'Loading' : 'Register'}
+                  color={this.state.isloading ? '#000000' : '#FFF'}
+                  backgroundColor={
+                    this.state.isloading ? '#F5F5F5' : '#E84341aa'
+                  }
+                  onPress={this.props.handleSubmit(this.onSubmit)}
+                />
+              )}
+
+              <View
+                style={{
+                  marginVertical: 3,
+                  flexDirection: 'row',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}>
+                <CheckBox
+                  value={this.state.TermAndCondition}
+                  onValueChange={e => this.setState({TermAndCondition: e})}
+                  disabled={false}
+                  onFillColor={'#E84341'}
+                  onTintColor={'#E84341'}
+                  onCheckColor="#E84341"
+                />
+                <TextLink
+                  text="I agree term and condition"
+                  color="#000"
+                  padding={0}
+                  onPress={() => this.props.navigation.navigate('T&C')}
+                />
+              </View>
               <View style={style().containerDoNotHave}>
                 <Text allowFontScaling={false} style={style().donthaveaccount}>
                   Already have an account?
@@ -338,14 +358,11 @@ const style = flex =>
     containerDoNotHave: {
       display: 'flex',
       flexDirection: 'row',
-
+      marginBottom: 10,
       justifyContent: 'center',
     },
     donthaveaccount: {
       textAlign: 'center',
-
-      marginTop: 10,
-      marginBottom: 10,
       fontSize: 14,
       color: '#000',
       fontFamily: 'Poppins-Regular',
@@ -367,8 +384,7 @@ const validate = values => {
 
   if (!values.MobileNumber) {
     errors.MobileNumber = 'Required';
-
-  }else if(!validator.isMobilePhone('+91' + Number(values.MobileNumber))){
+  } else if (!validator.isMobilePhone('+91' + Number(values.MobileNumber))) {
     errors.MobileNumber = 'Invalid Mobile number ';
   }
 
@@ -379,7 +395,7 @@ const validate = values => {
   if (!values.PasswordConfirm) {
     errors.PasswordConfirm = 'Required';
   }
-  if(!values.Password == values.PasswordConfirm){
+  if (!values.Password == values.PasswordConfirm) {
     errors.PasswordConfirm = 'Password not match';
     errors.Password = 'Password not match';
   }

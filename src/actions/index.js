@@ -10,6 +10,7 @@ import {
     FORGET_PASSWORD_ERROR,
     GET_ALL_PRODUCT,
     GET_GRAPH_DATA,
+    GET_IMAGE_PROFILE,
     GET_ORDER,
     GET_ORDER_DETAILS,
     GET_PROFILE,
@@ -491,5 +492,15 @@ export const getSupportdata = () => async dispatch => {
     const response = await api.get('/api/supportData');
 
     dispatch({type: GET_SUPPORT_DATA, payload: response.data})
+
+}
+
+export const imagedata = (data) => async dispatch => {
+
+    dispatch({
+        type : GET_IMAGE_PROFILE,
+        payload : data
+    })
+
 
 }

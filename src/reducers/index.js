@@ -21,6 +21,7 @@ import GetProfile from './GetProfile';
 import getGraphdata from './getGraphdata';
 import getSupportData from './getSupportData';
 import { reducer as formReducer} from 'redux-form';
+import imageData from './imageData';
 export default combineReducers({
     form : formReducer,
     LoginForm ,
@@ -43,7 +44,8 @@ export default combineReducers({
     GetRegister,
     GetProfile,
     getGraphdata,
-    getSupportData
+    getSupportData,
+    imageData
 
     
     

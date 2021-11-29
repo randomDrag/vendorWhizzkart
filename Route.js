@@ -44,6 +44,7 @@ import OrderAcceptedList from './src/screens/OrderAcceptedList';
 import AllReport from './src/screens/AllReport';
 import OrderDetailAR from './src/screens/OrderDetailAR';
 import Profile from './src/screens/Profile';
+import CameraAndGalleryPicker from './src/components/CameraAndGalleryPicker';
 
 /* 
 creating store for dev and production
@@ -114,6 +115,8 @@ class Route extends React.Component {
               ) : (
                 <Stack.Group screenOptions={{headerShown: false}}>
                   <Stack.Screen name="LoginScreen" component={LoginScreens} />
+               <Stack.Screen name={'T&C'} component={TermAndCondtion} options={{headerShown : true}}/>
+              <Stack.Screen name={"camera"} component={CameraAndGalleryPicker} options={{presentation : 'transparentModal'}} />
                 </Stack.Group>
               )}
             </Stack.Navigator>
