@@ -54,6 +54,8 @@ class Login extends React.Component {
       console.log(e.code);
       if (e.code == 423) {
         Alert.alert('Error ', e.error);
+      }else if(e.code == 407){
+this.props.navigation.navigate('NotVerify');
       }
     });
   }

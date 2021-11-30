@@ -1,52 +1,51 @@
 import {faFile, faUser} from '@fortawesome/free-regular-svg-icons';
 import { faEnvelope, faPhone } from '@fortawesome/free-solid-svg-icons';
 import React from 'react';
+import validator from 'validator';
 
 import {
  
   View,
   StyleSheet,
-
-  TextInput
+ScrollView,
+  TextInput,
+  Alert
 } from 'react-native';
 import {connect} from 'react-redux';
 import CustomTextInput from '../components/CustomTextInput';
 import CustomButton from '../components/login_logout/Button.custom';
-import { Field, reduxForm } from 'redux-form';
+import { Field, reduxForm , reset  } from 'redux-form';
 
 import {ContactusForm , sendContact} from '../actions';
-import { ScrollView } from 'react-native-gesture-handler';
+
 class Contactus extends React.Component {
 
-  
-  names(e){
+  constructor(props){
+    super(props)
 
-    this.props.ContactusForm(e,this.props.data.email,this.props.data.mobile,this.props.data.subject,this.props.data.descreption);
+    this.state={
+      des : ''
+    }
+
+    this.onSubmit = this.onSubmit.bind(this);
+
   }
-  email(e){
-
-    this.props.ContactusForm(this.props.data.name,e,this.props.data.mobile,this.props.data.subject,this.props.data.descreption)
-  }
-
-  number(e){
-
-    this.props.ContactusForm(this.props.data.name,this.props.data.email,e,this.props.data.subject,this.props.data.descreption)
-  }
-subject(e){
-
-  this.props.ContactusForm(this.props.data.name,this.props.data.email,this.props.data.mobile,e,this.props.data.descreption)
-}
-
-description(e){
-
-  this.props.ContactusForm(this.props.data.name,this.props.data.email,this.props.data.mobile,this.props.data.subject,e)
-}
 
 
-submit(values){
+onSubmit(values , dispatch){
   const {Name , Email , Mobile, Subject} = values;
-const { descreption} = this.props.data;
-  this.props.sendContact(Name,Email,Mobile,Subject,descreption,()=> this.props.navigation.navigate('Home'));
+  this.props.sendContact(Name,Email,Mobile,Subject,this.state.des,
+    
+    ()=>{
+
+     dispatch( reset('contactForm'));
+     this.setState({des : ''})
+Alert.alert('Thank you' , 'your submission has been sent' ,[{
+  text : 'Ok',
+  onPress : () =>this.props.navigation.navigate('Home')
+}])
+
+    } );
 
 
 }
@@ -62,8 +61,6 @@ const { descreption} = this.props.data;
           <Field
           component={CustomTextInput}
           placeholder="Name"
-      
-          autoComplete="username"
           name={'Name'}
          
         />
@@ -71,15 +68,12 @@ const { descreption} = this.props.data;
          component={CustomTextInput}
           placeholder="Email"
           icon={'mail'}
-          autoComplete="email"
           name={'Email'}
       
         />
         <Field
         component={CustomTextInput}
           placeholder="Mobile"
-        
-          autoComplete="tel"
           name={'Mobile'}
         />
         <Field
@@ -95,8 +89,9 @@ const { descreption} = this.props.data;
           placeholder="Description"
           multiline={true}
           numberOfLines={6}
-          onChangeText={(e) => this.description(e)}
-          defaultValue={this.props.data.discription}
+          style={{color : '#000'}}
+          onChangeText={(e) => this.setState({des : e})}
+          defaultValue={this.state.des}
        
         
         />
@@ -104,7 +99,7 @@ const { descreption} = this.props.data;
         </View>
       
         <View style={{marginVertical : 15 , justifyContent : 'center' , alignItems : 'center'}}>
-        <CustomButton title="Send" width={200} onPress={this.props.handleSubmit(this.submit)}/>
+        <CustomButton title="Send" width={200} onPress={this.props.handleSubmit(this.onSubmit)}/>
         </View>
       
         
@@ -163,7 +158,7 @@ const validate = values => {
   }
 
   if (!values.Mobile) {
-    errors.MobileNumber = 'Required';
+    errors.Mobile = 'Required';
 
   }else if(!validator.isMobilePhone('+91' + Number(values.Mobile))){
     errors.Mobile = 'Invalid Mobile number ';
@@ -172,21 +167,10 @@ const validate = values => {
   if (!values.Password) {
     errors.Password = 'Required';
   }
-
-  if (!values.PasswordConfirm) {
-    errors.PasswordConfirm = 'Required';
+  if(!values.Subject){
+    errors.Subject = "Required";
   }
-  if(!values.Password == values.PasswordConfirm){
-    errors.PasswordConfirm = 'Password not match';
-    errors.Password = 'Password not match';
-  }
-
-  if (!values.Address) {
-    errors.Address = 'Required';
-  }
-  // else if ( Number( values.Password) < 8) {
-  //   errors.Password = 'must be strong password';
-  // }
+  
 
   return errors;
 };

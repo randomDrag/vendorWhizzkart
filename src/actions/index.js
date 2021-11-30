@@ -88,7 +88,7 @@ export const Auth = (username, Password, callback) => {
                 "email": username,
                 "password": Password
             });
-
+       
 
             if (response.data.code == 200) {
                 try {
@@ -101,6 +101,18 @@ export const Auth = (username, Password, callback) => {
 
                 callback(response.data.code == 200);
                 dispatch({type: LOGIN, payload: response.data.data})
+            } else if (response.status == 407){
+
+                callback(response.data);
+                dispatch({
+                    type: ERROR_LOGIN,
+                    payload: {
+                        error: "Account Not Verified",
+                        visible: true
+                    }
+                })
+
+
             } else {
 
                 callback(response.data);
@@ -209,8 +221,9 @@ export const sendContact = (name, email, mobile, subject, descreption, callback)
             subject,
             descreption
         });
-        callback();
         dispatch({type: CONTACT_SUBMIT, payload: response.data.data})
+        callback();
+       
 
     }
 }

@@ -20,7 +20,7 @@ class DrawerContent extends React.Component {
 
 
     const shareOptions = {
-      message: this.props.shareLink.app_link,
+      message: this.props.shareLink.vendor_app_link,
       // url: files.appLogo,
       // urls: [files.image1, files.image2]
     };
@@ -118,6 +118,20 @@ class DrawerContent extends React.Component {
             labelStyle={style().MyProfile}
             label="Privacy Policy"
             onPress={() => this.props.navigation.navigate('Privacy policy')}
+          />
+        </View>
+
+        <View style={style().DrawerMargin}>
+          <DrawerItem
+            icon={() => (
+              <Image
+                style={{width: 25, height: 25}}
+                source={require('../images/info.png')}
+              />
+            )}
+            labelStyle={style().MyProfile}
+            label="About"
+            onPress={() => this.props.navigation.navigate('AboutApp')}
           />
         </View>
 

@@ -39,13 +39,13 @@ constructor(props){
 
 
     sendWhatsApp(){
-        console.log(this.props.sendfile.support_mobile)
-        let phoneWithCountryCode = `+91${this.props.sendfile}`;
+       
+        let phoneWithCountryCode = `+91${this.props.sendfile.support_mobile}`;
     
-        let mobile = Platform.OS == 'ios' ? phoneWithCountryCode : '+' + phoneWithCountryCode;
+        let mobile =phoneWithCountryCode;
         if (mobile) {
             this.setState({isShow : false})
-            let url = 'whatsapp://send?phone=' + mobile;
+            let url = `whatsapp://send?phone=${phoneWithCountryCode}` ;
             Linking.openURL(url).then((data) => {
               console.log('WhatsApp Opened');
             }).catch(() => {

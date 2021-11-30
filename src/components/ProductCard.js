@@ -47,19 +47,20 @@ const style = () =>
       alignItems: 'center',
     },
     ImageContainer: {
-      justifyContent: 'flex-start',
-      alignSelf: 'flex-start',
-
+      justifyContent: 'center',
+      alignSelf: 'center',
+padding : 10,
       flex: 1,
-      marginTop: -13,
+     
     },
     TextContainer: {
      
       flex: 1,
     },
     Image: {
-      width: 150,
-      height: 150,
+      width: 130,
+      height: 130,
+      margin :5,
       resizeMode: 'contain',
     },
     status: {

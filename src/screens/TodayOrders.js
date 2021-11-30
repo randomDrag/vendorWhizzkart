@@ -30,10 +30,18 @@ class TodayOrder extends React.Component {
 
 
   componentDidMount(){
-
+   
     this.props.GetOrder(()=>{
       this.setState({isLoding: false});
     });
+
+    setInterval(()=>{
+      this.props.GetOrder(()=>{
+        this.setState({isLoding: false});
+      });
+
+    },180000)
+   
 
   }
 
@@ -77,10 +85,11 @@ class TodayOrder extends React.Component {
 
      
 
-      <SafeAreaView style={{backgroundColor: '#FFFFFF' , height : '100%'}}>
+      <SafeAreaView style={{backgroundColor: '#FFFFFF' ,flex : 1}}>
       { this.state.isLoding ? <Loader loadingText="Please wait..." /> : <FlatList
           data={data}
           ListEmptyComponent={<EmptyList/>}
+          style={{flexGrow: 0}}
           keyExtractor={data.order_id}
           renderItem={item => {
             const d = item.item.order_date;

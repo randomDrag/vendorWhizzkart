@@ -44,7 +44,7 @@ class OrderAcceptedList extends React.Component {
 
      
 
-      <SafeAreaView style={{backgroundColor: '#FFFFFF'}}>
+      <SafeAreaView style={{backgroundColor: '#FFFFFF' , flex : 1}}>
         
    {  this.state.isLoding ? <Loader loadingText="Please wait..." /> : <FlatList
           data={data}

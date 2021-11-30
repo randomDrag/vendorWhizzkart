@@ -8,7 +8,7 @@ export default ( state ={} , action) =>{
         case GET_ALL_PRODUCT: 
         
      
-        return {...state , ..._.mapKeys(action.payload.data , 'id' )}
+        return {...state , ..._.mapKeys(action.payload.data , 'product_details.id' )}
         // return action.payload.data
 
 

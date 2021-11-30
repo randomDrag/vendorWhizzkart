@@ -45,6 +45,8 @@ import AllReport from './src/screens/AllReport';
 import OrderDetailAR from './src/screens/OrderDetailAR';
 import Profile from './src/screens/Profile';
 import CameraAndGalleryPicker from './src/components/CameraAndGalleryPicker';
+import UserNotVerifed from './src/screens/UserNotVerifed';
+import AboutApp from './src/screens/AboutApp';
 
 /* 
 creating store for dev and production
@@ -116,6 +118,8 @@ class Route extends React.Component {
                 <Stack.Group screenOptions={{headerShown: false}}>
                   <Stack.Screen name="LoginScreen" component={LoginScreens} />
                <Stack.Screen name={'T&C'} component={TermAndCondtion} options={{headerShown : true}}/>
+               <Stack.Screen name={'NotVerify'} component={UserNotVerifed} options ={{headerShown : false}}/> 
+               
               <Stack.Screen name={"camera"} component={CameraAndGalleryPicker} options={{presentation : 'transparentModal'}} />
                 </Stack.Group>
               )}
@@ -133,6 +137,7 @@ const DrawerBar = () => {
       <Drawer.Screen name="Dashboard" component={Dashboard} options={{headerShown : false}}/>
       <Drawer.Screen name="My Profile" component={Dashboard} />
       <Drawer.Screen name="Share app" component={Dashboard} />
+      <Stack.Screen name={'AboutApp'} component={AboutApp} options={{header: props => <CustomHeader {...props} />}}/>
       <Drawer.Screen name="Raise a query" component={Contactus} options={{header: props => <CustomHeader {...props} />}} />
       <Drawer.Screen name="Terms & Conditions" component={TermAndCondtion} options={{header: props => <CustomHeader {...props} />}} />
       <Drawer.Screen name="Privacy policy" component={PrivacyPolicy} options={{header: props => <CustomHeader {...props} />}} />

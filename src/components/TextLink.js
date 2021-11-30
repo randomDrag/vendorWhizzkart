@@ -8,7 +8,7 @@ class TextLink extends React.Component {
         return (
             <View style={style(this.props.justifyContent, this.props.alignItem).container}>
                 <TouchableOpacity onPress={this.props.onPress}>
-                    <Text allowFontScaling={false} style={style(this.props.textalign ,this.props.padding , this.props.fontsize , this.props.color).textStyle}>{this.props.text}</Text>
+                    <Text allowFontScaling={false} style={style(this.props.textalign ,this.props.padding , this.props.fontsize , this.props.color , this.props.textDecoration).textStyle}>{this.props.text}</Text>
                 </TouchableOpacity>
             </View>
 
@@ -20,7 +20,7 @@ class TextLink extends React.Component {
 
 }
 
-const style = (textalign , padding , fontsize , color , alignItem , justifyContent) => StyleSheet.create({
+const style = (textalign , padding , fontsize , color , alignItem , justifyContent , textDecoration) =>StyleSheet.create({
 
     container:{
 
@@ -31,6 +31,7 @@ const style = (textalign , padding , fontsize , color , alignItem , justifyConte
     },
     
     textStyle : {
+        textDecorationLine : textDecoration == true ? 'underline' : 'none',
         textAlign : typeof textalign == ('undefined' || 'null') ? 'center' :textalign,
         padding : typeof padding == ('undefined' || 'null') ? 5 : padding,
         fontSize : typeof fontsize ==('undefined' || 'null') ? 14 : fontsize,
@@ -43,6 +44,7 @@ const style = (textalign , padding , fontsize , color , alignItem , justifyConte
 
 
 
-});
+}) 
+;
 
 export default TextLink

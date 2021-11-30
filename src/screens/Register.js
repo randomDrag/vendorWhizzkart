@@ -41,6 +41,7 @@ class Register extends React.Component {
       FSSI: null,
       AddProof: null,
       CancelCheque: null,
+      profile : null,
       error: '',
       isloading: false,
       isError: false,
@@ -70,7 +71,7 @@ class Register extends React.Component {
   async onSubmit(values) {
     const {Name, Email, Password, MobileNumber, Address} = values;
     this.setState({isloading: true});
-    const {Trade, FSSI, CancelCheque, gst, IDproof, AddProof} = this.state;
+    const {Trade, FSSI, CancelCheque, gst, IDproof, AddProof , profile} = this.state;
 
     if (gst != null) {
       // const trade = await RNFS.readFile(Trade.uri, 'base64');
@@ -87,13 +88,14 @@ class Register extends React.Component {
         password: Password,
         user_type: 4,
         vendor: JSON.stringify({
+          image : profile,
           trade_license: Trade,
           cancelled_cheque: CancelCheque,
           fssi_license: FSSI,
           address_proof: AddProof,
           id_proof: IDproof,
           gst_certificate: gst,
-          Address: Address,
+          address: Address,
         }),
       };
 
@@ -121,7 +123,6 @@ class Register extends React.Component {
       this.setState({isError: true, error: 'All Fields Requried'});
     }
   }
-
 
   render() {
     let isSecure = this.state.isSecure;
@@ -217,17 +218,24 @@ class Register extends React.Component {
                   component={CustomTextInput}
                 />
 
-{/* UPLOAD BUTTON ------------------------------------------------------------------------------- */}
+                {/* UPLOAD BUTTON ------------------------------------------------------------------------------- */}
+                <CustomUploadButton
+                  title="Profile Image"
+                  icon={faFileUpload}
+                  imagedata={v => this.setState({profile: v.data})}
+                  // onPress = {() =>this.props.navigation.navigate('camera')}
+                />
+
                 <CustomUploadButton
                   title="Gst Certificate"
                   icon={faFileUpload}
                   imagedata={v => this.setState({gst: v.data})}
-                // onPress = {() =>this.props.navigation.navigate('camera')}
+                  // onPress = {() =>this.props.navigation.navigate('camera')}
                 />
                 <CustomUploadButton
                   title="Trade License"
                   icon={faFileUpload}
-                  imagedata = {v => this.setState({Trade: v.data})}
+                  imagedata={v => this.setState({Trade: v.data})}
                 />
                 <CustomUploadButton
                   title="FSSI License"
@@ -296,7 +304,8 @@ class Register extends React.Component {
                 />
                 <TextLink
                   text="I agree term and condition"
-                  color="#000"
+                  color="#E84F48"
+                  textDecoration={true}
                   padding={0}
                   onPress={() => this.props.navigation.navigate('T&C')}
                 />
@@ -384,8 +393,6 @@ const validate = values => {
 
   if (!values.MobileNumber) {
     errors.MobileNumber = 'Required';
-  } else if (!validator.isMobilePhone('+91' + Number(values.MobileNumber))) {
-    errors.MobileNumber = 'Invalid Mobile number ';
   }
 
   if (!values.Password) {
