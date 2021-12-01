@@ -76,6 +76,9 @@ import com.android.build.OutputFile
  *   extraPackagerArgs: []
  * ]
  */
+ dexOptions {
+    javaMaxHeapSize "4g" 
+}
 
 project.ext.react = [
     enableHermes: false,  // clean and rebuild if changing
@@ -135,8 +138,8 @@ android {
         applicationId "com.whizzkart.vendor"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 7
-        versionName "7.0"
+        versionCode 8
+        versionName "8.0"
         vectorDrawables.useSupportLibrary = true
     }
     splits {

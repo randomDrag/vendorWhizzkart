@@ -41,12 +41,21 @@ class Register extends React.Component {
       FSSI: null,
       AddProof: null,
       CancelCheque: null,
-      profile : null,
+      profile: null,
       error: '',
       isloading: false,
       isError: false,
       TermAndCondition: false,
-    };
+     
+        Errorgst : false,
+        Errorprofile : false ,
+        Errorfassi : false,
+        Errortrade : false,
+        ErroridProof : false,
+        Erroraddproof : false,
+        ErrorCancelCheque : false
+      }
+    
 
     this.onSubmit = this.onSubmit.bind(this);
   }
@@ -70,16 +79,58 @@ class Register extends React.Component {
 
   async onSubmit(values) {
     const {Name, Email, Password, MobileNumber, Address} = values;
-    this.setState({isloading: true});
-    const {Trade, FSSI, CancelCheque, gst, IDproof, AddProof , profile} = this.state;
+   
+    const {Trade, FSSI, CancelCheque, gst, IDproof, AddProof, profile} =this.state;
 
-    if (gst != null) {
+    if (gst == null) {
+
+      this.setState({Errorgst : true });
+
+      console.log(this.state.Errorgst);
+    }
+
+    if(Trade == null){
+
+      this.setState({Errortrade : true });
+
+    }
+
+    
+
+    if (IDproof == null) {
+      this.setState({ErroridProof : true });
+    }
+
+    if (AddProof == null) {
+      this.setState({Erroraddproof : true });
+    }
+
+    if (profile == null) {
+      this.setState({Errorprofile : true });
+    }
+
+    if (CancelCheque == null) {
+      this.setState({ErrorCancelCheque: true });
+    }
+
+    if(FSSI == null){
+      this.setState({Errorfassi: true });
+    }
+
+    if (
+      (IDproof != null) &&
+      (AddProof != null) &&
+      (profile != null) &&
+      (CancelCheque != null)&& (AddProof != null) && (FSSI != null)
+    ) {
       // const trade = await RNFS.readFile(Trade.uri, 'base64');
       // const CC = await RNFS.readFile(CancelCheque.uri, 'base64');
       // const fssi = await RNFS.readFile(FSSI.uri, 'base64');
       // const gstC = await RNFS.readFile(gst.uri, 'base64');
       // const Id = await RNFS.readFile(IDproof.uri, 'base64');
       // const add = await RNFS.readFile(AddProof.uri, 'base64');
+
+      this.setState({isloading: true});
 
       let data = {
         name: Name,
@@ -88,7 +139,7 @@ class Register extends React.Component {
         password: Password,
         user_type: 4,
         vendor: JSON.stringify({
-          image : profile,
+          image: profile,
           trade_license: Trade,
           cancelled_cheque: CancelCheque,
           fssi_license: FSSI,
@@ -115,14 +166,10 @@ class Register extends React.Component {
           this.setState({isloading: false});
         }
       });
-    } else if (password !== confirmPassword) {
-      this.setState({isloading: false});
-      this.setState({isError: true, error: 'Password not match'});
-    } else {
-      this.setState({isloading: false});
-      this.setState({isError: true, error: 'All Fields Requried'});
+
     }
   }
+  
 
   render() {
     let isSecure = this.state.isSecure;
@@ -218,45 +265,176 @@ class Register extends React.Component {
                   component={CustomTextInput}
                 />
 
-                {/* UPLOAD BUTTON ------------------------------------------------------------------------------- */}
-                <CustomUploadButton
-                  title="Profile Image"
-                  icon={faFileUpload}
-                  imagedata={v => this.setState({profile: v.data})}
-                  // onPress = {() =>this.props.navigation.navigate('camera')}
-                />
+                {/* UPLOAD BUTTON ----------------------------------------------------------------------------- */}
 
-                <CustomUploadButton
-                  title="Gst Certificate"
-                  icon={faFileUpload}
-                  imagedata={v => this.setState({gst: v.data})}
-                  // onPress = {() =>this.props.navigation.navigate('camera')}
-                />
-                <CustomUploadButton
-                  title="Trade License"
-                  icon={faFileUpload}
-                  imagedata={v => this.setState({Trade: v.data})}
-                />
-                <CustomUploadButton
-                  title="FSSI License"
-                  icon={faFileUpload}
-                  imagedata={v => this.setState({FSSI: v.data})}
-                />
-                <CustomUploadButton
-                  title="ID Proof"
-                  icon={faFileUpload}
-                  imagedata={v => this.setState({IDproof: v.data})}
-                />
-                <CustomUploadButton
-                  title="Address Proof"
-                  icon={faFileUpload}
-                  imagedata={v => this.setState({AddProof: v.data})}
-                />
-                <CustomUploadButton
-                  title="Cancelled Cheque"
-                  icon={faFileUpload}
-                  imagedata={v => this.setState({CancelCheque: v.data})}
-                />
+                <View>
+                  <CustomUploadButton
+                    title="Profile Image"
+                    icon={faFileUpload}
+                    imagedata={v => { 
+                      
+                      this.setState({profile: v.data , Errorprofile : false}) 
+                      
+                  
+                  
+                  }}
+                    // onPress = {() =>this.props.navigation.navigate('camera')}
+                  />
+
+                  {this.state.Errorprofile  == true? (
+                    <Text
+                      style={{
+                        fontFamily: 'Poppins-Regular',
+                        fontSize: 14,
+                        color: 'red',
+                        textAlign : 'right',
+                        marginHorizontal : 3
+                      }}>
+                      Required
+                    </Text>
+                  ) : (
+                    null
+                  )}
+                </View>
+{/* GST ...................................................................................... */}
+                <View>
+                  <CustomUploadButton
+                    title="Gst Certificate"
+                    icon={faFileUpload}
+                    imagedata={v => this.setState({gst: v.data , Errorgst : false})}
+                    // onPress = {() =>this.props.navigation.navigate('camera')}
+                  />
+
+                  {this.state.Errorgst ? (
+                    <Text
+                      style={{
+                        fontFamily: 'Poppins-Regular',
+                        fontSize: 14,
+                        color: 'red',
+                        textAlign : 'right',
+                        marginHorizontal :5
+                      }}>
+                      Required
+                    </Text>
+                  ) : (
+                    null
+                  )}
+                </View>
+{/* TRADE........................................................................ */}
+                <View>
+                  <CustomUploadButton
+                    title="Trade License"
+                    icon={faFileUpload}
+                    imagedata={v => this.setState({Trade: v.data , Errortrade : false})}
+                  />
+
+                  {this.state.Errortrade ? (
+                    <Text
+                      style={{
+                        fontFamily: 'Poppins-Regular',
+                        fontSize: 14,
+                        color: 'red',
+                        textAlign : 'right',
+                        marginHorizontal : 3
+                      }}>
+                      Required
+                    </Text>
+                  ) : (
+                    null
+                  )}
+                </View>
+
+     {/* FSSI .................................................................... */}       
+         <View>
+                  <CustomUploadButton
+                    title="FSSI License"
+                    icon={faFileUpload}
+                    imagedata={v => this.setState({FSSI: v.data , Errorfassi : false})}
+                  />
+
+                  {this.state.Errorfassi ? (
+                    <Text
+                      style={{
+                        fontFamily: 'Poppins-Regular',
+                        fontSize: 14,
+                        color: 'red',
+                        textAlign : 'right',
+                        marginHorizontal : 3
+                      }}>
+                      Required
+                    </Text>
+                  ) : (
+                    null
+                  )}
+                </View>
+{/* ID PROOF ............................................................... */}
+                <View>
+                  <CustomUploadButton
+                    title="ID Proof"
+                    icon={faFileUpload}
+                    imagedata={v => this.setState({IDproof: v.data , ErroridProof : false})}
+                  />
+
+                  {this.state.ErroridProof ? (
+                    <Text
+                      style={{
+                        fontFamily: 'Poppins-Regular',
+                        fontSize: 14,
+                        color: 'red',
+                        textAlign : 'right',
+                        marginHorizontal : 3
+                      }}>
+                      Required
+                    </Text>
+                  ) : (
+                    null
+                  )}
+                </View>
+{/* Address proof ......................................... */}
+                <View>
+                  <CustomUploadButton
+                    title="Address Proof"
+                    icon={faFileUpload}
+                    imagedata={v => this.setState({AddProof: v.data , Erroraddproof : false})}
+                  />
+
+                  {this.state.Erroraddproof ? (
+                    <Text
+                      style={{
+                        fontFamily: 'Poppins-Regular',
+                        fontSize: 14,
+                        color: 'red',
+                        textAlign : 'right',
+                        marginHorizontal : 3
+                      }}>
+                      Required
+                    </Text>
+                  ) : (
+                    null
+                  )}
+                </View>
+{/* chque ..................................................... */}
+                <View>
+                  <CustomUploadButton
+                    title="Cancelled Cheque"
+                    icon={faFileUpload}
+                    imagedata={v => this.setState({CancelCheque: v.data , ErrorCancelCheque : false})}
+                  />
+                  {this.state.ErrorCancelCheque ? (
+                    <Text
+                      style={{
+                        fontFamily: 'Poppins-Regular',
+                        fontSize: 14,
+                        color: 'red',
+                        textAlign : 'right',
+                        marginHorizontal : 3
+                      }}>
+                      Required
+                    </Text>
+                  ) : (
+                    null
+                  )}
+                </View>
               </View>
             </ScrollView>
             <View
