@@ -299,13 +299,13 @@ class Register extends React.Component {
 {/* GST ...................................................................................... */}
                 <View>
                   <CustomUploadButton
-                    title="Gst Certificate"
+                    title="Gst Certificate(optional)"
                     icon={faFileUpload}
                     imagedata={v => this.setState({gst: v.data , Errorgst : false})}
                     // onPress = {() =>this.props.navigation.navigate('camera')}
                   />
 
-                  {this.state.Errorgst ? (
+                  {/* {this.state.Errorgst ? (
                     <Text
                       style={{
                         fontFamily: 'Poppins-Regular',
@@ -318,17 +318,17 @@ class Register extends React.Component {
                     </Text>
                   ) : (
                     null
-                  )}
+                  )} */}
                 </View>
 {/* TRADE........................................................................ */}
                 <View>
                   <CustomUploadButton
-                    title="Trade License"
+                    title="Trade License(optional)"
                     icon={faFileUpload}
                     imagedata={v => this.setState({Trade: v.data , Errortrade : false})}
                   />
 
-                  {this.state.Errortrade ? (
+                  {/* {this.state.Errortrade ? (
                     <Text
                       style={{
                         fontFamily: 'Poppins-Regular',
@@ -341,7 +341,7 @@ class Register extends React.Component {
                     </Text>
                   ) : (
                     null
-                  )}
+                  )} */}
                 </View>
 
      {/* FSSI .................................................................... */}       

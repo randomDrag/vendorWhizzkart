@@ -76,9 +76,9 @@ import com.android.build.OutputFile
  *   extraPackagerArgs: []
  * ]
  */
- dexOptions {
-    javaMaxHeapSize "4g" 
-}
+//  dexOptions {
+//     javaMaxHeapSize "4g" 
+// }
 
 project.ext.react = [
     enableHermes: false,  // clean and rebuild if changing
