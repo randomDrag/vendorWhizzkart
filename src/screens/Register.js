@@ -7,7 +7,8 @@ import {
   Keyboard,
   ScrollView,
   Alert,
-  ColorPropType,
+  KeyboardAvoidingView,
+  Platform
 } from 'react-native';
 
 import LogoImage from '../components/login_logout/Logo.image';
@@ -60,22 +61,8 @@ class Register extends React.Component {
     this.onSubmit = this.onSubmit.bind(this);
   }
 
-  componentDidMount() {
-    this.KeyBoardOpen();
-    this.KeyBoardClose();
-  }
 
-  KeyBoardOpen() {
-    Keyboard.addListener('keyboardDidShow', () =>
-      this.setState({isKeyboardOpen: true}),
-    );
-  }
 
-  KeyBoardClose() {
-    Keyboard.addListener('keyboardDidHide', () =>
-      this.setState({isKeyboardOpen: false}),
-    );
-  }
 
   async onSubmit(values) {
     const {Name, Email, Password, MobileNumber, Address} = values;
@@ -173,7 +160,7 @@ class Register extends React.Component {
 
   render() {
     let isSecure = this.state.isSecure;
-    let k = this.state.isKeyboardOpen;
+  
 
     return (
       <SafeAreaView>
@@ -191,10 +178,10 @@ class Register extends React.Component {
               justifyContent: 'center',
               paddingTop: 20,
             }}>
-            {k ? null : <LogoImage width={170} height={170} padding={3} />}
+            <LogoImage width={170} height={170} padding={3} />
           </View>
 
-          <View style={style(k).card}>
+          <KeyboardAvoidingView enabled behavior={Platform.OS == 'ios' ? 'padding' : 'height'} style={style().card}>
             <Text allowFontScaling={false} style={style().loginText}>
               Create Account
             </Text>
@@ -500,7 +487,7 @@ class Register extends React.Component {
                 />
               </View>
             </View>
-          </View>
+          </KeyboardAvoidingView>
         </View>
       </SafeAreaView>
     );
@@ -515,7 +502,6 @@ const style = flex =>
       justifyContent: 'center',
     },
     card: {
-      marginTop: flex ? 15 : 5,
       width: '100%',
       borderTopLeftRadius: 50,
       borderTopRightRadius: 50,

@@ -1,5 +1,14 @@
 import React from 'react';
-import {View, Text, StyleSheet, SafeAreaView, Keyboard , Alert} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  SafeAreaView,
+  Keyboard,
+  Platform,
+  KeyboardAvoidingView,
+  Alert,
+} from 'react-native';
 import LogoImage from '../components/login_logout/Logo.image';
 
 import CustomTextInput from '../components/CustomTextInput';
@@ -54,18 +63,18 @@ class Login extends React.Component {
       console.log(e.code);
       if (e.code == 423) {
         Alert.alert('Error ', e.error);
-      }else if(e.code == 407){
-this.props.navigation.navigate('NotVerify');
+      } else if (e.code == 407) {
+        this.props.navigation.navigate('NotVerify');
       }
     });
   }
 
   render() {
     let isSecure = this.state.isSecure;
-    let k = this.state.isKeyboardOpen;
+  //  let k = this.state.isKeyboardOpen;
 
     return (
-      <SafeAreaView>
+      <KeyboardAvoidingView enabled behavior={Platform.OS == 'ios' ? 'padding' : 'height'}>
         <View style={style().container}>
           {/* <ErrorModal  msg={this.props.isError.error} isVisible={this.props.isError.visible} onPress={()=> this.props.ErrorClose()} /> */}
           <View
@@ -75,10 +84,11 @@ this.props.navigation.navigate('NotVerify');
               justifyContent: 'center',
               paddingTop: 20,
             }}>
-            {k ? null : <LogoImage width={170} height={170} padding={3} />}
+             <LogoImage width={170} height={170} padding={3} />
           </View>
 
-          <View style={style(k).card}>
+
+          <View  style={style().card}>
             <Text style={style().loginText}>Login</Text>
             <View>
               <Field
@@ -100,7 +110,7 @@ this.props.navigation.navigate('NotVerify');
               />
 
               <TextLink
-              fontSize={14}
+                fontSize={14}
                 text="Forgot Password?"
                 textalign={'right'}
                 padding={10}
@@ -108,36 +118,40 @@ this.props.navigation.navigate('NotVerify');
                 onPress={() => this.props.navigation.navigate('ForgetPassword')}
               />
             </View>
-            <View style={{alignItems: 'center',justifyContent : 'center' , marginHorizontal : 10 , marginVertical: 5}}>
-            {this.state.isLoading ? (
-              <Loader />
-            ) : (
-              <CustomButtonNoIcon
-              width={250}
-                title={'Sign in'}
-                onPress={this.props.handleSubmit(this.onSubmit)}
-              />
-            )}
-
+            <View
+              style={{
+                alignItems: 'center',
+                justifyContent: 'center',
+                marginHorizontal: 10,
+                marginVertical: 5,
+              }}>
+              {this.state.isLoading ? (
+                <Loader />
+              ) : (
+                <CustomButtonNoIcon
+                  width={250}
+                  title={'Sign in'}
+                  onPress={this.props.handleSubmit(this.onSubmit)}
+                />
+              )}
             </View>
-          
+
             <View style={style().RegisterLinkContainer}>
               <Text style={style().donthaveaccount}>
                 Don't have an account?
               </Text>
               <TextLink
-              fontSize={14}
+                fontSize={14}
                 text="Register"
                 color="#ECBB60"
                 padding={0}
-                onPress={() =>
-                  this.props.navigation.navigate('Register')
-                }
+                onPress={() => this.props.navigation.navigate('Register')}
               />
             </View>
           </View>
+          
         </View>
-      </SafeAreaView>
+      </KeyboardAvoidingView>
     );
   }
 }
@@ -151,7 +165,7 @@ const style = flex =>
       fontFamily: 'Poppins-Regular',
     },
     card: {
-      marginTop: flex ? 15 : 5,
+      
       width: '100%',
       borderTopLeftRadius: 50,
       borderTopRightRadius: 50,

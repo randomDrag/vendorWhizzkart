@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {View, Text, StyleSheet, SafeAreaView , TouchableOpacity} from 'react-native';
+import {View, Text, StyleSheet, SafeAreaView , TouchableOpacity, KeyboardAvoidingView , Platform} from 'react-native';
 import CustomTextInput from '../components/CustomTextInput';
 import CustomButton from '../components/login_logout/Button.custom';
 import LogoImage from '../components/login_logout/Logo.image';
@@ -69,7 +69,7 @@ class ForgetPassword extends React.Component {
 
   ForgetScreen() {
     return (
-      <SafeAreaView>
+      <KeyboardAvoidingView enabled behavior={Platform.OS == 'ios' ? 'padding' : 'height'}>
         <View style={style().container}>
           <View
             style={{
@@ -102,7 +102,7 @@ class ForgetPassword extends React.Component {
            
           </View>
         </View>
-      </SafeAreaView>
+      </KeyboardAvoidingView>
     );
   }
 
@@ -136,7 +136,7 @@ class ForgetPassword extends React.Component {
   newPassword() {
     let isSecure = this.state.isSecure;
     return (
-      <SafeAreaView>
+      <KeyboardAvoidingView enabled behavior={Platform.OS == 'ios' ? 'padding' : 'height'}>
         <View style={style().container}>
           <View
             style={{
@@ -184,7 +184,7 @@ class ForgetPassword extends React.Component {
          </View>
           </View>
         </View>
-      </SafeAreaView>
+      </KeyboardAvoidingView>
     );
   }
 
@@ -208,7 +208,7 @@ class ForgetPassword extends React.Component {
     console.log(this.state.Otp);
 
     return (
-      <SafeAreaView>
+      <KeyboardAvoidingView enabled behavior={Platform.OS == 'ios' ? 'padding' : 'height'}>
         <View style={style().container}>
           <View
             style={{
@@ -272,7 +272,7 @@ class ForgetPassword extends React.Component {
             
           </View>
         </View>
-      </SafeAreaView>
+      </KeyboardAvoidingView>
     );
   }
 
@@ -329,7 +329,7 @@ const style = flex =>
       fontFamily: 'Poppins-Regular',
     },
     card: {
-      marginTop: flex ? 15 : 5,
+    
       width: '100%',
       borderTopLeftRadius: 50,
       borderTopRightRadius: 50,
