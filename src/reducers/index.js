@@ -22,6 +22,9 @@ import getGraphdata from './getGraphdata';
 import getSupportData from './getSupportData';
 import { reducer as formReducer} from 'redux-form';
 import imageData from './imageData';
+import GoogleMapsPlaces from './GoogleMapsPlaces';
+import GoogleRevGeocode from './GoogleRevGeocode';
+import GooglePlaceCode from './GooglePlaceCode';
 export default combineReducers({
     form : formReducer,
     LoginForm ,
@@ -45,7 +48,10 @@ export default combineReducers({
     GetProfile,
     getGraphdata,
     getSupportData,
-    imageData
+    imageData,
+    GooglePlaceCode,
+    GoogleMapsPlaces,
+    GoogleRevGeocode
 
     
     

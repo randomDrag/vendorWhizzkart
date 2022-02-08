@@ -13,7 +13,7 @@ class CustomButtonNoIcon extends React.Component {
               fontFamily : 'Poppins-Regular',
               textAlign :'center',
               textAlignVertical : 'center'
-            , fontSize:typeof fontsize == ("undefined" || "null") ? 18 :fontsize}}>{this.props.title}</Text>
+            , fontSize:typeof fontsize == ("undefined" || "null") ? 12:fontsize}}>{this.props.title}</Text>
           </TouchableOpacity>
     </View>;
   }
@@ -23,7 +23,7 @@ const style = ( backgroundColor , width , padding , marginHorizontal) => StyleSh
     buttonStyle: {
       marginHorizontal : typeof marginHorizontal == ("undefined" || "null") ? 0: marginHorizontal,
         padding: typeof padding == ("undefined" || "null") ? 10 :padding,
-        width: typeof width == ("undefined" || "null") ? 350 :width,
+        width: typeof width == ("undefined" || "null") ? 120 :width,
         borderRadius: 80,
         display: 'flex',
         justifyContent: 'center',

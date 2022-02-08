@@ -20,6 +20,7 @@ import CustomButtonNoIcon from '../components/CustomButtonNoIcon';
 import validator from 'validator';
 import Loader from '../components/Loader';
 import {Auth} from '../actions';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 // import {LoginForm , Auth , ErrorClose} from '../actions';
 
 class Login extends React.Component {
@@ -54,13 +55,14 @@ class Login extends React.Component {
 
   //Login
 
-  onSubmit(values) {
+ async onSubmit(values) {
     const {Email, Password} = values;
     this.setState({isLoading: true});
 
-    this.props.Auth(Email, Password, e => {
+    const fcm = await AsyncStorage.getItem('fcmToken')
+    this.props.Auth(Email, Password,fcm , e => {
       this.setState({isLoading: false});
-      console.log(e.code);
+      console.log(e);
       if (e.code == 423) {
         Alert.alert('Error ', e.error);
       } else if (e.code == 407) {
@@ -110,7 +112,7 @@ class Login extends React.Component {
               />
 
               <TextLink
-                fontSize={14}
+                fontSize={12}
                 text="Forgot Password?"
                 textalign={'right'}
                 padding={10}
@@ -129,7 +131,7 @@ class Login extends React.Component {
                 <Loader />
               ) : (
                 <CustomButtonNoIcon
-                  width={250}
+                  width={180}
                   title={'Sign in'}
                   onPress={this.props.handleSubmit(this.onSubmit)}
                 />
@@ -141,7 +143,7 @@ class Login extends React.Component {
                 Don't have an account?
               </Text>
               <TextLink
-                fontSize={14}
+                fontSize={12}
                 text="Register"
                 color="#ECBB60"
                 padding={0}
@@ -184,11 +186,11 @@ const style = flex =>
       shadowRadius: 2,
     },
     loginText: {
-      fontSize: 25,
+      fontSize: 15,
       fontWeight: '800',
       color: '#588094',
       width: '100%',
-      fontFamily: 'Poppins-Regular',
+      fontFamily: 'Poppins-Medium',
       textAlign: 'center',
       marginBottom: 20,
     },
@@ -203,7 +205,7 @@ const style = flex =>
       display: 'flex',
       flexDirection: 'row',
       margin: 5,
-      fontSize: 14,
+      fontSize: 12,
       justifyContent: 'center',
       alignItems: 'center',
       // borderWidth: 2,

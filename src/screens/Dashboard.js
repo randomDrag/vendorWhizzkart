@@ -34,6 +34,7 @@ class Dashboard extends React.Component {
     const {graph} = this.props;
     const dataGraph = graph?.cordinate;
 
+
     let xdata = [];
     let data = null;
     if (!this.state.isLoding) {
@@ -41,7 +42,7 @@ class Dashboard extends React.Component {
         xdata.push(e.x);
       });
       data = Object.values(dataGraph);
-     
+      console.log('test',xdata[0]);
     }
 
     return (
@@ -68,9 +69,9 @@ class Dashboard extends React.Component {
                     ? 'loading'
                     : this.props.dashboard.today.total_order
                 }
-                growth={this.props.dashboard.today.current_today_order_growth}
+                growth={parseFloat( this.props.dashboard.today.current_today_order_growth).toFixed(2)}
                 image={require('../images/order-food.png')}
-                dishImage={require('../images/dish.png')}
+                // dishImage={require('../images/dish.png')}
               />
               <DashboardCard
                 title="All Orders"
@@ -80,9 +81,9 @@ class Dashboard extends React.Component {
                     ? 'loading'
                     : this.props.dashboard.monthly.total_order
                 }
-                growth={this.props.dashboard.monthly.current_month_order_growth}
+                growth={parseFloat( this.props.dashboard.monthly.current_month_order_growth).toFixed(2)}
                 image={require('../images/sent.png')}
-                dishImage={require('../images/dish.png')}
+                // dishImage={require('../images/dish.png')}
               />
             </View>
             <View
@@ -96,11 +97,11 @@ class Dashboard extends React.Component {
                   typeof this.props.dashboard.today.total_earning ==
                   ('undefined' || 'null')
                     ? 'loading'
-                    : this.props.dashboard.today.total_earning
+                    : parseFloat( this.props.dashboard.today.total_earning)
                 }
-                growth={this.props.dashboard.today.current_today_earning_growth}
+                growth={parseFloat( this.props.dashboard.today.current_today_earning_growth).toFixed(2)}
                 image={require('../images/money1.png')}
-                dishImage={require('../images/dish.png')}
+                // dishImage={require('../images/dish.png')}
               />
               <DashboardCard
                 title="Total Earning"
@@ -108,13 +109,14 @@ class Dashboard extends React.Component {
                   typeof this.props.dashboard.monthly.total_earning ==
                   ('undefined' || 'null')
                     ? 'loading'
-                    : this.props.dashboard.monthly.total_earning
+                    : parseFloat( this.props.dashboard.monthly.total_earning)
                 }
                 growth={
-                  this.props.dashboard.monthly.current_month_earning_growth
+                  parseFloat( this.props.dashboard.monthly.current_month_earning_growth).toFixed(2)
+                 
                 }
                 image={require('../images/money2.png')}
-                dishImage={require('../images/dish.png')}
+                // dishImage={require('../images/dish.png')}
               />
             </View>
           </View>
@@ -134,7 +136,7 @@ class Dashboard extends React.Component {
             <View>
                <Text allowFontScaling={false} style={{textAlign : 'center', fontFamily : "Poppins-Regular" , fontSize : 16 , color : "#000"}}> Sales by month</Text>
               
-              { data ? <Text allowFontScaling={false} style={{fontFamily : 'Poppins-Regular' , color : '#000' , textAlign :'center' , marginVertical : 15}}>Not Enough data to load</Text> :
+              { data.length == 0 ? <Text allowFontScaling={false} style={{fontFamily : 'Poppins-Regular' , color : '#000' , textAlign :'center' , marginVertical : 15}}>Not Enough data to load</Text> :
               
               
               <VictoryChart domainPadding={25}>
@@ -142,7 +144,7 @@ class Dashboard extends React.Component {
                   barWidth={({index}) => index * 2 + 8}
                   categories={{x: xdata}}
                   data={data}
-                  y="Y"
+                  y="y"
                   cornerRadius={{top: 4}}
                   animate
                   style={{
@@ -181,7 +183,7 @@ const style = () =>
     },
     Month: {
       fontFamily: 'Poppins-Bold',
-      fontSize: 18,
+      fontSize: 13,
       color: '#165675',
       paddingHorizontal: 6,
       flex: 1,
@@ -189,7 +191,7 @@ const style = () =>
     AllReport: {
       justifyContent: 'flex-end',
       fontFamily: 'Poppins-Regular',
-      fontSize: 18,
+      fontSize: 13,
       flex: 1,
       paddingHorizontal: 6,
       color: '#000',

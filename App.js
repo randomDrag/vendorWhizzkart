@@ -12,7 +12,7 @@ creating store for dev and production
 
 */
 
-const store = createStore(reducers, {}, applyMiddleware(thunk));
+ const store = createStore(reducers, {}, applyMiddleware(thunk));
 
 /* 
 

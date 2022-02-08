@@ -80,7 +80,7 @@ export default ( state = {} , action) =>{
 
         case GET_ORDER_DETAILS : 
 
-        return action.payload.data[0]
+        return action.payload.data
 
         default:
             return state;

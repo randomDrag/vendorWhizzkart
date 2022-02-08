@@ -16,6 +16,7 @@ import {
     GET_PROFILE,
     GET_REGISTER,
     GET_SUPPORT_DATA,
+    GOOGLE_SEARCH_LIST,
     IS_VALID_OTP,
     LOGIN,
     LOGIN_FORM,
@@ -28,13 +29,16 @@ import {
     SHARE_APP_LINK,
     TERM_AND_CONDATION,
     UPDATE_PASSWORD,
-    VERIFY_OTP_FP
+    VERIFY_OTP_FP,
+    GOOGLE_SEARCH_API_MAPS,
+    GOOGLE_PLACE_ID,
+    GOOGLE_REVERSE_GEOCODE
 } from './const';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {api} from '../api';
 
-
+import axios from 'axios';
 export const LoginForm = (username, Password) => {
 
     return {
@@ -78,7 +82,7 @@ export const isAuth = () => {
 }
 
 
-export const Auth = (username, Password, callback) => {
+export const Auth = (username, Password, fcm_token, callback) => {
 
     return async (dispatch) => {
 
@@ -86,7 +90,8 @@ export const Auth = (username, Password, callback) => {
         try {
             const response = await api.post('/api/login', {
                 "email": username,
-                "password": Password
+                "password": Password,
+                "fcm_token" : fcm_token
             });
        
 
@@ -278,9 +283,9 @@ export const RejectOrder = (statusInfo, orderId) => {
             order_id: orderId
 
         });
-        callback();
+       
         dispatch({type: ORDER_REJECTED, payload: orderId})
-
+        callback();
     }
 
 }
@@ -350,7 +355,7 @@ export const VerifyOtpFp = (mobile, otp, callback) => {
         });
         console.log(response.data.status);
         if (response.data.status == 200) {
-            callback()
+            callback(response.data)
 
             dispatch({
                 type: VERIFY_OTP_FP,
@@ -368,7 +373,7 @@ export const VerifyOtpFp = (mobile, otp, callback) => {
                 }
             })
 
-
+            callback(response.data)
         }
 
 
@@ -421,9 +426,12 @@ export const getOrderDetails = (orderID, callback) => {
 
         const response = await api.get(`/api/getOrderDetails?order_id=${orderID}`);
 
-        dispatch({type: GET_ORDER_DETAILS, payload: response.data});
+        if(response.data.status == 200){
+            dispatch({type: GET_ORDER_DETAILS, payload: response.data});
 
-        callback();
+            callback();
+        }
+       
     }
 
 }
@@ -516,4 +524,36 @@ export const imagedata = (data) => async dispatch => {
     })
 
 
+}
+
+export const GoogleMapsSearch = (keyword, callback) => {
+    return async (dispatch) => {
+
+        const response = await axios.post(`https://maps.googleapis.com/maps/api/place/autocomplete/json?key=${GOOGLE_SEARCH_API_MAPS}&input=${keyword}&components=country:IN`);
+
+        dispatch({type: GOOGLE_SEARCH_LIST, payload: response.data.predictions});
+        callback();
+    }
+}
+
+
+export const GoogleRevGeocode = (lng, lat, callback) => {
+    return async dispatch => {
+
+        const response = await axios.post(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&location_type=GEOMETRIC_CENTER&key=${GOOGLE_SEARCH_API_MAPS}`);
+
+        dispatch({type: GOOGLE_REVERSE_GEOCODE, payload: response.data.results})
+        callback();
+    }
+}
+
+
+export const GooglePlaceCode = (keyword, callback) => {
+    return async (dispatch) => {
+
+        const response = await axios.post(`https://maps.googleapis.com/maps/api/place/details/json?placeid=${keyword}&key=${GOOGLE_SEARCH_API_MAPS}`);
+
+        dispatch({type: GOOGLE_PLACE_ID, payload: response.data.result});
+        callback();
+    }
 }

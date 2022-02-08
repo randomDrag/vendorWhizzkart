@@ -41,7 +41,7 @@ class CustomTextInput extends React.Component {
         
         name={this.props.icon == null ? "person" : this.props.icon}
        
-        size={25}
+        size={20}
         color="#AAAAAA"
         
       />
@@ -73,8 +73,9 @@ const style = () =>
       flexDirection: 'row',
       marginTop: 10,
       marginBottom: 10,
+      marginHorizontal : 20,
       backgroundColor: '#FFFFFF',
-      height : 55,
+      height : 45,
   
 
     },
@@ -85,7 +86,7 @@ const style = () =>
       flex: 1,
       marginLeft: 5,
       marginRight: 5,
-      fontSize: 16,
+      fontSize: 13,
       color: 'black',
       alignItems : 'center',
       justifyContent: 'center',
@@ -105,8 +106,9 @@ textAlignVertical : 'center',
       
     },
     errorText :{
-      marginHorizontal : 15,
+      marginHorizontal : 12,
       textAlign : 'right',
+      fontSize : 12,
       color : 'red',
       marginBottom : 5,
       fontFamily : 'Poppins-Regular'

@@ -101,20 +101,20 @@ const style = () =>
 textAlign :'right',
 fontFamily: "Poppins-Regular",
 paddingHorizontal :10,
-color :"#185574"
+color :"#185574",   fontSize : 12
     },
     image: {
-      width: 150,
-      height: 150,
-      resizeMode: 'cover',
-      marginTop: -10,
+      width: 100,
+      height: 100,
+      resizeMode: 'contain',
+    marginHorizontal : 10
      
     },
     imageTextContainer : {
       
         justifyContent : 'center',
        textAlign :"right",
-        flex : 1
+        flex : 1,   fontSize : 12
         
     },
     CatNameContainer : {
@@ -128,43 +128,50 @@ color :"#185574"
     },paymentNameContainer :{
         flex : 1,
         justifyContent :'center',
-        alignItems : 'center'
+        alignItems : 'center',
+        fontSize : 12
     },
     orderInfoContainer :{
         display : 'flex',
         flexDirection  : 'row',
         justifyContent : 'center',
         alignItems : 'center',
-        padding : 10
+        padding : 10,
+        fontSize : 12
     },
     catName : {
         fontFamily : 'Poppins-Regular',
-        color : "#185574"
+        color : "#185574",
+        fontSize : 12
         
     },
     catNameInfo : {
 fontFamily : 'Poppins-Bold',
 color : "#185574",
+fontSize : 12
 
 
     },
     Amount : {
         fontFamily : 'Poppins-Regular',
-        color : "#185574"
+        color : "#185574",
+        fontSize : 12
         
     },
     AmountInfo : {
         fontFamily : 'Poppins-Bold',
         color : "#185574",
+        fontSize : 12
         
         
     },payment :{
         fontFamily : 'Poppins-Regular',
         color : "#185574"
-        
+        ,   fontSize : 12
     },paymentInfo : {
         fontFamily : 'Poppins-Bold',
         color : "#185574",
+        fontSize : 12
         
         
     },
@@ -174,15 +181,18 @@ color : "#185574",
         padding : 10
     },
     AddTextContainer : {
-        paddingHorizontal :10
+        paddingHorizontal :10,
+        fontSize : 12
     },
     textAdd : {
         fontFamily : 'Poppins-Bold',
-        color : "#185574"
+        color : "#185574",
+        fontSize : 12
     },
     textBody : {
         fontFamily : 'Poppins-Regular',
-        color : "#185574"
+        color : "#185574",
+        fontSize : 12
     },
     buttonContainer : {
         

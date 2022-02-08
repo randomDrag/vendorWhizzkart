@@ -72,12 +72,12 @@ class Profile extends React.Component {
              <Text allowFontScaling={false} style={style.TextCard}>Mobile No : {profile.mobile} </Text>
              </View>
       
-          <this.card title="Address" name={typeof profile.vendor.address == ('undefined'|| 'null')  ? ' ' : profile.vendor.address } />
-        <ImageCard Test={this.state.TestImage} title="gst certificate" name={!profile.vendor.gst_certificate ?  this.state.TestImage : profile.vendor.gst_certificate } /> 
-          <ImageCard Test={this.state.TestImage} title="trade license" name={!profile.vendor.trade_license ?  this.state.TestImage : profile.vendor.trade_license } />
-          <ImageCard Test={this.state.TestImage} title="id proof" name={!profile.vendor.id_proof ?  this.state.TestImage : profile.vendor.id_proof } />
-          <ImageCard Test={this.state.TestImage} title="fssi license" name={!profile.vendor.fssi_license ?  this.state.TestImage : profile.vendor.fssi_license} />
-          <ImageCard Test={this.state.TestImage} title="address proof" name={!profile.vendor.address_proof ?  this.state.TestImage : profile.vendor.address_proof } />
+          <this.card title="Address" name={typeof profile?.vendor?.address == ('undefined'|| 'null')  ? ' ' : profile?.vendor?.address } />
+        <ImageCard Test={this.state.TestImage} title="gst certificate" name={!profile?.vendor?.gst_certificate ?  this.state.TestImage : profile?.vendor?.gst_certificate } /> 
+          <ImageCard Test={this.state.TestImage} title="trade license" name={!profile?.vendor?.trade_license ?  this.state.TestImage : profile?.vendor?.trade_license } />
+          <ImageCard Test={this.state.TestImage} title="id proof" name={!profile?.vendor?.id_proof ?  this.state.TestImage : profile.vendor?.id_proof } />
+          <ImageCard Test={this.state.TestImage} title="fssi license" name={!profile?.vendor?.fssi_license ?  this.state.TestImage : profile?.vendor?.fssi_license} />
+          <ImageCard Test={this.state.TestImage} title="address proof" name={!profile?.vendor?.address_proof ?  this.state.TestImage : profile?.vendor?.address_proof } />
           </View> }
         </ScrollView>
       </SafeAreaView>

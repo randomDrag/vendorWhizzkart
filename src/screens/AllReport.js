@@ -2,7 +2,7 @@ import {faDownload} from '@fortawesome/free-solid-svg-icons';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import React from 'react';
 
-import {SafeAreaView, Text, View, FlatList, StyleSheet ,PermissionsAndroid} from 'react-native';
+import {SafeAreaView, Text, View,AlertIOS, FlatList,ToastAndroid, StyleSheet ,PermissionsAndroid} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {connect} from 'react-redux';
 import {monthlyReport} from '../actions';
@@ -41,6 +41,16 @@ class AllReport extends React.Component {
       this.setState({isLoding: false});
     });
   }
+
+
+  notifyMessage(msg) {
+    if (Platform.OS === 'android') {
+      ToastAndroid.show(msg, ToastAndroid.LONG)
+    } else {
+      AlertIOS.alert(msg);
+    }
+  }
+
 
   download(e){
 
@@ -86,6 +96,7 @@ try {
 RNFS.writeFile(path, csv , 'utf8')
 .then((success) => {
  alert("Download completed");
+ notifyMessage('Download completed')
 })
 .catch((err) => {
  console.log(err.message);
@@ -95,6 +106,7 @@ RNFS.writeFile(path, csv , 'utf8')
 } catch (err) {
   console.error(err);
 }
+
 
 
 

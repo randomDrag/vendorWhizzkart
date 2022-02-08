@@ -46,7 +46,7 @@ class CustomUploadButton extends React.Component {
           <FontAwesomeIcon
             icon={this.props.icon == null ? faUser : this.props.icon}
             style={style().icon}
-            size={25}
+            size={20}
             color="#AAAAAA"
           />
         </View>
@@ -66,7 +66,7 @@ const style = (backgroundColor, width, fontsize) =>
       display: 'flex',
       flexDirection: 'row',
       backgroundColor: '#FFFFFF',
-      height: 55,
+      height: 45,
     },
     InputStyle: {
       fontFamily: 'Poppins-Regular',
@@ -78,13 +78,14 @@ const style = (backgroundColor, width, fontsize) =>
       paddingRight: 30,
       borderRadius: 40,
       marginTop: 10,
+      marginVertical :15,
       marginBottom: 10,
     },
     textStyle: {
       color: '#AAAAAA',
       alignItems: 'center',
       fontFamily: 'Poppins-Regular',
-      fontSize: typeof fontsize == ('undefined' || 'null') ? 16 : fontsize,
+      fontSize: typeof fontsize == ('undefined' || 'null') ? 12 : fontsize,
 
       flex: 1,
       textAlign: 'center',

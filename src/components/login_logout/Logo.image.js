@@ -33,8 +33,8 @@ const style = (width, height , padding) => {
 
 
         imageStyle: {
-            width: typeof width == 'null' || 'undefined' ? 250 : width,
-            height:  typeof height == 'null'||'undefined' ? 250 : height,
+            width: typeof width == 'null' || 'undefined' ? 180 : width,
+            height:  typeof height == 'null'||'undefined' ? 180 : height,
             padding: typeof padding == 'undefined'||'undefined' ? 10 : padding,
             resizeMode: 'contain'
 

@@ -7,16 +7,28 @@ import CustomButton from './login_logout/Button.custom';
 
 class OrderDetailComp extends React.Component {
  
-  
+  // constructor(props){
+  //   super(props)
+
+
+  //   this.state={
+  //     isLoading
+  //   }
+  // }
 
   containerItem(props){
 
     return(
       <View style={style().ItemContainer}>
-      <Image
+
+   
+        <Image
         style={style().itemImage}
         source={require('../images/dish.png')}
       />
+  
+  
+     
       <Text allowFontScaling={false} style={{flex: 3, fontFamily : 'Poppins-Bold', color: '#185574',}}> Chicken Crispy</Text>
       <Text allowFontScaling={false} style={{flex: 1, fontFamily : 'Poppins-Bold', color: '#185574',}}>{<Text allowFontScaling={false} style={{color:"#E85555"}}>&#8377;</Text>}{props.price}125</Text>
     </View>
@@ -33,7 +45,7 @@ class OrderDetailComp extends React.Component {
       <View style={style().RootCard}>
         <View style={style().OrderContainer}>
           <View style={style().orderAndTime}>
-            <Text allowFontScaling={false} style={style().orderText}>Order No. { <Text allowFontScaling={false} style={{color :"#E84745" , fontFamily: 'Poppins-Bold'}}>{this.props.OrderId}</Text>}</Text>
+            <Text allowFontScaling={false} style={style().orderText}>Order No. { <Text allowFontScaling={false} style={{color :"#E84745" , fontFamily: 'Poppins-Bold',  fontSize : 12}}>{this.props.OrderId}</Text>}</Text>
             <Text allowFontScaling={false} style={style().orderDatetext}>{this.props.date}</Text>
             <Text allowFontScaling={false} style={style().orderTimeText}>{this.props.time}</Text>
           </View>
@@ -62,10 +74,10 @@ class OrderDetailComp extends React.Component {
               flex: 2,
               marginHorizontal: 5,
               fontFamily: 'Poppins-Medium',
-              fontSize: 16,
+              fontSize: 12,
               color: '#185574',
             }}>
-            Category Name
+            quantity
           </Text>
           <Text allowFontScaling={false}
             style={{
@@ -73,7 +85,7 @@ class OrderDetailComp extends React.Component {
               flex: 1,
               paddingHorizontal: 5,
               fontFamily: 'Poppins-Medium',
-              fontSize: 16,
+              fontSize: 12,
               color: '#185574',
             }}>
             Amount
@@ -98,7 +110,7 @@ class OrderDetailComp extends React.Component {
 
         <View style={style().TotalAmtContainer}>
           <Text allowFontScaling={false} style={style().TotalAmtText}>Total Amount</Text>
-          <Text allowFontScaling={false} style={style().TotalAmt}> {<Text allowFontScaling={false} style={{color:"#E85555"}}>&#8377;</Text>}{this.props.price}</Text>
+          <Text allowFontScaling={false} style={style().TotalAmt}> {<Text allowFontScaling={false} style={{color:"#E85555" ,  fontSize: 12}}>&#8377;</Text>}{this.props.price}</Text>
         </View>
 
 
@@ -121,7 +133,7 @@ class OrderDetailComp extends React.Component {
         </View> : 
         <View style={style().buttonContainer}>
 
-        <Text allowFontScaling={false} style={{fontFamily : 'Poppins-Regular' , color : '#E84745' , fontSize : 18, padding : 10}}>{this.props.status}</Text>
+        <Text allowFontScaling={false} style={{fontFamily : 'Poppins-Regular' , color : '#E84745' , fontSize : 12, padding : 10}}>{this.props.status}</Text>
         
         </View>
         
@@ -165,27 +177,31 @@ const style = () =>
     textAdd: {
       fontFamily: 'Poppins-Bold',
       color: '#185574',
+      fontSize: 12
     },
     textBody: {
       fontFamily: 'Poppins-Regular',
       color: '#185574',
+      fontSize: 12
     },
     catName: {
       // borderWidth: 2,
       // borderColor: 'red',
       display: 'flex',
       flexDirection: 'row',
+      fontSize: 12
     },
     ItemContainer: {
       display: 'flex',
       flexDirection: 'row',
       justifyContent: 'space-evenly',
       alignItems: 'center',
-      marginVertical: 5
+      marginVertical: 5,
+      paddingHorizontal : 15
     },
     itemImage: {
-      width: 80,
-      height: 80,
+      width: 75,
+      height: 75,
       resizeMode: 'contain',
       flex: 2,
     },
@@ -205,40 +221,46 @@ const style = () =>
     orderText: {
       fontFamily: 'Poppins-Bold',
       color: '#2E637D',
-      fontSize: 13,
+      fontSize: 12,
     },
     orderDatetext: {
       fontFamily: 'Poppins-Medium',
       color: '#2E637D',
+        fontSize: 12
     },
 
     orderTimeText: {
       fontFamily: 'Poppins-Medium',
       color: '#2E637D',
+      fontSize: 12
+      
     },
     PaymentText: {
       fontFamily: 'Poppins-Medium',
       color: '#2E637D',
+      fontSize: 12
     },
     PaymentTypeText: {
       fontFamily: 'Poppins-Bold',
       color: '#E84341',
       textAlign: 'left',
+      fontSize: 12
     },
     TotalAmtText: {
       flex: 1,
       textAlign: 'center',
       fontFamily: 'Poppins-Bold',
       color: '#2E637D',
-      fontSize : 18
+      fontSize: 12
     },
     TotalAmt: {
       flex: 1,
       textAlign: 'right',
       fontFamily: 'Poppins-Bold',
       color: '#2E637D',
-      fontSize : 18,
+     
       marginHorizontal :  20,
+      fontSize: 12
      
     },
   });

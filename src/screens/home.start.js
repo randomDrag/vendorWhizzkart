@@ -19,7 +19,7 @@ class FirstScreen extends React.Component {
             onPress={() => {
               this.props.navigation.navigate('Login');
             }}>
-            <Text allowFontScaling={false} style={{color : '#FFFFFF' , fontSize:15,   fontFamily : 'Poppins-Regular'}}>Let's Get Start</Text>
+            <Text allowFontScaling={false} style={{color : '#FFFFFF' , fontSize:12,   fontFamily : 'Poppins-Regular'}}>Let's Get Start</Text>
           </TouchableOpacity>
         </View>
       </SafeAreaView>
@@ -35,8 +35,8 @@ const styles = StyleSheet.create({
     height: '100%',
   },
   buttonStyle: {
-    padding: 15,
-    width: 200,
+    padding: 10,
+    width: 150,
     borderRadius: 80,
     display: 'flex',
     justifyContent: 'center',

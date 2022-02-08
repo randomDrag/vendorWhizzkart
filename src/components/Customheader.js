@@ -14,7 +14,7 @@ class CustomHeader extends React.Component {
         <View style={style().container}>
           <View style={style().settingIcon}>
               <TouchableOpacity onPress={() => {this.props.navigation.openDrawer()}}> 
-            <FontAwesomeIcon icon={faSlidersH} size={30} color='#E94E4C'/>
+            <FontAwesomeIcon icon={faSlidersH} size={24} color='#E94E4C'/>
             </TouchableOpacity>
           </View>
 
@@ -25,7 +25,7 @@ class CustomHeader extends React.Component {
 
           <View style={style().accountStyle}>
             <TouchableOpacity onPress={() => this.props.navigation.navigate('Account') }> 
-            <FontAwesomeIcon icon={faUserCircle} size={30} color='#EA6566'/>
+            <FontAwesomeIcon icon={faUserCircle} size={24} color='#EA6566'/>
             </TouchableOpacity>
           </View>
         </View>
@@ -45,7 +45,9 @@ const style = () => StyleSheet.create({
         
     },
     settingIcon :{
+      alignItems : 'center',
         justifyContent : 'center',
+        alignSelf : 'center',
         padding: 5,
         marginRight : 20,
         flex : 0
@@ -63,15 +65,15 @@ const style = () => StyleSheet.create({
         
     },
     textHeading : {
-        fontFamily: 'Poppins-Bold' , fontSize : 20 , color : '#185675' , paddingTop : 5 ,
-        flex : 2,
+        fontFamily: 'Poppins-Bold' , fontSize : 14 , color : '#185675' , paddingTop : 5 ,
+     
         textAlignVertical:'center'
       
 
     },
     textDate : {
-        fontFamily : 'Poppins-Regular' , fontSize: 16 ,
-        flex: 1.9,
+        fontFamily : 'Poppins-Regular' , fontSize: 14 ,
+     lineHeight : 15,
         color : "#000"
         
      

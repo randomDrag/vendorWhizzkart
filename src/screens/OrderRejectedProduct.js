@@ -36,6 +36,13 @@ class OrderRejectedProduct extends React.Component {
     this.setState({isLoding: false});
    });
 
+   setInterval(()=>{
+    this.props.RejectOrderList(()=> {
+
+      this.setState({isLoding: false});
+     });
+   },15000)
+
   }
 
   render() {
@@ -51,23 +58,23 @@ class OrderRejectedProduct extends React.Component {
       { this.state.isLoding ? <Loader loadingText={"Please wait ..."}/>  : <FlatList
           data={data}
           ListEmptyComponent={<EmptyList/>}
-          keyExtractor={data.order_id}
+          keyExtractor={data?.order_id}
           renderItem={item => {
-            const d = item.item.order_date;
-            const time = d.split(' ');
+            const d = item.item?.order_date;
+            const time = d?.split(' ');
             
-            const fullAdd = ` ${item.item.location.house_no  ? ''  : item.item.location.house_no } ${item.item.location.area} ${item.item.location.landmark} ${item.item.location.city} ${item.item.location.pincode}`
+            const fullAdd = ` ${item.item.location?.house_no  ? ''  : item.item.location?.house_no } ${item.item.location?.area} ${item.item.location?.landmark} ${item.item.location?.city} ${item.item.location?.pincode}`
             return (
-              <TouchableOpacity activeOpacity={1} onPress={()=>this.props.navigation.navigate('ProductDetails', {orderId : item.item.order_id ,status : "Rejected"})}>
+              <TouchableOpacity activeOpacity={1} onPress={()=>this.props.navigation.push('ProductDetails', {orderId : item.item?.order_id ,status : "Rejected"})}>
                 <OrderlistAR
-                  OrderId={item.item.order_id}
+                  OrderId={item.item?.order_id}
                   Date={time[0]}
                   time={time[1]}
-                  Amount={item.item.total_payble_amount}
-                  payment={item.item.payment_method.name}
-                  Name={item.item.order_details[0].vendor_product.product_details.category.name}
-                  image={item.item.order_details[0].vendor_product.product_details.primaryimages.imagePath}
-                  addressTitle={item.item.location.area}
+                  Amount={item.item?.total_payble_amount}
+                  payment={item.item.payment_method?.name}
+                  Name={item.item.order_details[0]?.vendor_product?.product_details?.category?.name}
+                  image={item.item.order_details[0]?.vendor_product?.product_details?.primaryimages?.imagePath}
+                  addressTitle={item.item.location?.area}
                   addressBody={fullAdd}
                   status="Rejected"
                   placeholder={this.state.TestImage}

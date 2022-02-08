@@ -34,6 +34,13 @@ class OrderAcceptedList extends React.Component {
     this.setState({isLoding: false});
    });
 
+   setInterval(()=>{
+
+    this.props.AcceptedOrderList(() => {
+      this.setState({isLoding: false});
+     });
+
+   }, 15000)
   }
 
   render() {
@@ -47,27 +54,28 @@ class OrderAcceptedList extends React.Component {
       <SafeAreaView style={{backgroundColor: '#FFFFFF' , flex : 1}}>
         
    {  this.state.isLoding ? <Loader loadingText="Please wait..." /> : <FlatList
+   refreshing={true}
           data={data}
           keyExtractor={data.order_id}
           ListEmptyComponent={<EmptyList/>}
           renderItem={item => {
-            const d = item.item.order_date;
+            const d = item.item?.order_date;
             const time = d.split(' ');
-            const fullAdd = ` ${item.item.location.house_no  ? ''  : item.item.location.house_no } ${item.item.location.area} ${item.item.location.landmark} ${item.item.location.city} ${item.item.location.pincode}`
+            const fullAdd = ` ${item.item.location?.house_no  ? ''  : item.item.location?.house_no } ${item.item.location?.area} ${item.item.location?.landmark} ${item.item.location?.city} ${item.item.location?.pincode}`
             return (
-              <TouchableOpacity activeOpacity={1} onPress={()=>this.props.navigation.navigate('ProductDetails', {orderId : item.item.order_id , status : "Accepted"})}>
+              <TouchableOpacity activeOpacity={1} onPress={()=>this.props.navigation.push('ProductDetails', {orderId : item.item?.order_id , status : "Accepted"})}>
                 <OrderlistAR
                   OrderId={item.item.order_id}
                   Date={time[0]}
                   time={time[1]}
                   Amount={item.item.total_payble_amount}
-                  payment={item.item.payment_method.name}
-                  Name={item.item.order_details[0].vendor_product.product_details.category.name}
-                  image={!item.item.order_details[0].vendor_product.product_details.primaryimages.imagePath ? this.state.TestImage : item.item.order_details[0].vendor_product.product_details.primaryimages.imagePath }
-                  addressTitle={item.item.location.area}
+                  payment={item.item?.payment_method?.name}
+                  Name={item.item.order_details[0]?.vendor_product?.product_details?.category?.name}
+                  image={!item.item.order_details[0]?.vendor_product?.product_details?.primaryimages?.imagePath ? this.state.TestImage : item.item?.order_details[0]?.vendor_product?.product_details?.primaryimages?.imagePath }
+                  addressTitle={item.item?.location?.area}
                   addressBody={fullAdd}
                   status="Accepted"
-                  placeholder={this.state.TestImage}
+                  placeholder={this.state?.TestImage}
                 
                 /> 
               </TouchableOpacity>

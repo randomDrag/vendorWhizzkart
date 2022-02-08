@@ -10,8 +10,11 @@ class CustomButton extends React.Component {
             style={style(this.props.backgroundColor , this.props.width , this.props.padding, this.props.marginHorizontal).buttonStyle}
             onPress={this.props.onPress}>
             <Text allowFontScaling={false} style={{color : typeof this.props.color == ("undefined"|| "null") ? '#FFFFFF' : this.props.color,
-              fontFamily : 'Poppins-Regular'
-            , fontSize:typeof fontsize == ("undefined" || "null") ? 18 :fontsize}}>{this.props.title}</Text>
+              fontFamily : 'Poppins-Regular',
+              textAlign :'center',
+              textAlignVertical  : 'center'
+              
+            , fontSize:typeof fontsize == ("undefined" || "null") ? 14 :fontsize}}>{this.props.title}</Text>
           </TouchableOpacity>
     </View>;
   }
@@ -20,7 +23,7 @@ class CustomButton extends React.Component {
 const style = ( backgroundColor , width , padding , marginHorizontal) => StyleSheet.create({
     buttonStyle: {
       marginHorizontal : typeof marginHorizontal == ("undefined" || "null") ? 0: marginHorizontal,
-        padding: typeof padding == ("undefined" || "null") ? 10 :padding,
+        padding: typeof padding == ("undefined" || "null") ? 5 :padding,
         width: typeof width == ("undefined" || "null") ? 350 :width,
         borderRadius: 80,
         display: 'flex',

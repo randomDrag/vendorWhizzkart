@@ -2,8 +2,7 @@ import React from 'react';
 
 /* Adding redux here  */
 import {connect} from 'react-redux';
-import { isAuth } from './src/actions';
-
+import {isAuth} from './src/actions';
 
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 
@@ -34,7 +33,7 @@ import AcceptedProduct from './src/screens/Accepted.Product';
 import PendingProduct from './src/screens/Pending.Product';
 import RejectedProduct from './src/screens/Rejected.Product';
 import OrderDetail from './src/screens/OrderDetail';
-import  DrawerContent  from './src/screens/DrawerContent';
+import DrawerContent from './src/screens/DrawerContent';
 import PrivacyPolicy from './src/screens/PrivacyPolicy';
 import TermAndCondtion from './src/screens/TermAndCondtion';
 import Contactus from './src/screens/Contactus';
@@ -47,6 +46,11 @@ import Profile from './src/screens/Profile';
 import CameraAndGalleryPicker from './src/components/CameraAndGalleryPicker';
 import UserNotVerifed from './src/screens/UserNotVerifed';
 import AboutApp from './src/screens/AboutApp';
+import messaging from '@react-native-firebase/messaging';
+import {
+  notificationListener,
+  requestUserPermission,
+} from './src/lib/notificationService';
 
 /* 
 creating store for dev and production
@@ -82,12 +86,10 @@ const Tab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
 const TopTab = createMaterialTopTabNavigator();
 
-
 /* Class STARTS HERE */
 
 class Route extends React.Component {
   isAuth = true;
- 
 
   constructor(props) {
     super(props);
@@ -95,55 +97,114 @@ class Route extends React.Component {
   }
 
   componentDidMount() {
+    requestUserPermission();
+    notificationListener();
+  
 
-    this.props.isAuth()
+    this.props.isAuth();
   }
 
   render() {
-  
-  
     return (
-      
-        <SafeAreaProvider>
-          <NavigationContainer>
-            <Stack.Navigator>
-              {this.props.IsAuth != null ? (
-                <Stack.Group >
-                  <Stack.Screen name="Drawer" component={DrawerBar} options={{headerShown: false}}  />
-                  <Stack.Screen name="ProductDetail" component={OrderDetail} options={{header: props => <CustomHeader {...props} />}} />
-                  <Stack.Screen name="ProductDetails" component={OrderDetailAR} options={{header: props => <CustomHeader {...props} />}} />
-                  <Stack.Screen name="All Report" component={AllReport} options={{header: props => <CustomHeader {...props} />}} />
-                </Stack.Group>
-              ) : (
-                <Stack.Group screenOptions={{headerShown: false}}>
-                  <Stack.Screen name="LoginScreen" component={LoginScreens} />
-               <Stack.Screen name={'T&C'} component={TermAndCondtion} options={{headerShown : true}}/>
-               <Stack.Screen name={'NotVerify'} component={UserNotVerifed} options ={{headerShown : false}}/> 
-               
-              <Stack.Screen name={"camera"} component={CameraAndGalleryPicker} options={{presentation : 'transparentModal'}} />
-                </Stack.Group>
-              )}
-            </Stack.Navigator>
-          </NavigationContainer>
-        </SafeAreaProvider>
-  
+      <SafeAreaProvider>
+        <NavigationContainer>
+          <Stack.Navigator>
+            {this.props.IsAuth != null ? (
+              <Stack.Group>
+                <Stack.Screen
+                  name="Drawer"
+                  component={DrawerBar}
+                  options={{headerShown: false}}
+                />
+                <Stack.Screen
+                  name="ProductDetail"
+                  component={OrderDetail}
+                  options={{header: props => <CustomHeader {...props} />}}
+                />
+                <Stack.Screen
+                  name="ProductDetails"
+                  component={OrderDetailAR}
+                  options={{header: props => <CustomHeader {...props} />}}
+                />
+                <Stack.Screen
+                  name="All Report"
+                  component={AllReport}
+                  options={{header: props => <CustomHeader {...props} />}}
+                />
+              </Stack.Group>
+            ) : (
+              <Stack.Group screenOptions={{headerShown: false}}>
+                <Stack.Screen name="LoginScreen" component={LoginScreens} />
+                <Stack.Screen
+                  name={'T&C'}
+                  component={TermAndCondtion}
+                  options={{headerShown: true}}
+                />
+                <Stack.Screen
+                  name={'NotVerify'}
+                  component={UserNotVerifed}
+                  options={{headerShown: false}}
+                />
+
+                <Stack.Screen
+                  name={'camera'}
+                  component={CameraAndGalleryPicker}
+                  options={{presentation: 'transparentModal'}}
+                />
+              </Stack.Group>
+            )}
+          </Stack.Navigator>
+        </NavigationContainer>
+      </SafeAreaProvider>
     );
   }
 }
 
 const DrawerBar = () => {
   return (
-    <Drawer.Navigator drawerContent={props => <DrawerContent {...props}/>} >
-      <Drawer.Screen name="Dashboard" component={Dashboard} options={{headerShown : false}}/>
+    <Drawer.Navigator drawerContent={props => <DrawerContent {...props} />}>
+      <Drawer.Screen
+        name="Dashboard"
+        component={Dashboard}
+        options={{headerShown: false}}
+      />
       <Drawer.Screen name="My Profile" component={Dashboard} />
       <Drawer.Screen name="Share app" component={Dashboard} />
-      <Stack.Screen name={'AboutApp'} component={AboutApp} options={{header: props => <CustomHeader {...props} />}}/>
-      <Drawer.Screen name="Raise a query" component={Contactus} options={{header: props => <CustomHeader {...props} />}} />
-      <Drawer.Screen name="Terms & Conditions" component={TermAndCondtion} options={{header: props => <CustomHeader {...props} />}} />
-      <Drawer.Screen name="Privacy policy" component={PrivacyPolicy} options={{header: props => <CustomHeader {...props} />}} />
-      <Stack.Screen name="All Report" component={AllReport} options={{header: props => <CustomHeader {...props} />}} />
-      <Stack.Screen name="ProductDetail" component={OrderDetail} options={{header: props => <CustomHeader {...props} />}} />
-                  <Stack.Screen name="ProductDetails" component={OrderDetailAR} options={{header: props => <CustomHeader {...props} />}} />
+      <Stack.Screen
+        name={'AboutApp'}
+        component={AboutApp}
+        options={{header: props => <CustomHeader {...props} />}}
+      />
+      <Drawer.Screen
+        name="Raise a query"
+        component={Contactus}
+        options={{header: props => <CustomHeader {...props} />}}
+      />
+      <Drawer.Screen
+        name="Terms & Conditions"
+        component={TermAndCondtion}
+        options={{header: props => <CustomHeader {...props} />}}
+      />
+      <Drawer.Screen
+        name="Privacy policy"
+        component={PrivacyPolicy}
+        options={{header: props => <CustomHeader {...props} />}}
+      />
+      <Stack.Screen
+        name="All Report"
+        component={AllReport}
+        options={{header: props => <CustomHeader {...props} />}}
+      />
+      <Stack.Screen
+        name="ProductDetail"
+        component={OrderDetail}
+        options={{header: props => <CustomHeader {...props} />}}
+      />
+      <Stack.Screen
+        name="ProductDetails"
+        component={OrderDetailAR}
+        options={{header: props => <CustomHeader {...props} />}}
+      />
     </Drawer.Navigator>
   );
 };
@@ -171,27 +232,26 @@ const ProductBar = () => {
   );
 };
 
-const OrderBar =() =>{
-
-  return(
-  <TopTab.Navigator
-  initialRouteName="New orders"
-  screenOptions={{
-    // tabBarActiveTintColor​ : '#26607A',
-    tabBarStyle: {
-      fontFamily: 'Poppins-Regular',
-    },
-    tabBarIndicatorContainerStyle: {
-      color: 'red',
-      fontFamily: 'Poppins-Regular',
-    },
-  }}>
-  <TopTab.Screen name="accepted" component={OrderAcceptedList} />
-  <TopTab.Screen name="New orders" component={TodayOrder} />
-  <TopTab.Screen name="Rejected" component={OrderRejectedProduct} />
-</TopTab.Navigator>
+const OrderBar = () => {
+  return (
+    <TopTab.Navigator
+      initialRouteName="New orders"
+      screenOptions={{
+        // tabBarActiveTintColor​ : '#26607A',
+        tabBarStyle: {
+          fontFamily: 'Poppins-Regular',
+        },
+        tabBarIndicatorContainerStyle: {
+          color: 'red',
+          fontFamily: 'Poppins-Regular',
+        },
+      }}>
+      <TopTab.Screen name="accepted" component={OrderAcceptedList} />
+      <TopTab.Screen name="New orders" component={TodayOrder} />
+      <TopTab.Screen name="Rejected" component={OrderRejectedProduct} />
+    </TopTab.Navigator>
   );
-}
+};
 
 const Dashboard = () => {
   return (
@@ -271,10 +331,8 @@ const LoginScreens = () => {
   );
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
+  return {IsAuth: state.isAuth.token};
+};
 
-  return { IsAuth : state.isAuth.token}
-
-}
-
-export default connect (mapStateToProps , {isAuth})(Route);
+export default connect(mapStateToProps, {isAuth})(Route);

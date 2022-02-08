@@ -16,13 +16,13 @@ class DashboardCard extends React.Component {
               source={this.props.dishImage}
               style={style().growthImage}
             />
-            <Text allowFontScaling={false} style={style().growthText}>{`${this.props.growth}%`}</Text>
+            <Text allowFontScaling={false}    style={style().growthText}>{`${this.props.growth}%`}</Text>
           </View>
         </View>
 
         <View style={style().BottomContainer}>
-          <Text allowFontScaling={false} style={style().OderText}>{this.props.orders}</Text>
-          <Text allowFontScaling={false} style={style().fontText}>{this.props.title}</Text>
+          <Text allowFontScaling={false}   style={style().OderText}>{this.props.orders}</Text>
+          <Text allowFontScaling={false}    style={style().fontText}>{this.props.title}</Text>
         </View>
       </View>
     );
@@ -34,7 +34,7 @@ const style = () =>
      
     cardContainer: {
       width: '45%',
-     height : 200,
+     height : 150,
       margin: 10,
       borderRadius: 10,
       backgroundColor: '#F5F5F5',
@@ -51,8 +51,8 @@ const style = () =>
     
     },
     orderImage :{
-        width : 75,
-        height : 90,
+        width : 55,
+        height : 55,
         flex : 1,
         resizeMode : 'contain',
         justifyContent : 'center',
@@ -63,8 +63,8 @@ growthContainer :{
     flex : 1
 },
 growthImage : {
-    height : 75 ,
-    width : 75,
+    height : 55 ,
+    width : 55,
     position : 'relative',
     resizeMode : 'contain',
     alignSelf : 'flex-end',
@@ -75,7 +75,7 @@ growthImage : {
 growthText : {
     textAlign : 'right',
  paddingHorizontal : 10,
- fontSize : 16,
+ fontSize : 13,
  fontFamily : 'Poppins-Regular',
  color :'#185572'
 },
@@ -90,7 +90,7 @@ BottomContainer : {
 },
 OderText : {
     fontFamily : 'Poppins-Bold',
-    fontSize : 36,
+    fontSize : 18,
     color :'#E74240',
 
       flex : 2
@@ -99,7 +99,7 @@ fontText :{
     fontFamily : 'Poppins-Bold',
     alignSelf : 'stretch',
     color : '#255C7A',
-    fontSize : 16,
+    fontSize : 12,
     flex: 1,
 
 }

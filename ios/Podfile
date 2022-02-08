@@ -12,6 +12,10 @@ target 'vendor' do
     :hermes_enabled => false
   )
 
+  # React Native Maps dependencies
+rn_maps_path = '../node_modules/react-native-maps'
+pod 'react-native-google-maps', :path => rn_maps_path
+
   pod 'RNCAsyncStorage', :path => '../node_modules/@react-native-async-storage/async-storage'
 
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
@@ -27,6 +31,8 @@ target 'vendor' do
   pod 'RNSVG', :path => '../node_modules/react-native-svg'
 
   pod 'react-native-image-picker', :path => '../node_modules/react-native-image-picker'
+
+  pod 'react-native-maps', :path => '../node_modules/react-native-maps'
 
   target 'vendorTests' do
     inherit! :complete
