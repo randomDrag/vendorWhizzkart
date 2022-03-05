@@ -29,6 +29,7 @@ comment debug version of redux or install React Native debugger and enable debug
 //       window.__REDUX_DEVTOOLS_EXTENSION__(),
 //   ),
 // );
+//
 
 class App extends React.Component {
   render() {
